@@ -42,7 +42,7 @@ class Router
             if ($route['method'] !== strtoupper($method)) {
                 continue;
             }
-
+            
             if (preg_match($route['pattern'], $uri, $matches)) {
                 // Lấy các named params
                 $this->params = array_filter($matches, fn($key) => is_string($key), ARRAY_FILTER_USE_KEY);
