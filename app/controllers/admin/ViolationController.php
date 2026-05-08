@@ -200,6 +200,52 @@ class ViolationController extends Controller
         $this->redirect('/admin/violations');
     }
 
+    /**
+     * AJAX toggle trạng thái vi phạm: pending → processed → paid → pending
+     */
+    public function toggleStatus(): void
+    {
+        if (!$this->validateCsrf()) {
+            if ($this->isAjax()) {
+                $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+                return;
+            }
+            return;
+        }
+
+        $id = (int)($this->input('id', 0));
+        $model = new Violation();
+        $violation = $model->find($id);
+        if (!$violation) {
+            if ($this->isAjax()) {
+                $this->json(['success' => false, 'message' => 'Vi phạm không tồn tại.'], 404);
+                return;
+            }
+            Session::setFlash('error', 'Vi phạm không tồn tại.');
+            $this->redirect('/admin/violations');
+            return;
+        }
+
+        $cycle = ['pending' => 'processed', 'processed' => 'paid', 'paid' => 'pending'];
+        $newStatus = $cycle[$violation['status']] ?? 'pending';
+        $model->update($id, ['status' => $newStatus]);
+
+        $labels = ['pending' => 'Chưa xử lý', 'processed' => 'Đã xử lý', 'paid' => 'Đã nộp phạt'];
+
+        if ($this->isAjax()) {
+            $this->json([
+                'success' => true,
+                'new_status' => $newStatus,
+                'label' => $labels[$newStatus],
+                'message' => "Đã chuyển sang: {$labels[$newStatus]}",
+            ]);
+            return;
+        }
+
+        Session::setFlash('success', "Đã chuyển trạng thái vi phạm sang: {$labels[$newStatus]}");
+        $this->redirect('/admin/violations');
+    }
+
     public function import(): void
     {
         if (!$this->validateCsrf()) {

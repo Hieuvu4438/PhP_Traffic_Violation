@@ -91,6 +91,15 @@ class Controller
     }
 
     /**
+     * Kiểm tra request có phải AJAX không
+     */
+    protected function isAjax(): bool
+    {
+        return strtolower($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'xmlhttprequest'
+            || ($_SERVER['HTTP_ACCEPT'] ?? '') === 'application/json';
+    }
+
+    /**
      * Trả về JSON response
      */
     protected function json(array $data, int $statusCode = 200): void

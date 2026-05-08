@@ -70,6 +70,7 @@ return function (Router $router): void {
     $router->get('/admin/violations/{id}/edit', 'admin/ViolationController@edit');
     $router->post('/admin/violations/{id}', 'admin/ViolationController@update');
     $router->post('/admin/violations/{id}/delete', 'admin/ViolationController@delete');
+    $router->post('/admin/violations/{id}/toggle-status', 'admin/ViolationController@toggleStatus');
     $router->post('/admin/violations/import', 'admin/ViolationController@import');
 
     // News CRUD

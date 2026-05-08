@@ -47,8 +47,9 @@ Website tra cứu phương tiện vi phạm giao thông — đồ án bài tập
 - **20 controllers** (10 client + 10 admin)
 - **14 models**
 - **40+ views**
-- **92 routes**
+- **93 routes** (bao gồm 2 route AJAX toggle)
 - **~85 file PHP**
+- **AJAX**: tra cứu phạt nguội, toggle trạng thái admin
 
 ---
 
@@ -351,6 +352,7 @@ TẤT CẢ controller đều kế thừa class này. Cung cấp:
 | `requireLogin()` | Chặn nếu chưa đăng nhập → redirect `/dang-nhap` |
 | `requireAdmin()` | Chặn nếu không phải admin → redirect `/` |
 | `validateCsrf()` | Kiểm tra CSRF token trong POST request |
+| `isAjax()` | Kiểm tra `X-Requested-With` hoặc `Accept: application/json` header |
 | `json($data, $code)` | Trả về JSON response |
 
 **Cơ chế `view()`:**
@@ -679,13 +681,14 @@ TrafficSignGroup → traffic_sign_groups
 ### 8.3. TraCuuController (`/tra-cuu`) — Chức năng chính
 
 - `index()` — Form tra cứu với input biển số + select loại xe
-- `search()` — **POST handler:**
+- `search()` — **POST handler (hỗ trợ AJAX):**
   1. Validate CSRF token
   2. Validate biển số xe với `Validator::plateNumber()`
   3. Validate loại xe ∈ {car, motorcycle, electric_motorcycle}
   4. Gọi `Violation::searchByPlate()` — JOIN locations + offenses
   5. Log vào `SearchHistory`
-  6. Hiển thị kết quả (bảng danh sách vi phạm)
+  6. Nếu AJAX request (`X-Requested-With: XMLHttpRequest`): trả về JSON {success, count, results, plateNumber, vehicleType}
+  7. Nếu request thường: render view với layout (fallback cho non-JS)
 
 ### 8.4. TinTucController (`/tin-tuc`, `/tin-tuc/{slug}`)
 
@@ -745,11 +748,11 @@ Hiển thị trang tổng quan admin:
 
 ### 9.3. UserController (`/admin/users`)
 
-CRUD users + `toggleStatus()`: khóa/mở khóa user (chuyển `status` 0⇄1). Không cho admin tự xóa chính mình.
+CRUD users + `toggleStatus()`: khóa/mở khóa user (chuyển `status` 0⇄1) — **hỗ trợ AJAX**, trả về JSON nếu có header `X-Requested-With`. Không cho admin tự xóa chính mình.
 
 ### 9.4. ViolationController (`/admin/violations`)
 
-CRUD violations + `import()`: import CSV (đọc file, parse, insert từng dòng).
+CRUD violations + `toggleStatus()`: xoay vòng trạng thái pending→processed→paid→pending — **AJAX**. + `import()`: import CSV (đọc file, parse, insert từng dòng).
 
 ### 9.5. NewsController (`/admin/news`)
 
@@ -846,11 +849,19 @@ foreach ($news as $item)    // $newsArray
 
 ### 11.2. JavaScript
 
-- **`public/assets/js/main.js`** — JavaScript cho toàn bộ site:
-  - Khởi tạo tooltips, popovers (Bootstrap)
+- **`public/assets/js/main.js`** — JavaScript cho client:
   - Auto-hide flash alerts sau 5 giây
+  - Uppercase tự động cho input biển số
+  - AJAX tra cứu phạt nguội (fetch API, loading spinner, render kết quả động)
+
+- **`public/assets/js/admin.js`** — JavaScript cho admin panel:
+  - Sidebar toggle trên mobile
   - Confirm dialog cho nút xóa
-  - Client-side validation cho form tra cứu
+  - Auto-hide alerts
+  - **AJAX toggle trạng thái** — user (lock/unlock) và violation (pending→processed→paid)
+    - Gửi POST với CSRF token từ meta tag
+    - Cập nhật badge + icon không reload trang
+    - Fallback về redirect nếu không có JS
 
 ### 11.3. Thư viện bên ngoài (CDN)
 
@@ -868,13 +879,14 @@ foreach ($news as $item)    // $newsArray
 | Biện pháp | Triển khai ở đâu |
 |-----------|-----------------|
 | **Prepared Statements** (chống SQL injection) | `Model.php` — TẤT CẢ query |
-| **CSRF Token** (chống Cross-Site Request Forgery) | Mọi POST form + `Controller::validateCsrf()` |
+| **CSRF Token** (chống Cross-Site Request Forgery) | Mọi POST form + AJAX. Form: hidden input. AJAX: gửi FormData + meta tag `<meta name="csrf-token">`. `Controller::validateCsrf()` |
 | **Password Hashing** (bcrypt) | `AuthController`, `UserController` — `password_hash(PASSWORD_BCRYPT)` |
 | **Session Regeneration** (chống session fixation) | `Session::login()` — `session_regenerate_id(true)` |
 | **XSS Prevention** (output escaping) | `htmlspecialchars($var, ENT_QUOTES, 'UTF-8')` trong mọi view |
 | **Auth Guards** (phân quyền) | `requireLogin()`, `requireAdmin()` |
 | **File Upload Validation** | `Helper::upload()` — kiểm tra loại, kích thước |
 | **Error Logging** (không lộ lỗi ra ngoài) | `display_errors = 0`, `log_errors = 1` |
+| **AJAX Auth Handling** | `toggleStatus()` + `search()` trả `{success: false}` HTTP 419/422 thay vì redirect — không lộ flash message |
 
 ### 12.2. Luồng bảo mật cho 1 POST request
 

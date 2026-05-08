@@ -42,12 +42,13 @@
                     <td><?= htmlspecialchars(\App\Core\Helper::formatDate($user['created_at']), ENT_QUOTES, 'UTF-8') ?></td>
                     <td class="text-end">
                         <a href="/admin/users/<?= $user['id'] ?>/edit" class="btn btn-sm btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
-                        <form method="POST" action="/admin/users/<?= $user['id'] ?>/toggle-status" class="d-inline">
-                            <input type="hidden" name="csrf_token" value="<?= \App\Core\Session::csrfToken() ?>">
-                            <button type="submit" class="btn btn-sm <?= $user['status'] ? 'btn-secondary' : 'btn-success' ?>" title="<?= $user['status'] ? 'Khóa' : 'Mở khóa' ?>">
-                                <i class="fas <?= $user['status'] ? 'fa-lock' : 'fa-unlock' ?>"></i>
-                            </button>
-                        </form>
+                        <button type="button" class="btn btn-sm <?= $user['status'] ? 'btn-secondary' : 'btn-success' ?> toggle-status-btn"
+                                data-id="<?= $user['id'] ?>"
+                                data-type="user"
+                                data-current-status="<?= $user['status'] ?>"
+                                title="<?= $user['status'] ? 'Khóa' : 'Mở khóa' ?>">
+                            <i class="fas <?= $user['status'] ? 'fa-lock' : 'fa-unlock' ?>"></i>
+                        </button>
                         <form method="POST" action="/admin/users/<?= $user['id'] ?>/delete" class="delete-form d-inline">
                             <input type="hidden" name="csrf_token" value="<?= \App\Core\Session::csrfToken() ?>">
                             <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>

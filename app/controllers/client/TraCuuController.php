@@ -41,6 +41,10 @@ class TraCuuController extends Controller
         }
 
         if (!empty($errors)) {
+            if ($this->isAjax()) {
+                $this->json(['success' => false, 'message' => $errors[0]], 422);
+                return;
+            }
             Session::setFlash('error', $errors[0]);
             $this->redirect('/tra-cuu');
             return;
@@ -54,6 +58,24 @@ class TraCuuController extends Controller
         $searchHistory = new SearchHistory();
         $userId = Session::isLoggedIn() ? Session::get('user_id') : null;
         $searchHistory->log($userId, $plateNumber, $vehicleType, count($results));
+
+        // AJAX: trả về JSON
+        if ($this->isAjax()) {
+            $this->json([
+                'success' => true,
+                'count' => count($results),
+                'plateNumber' => $plateNumber,
+                'vehicleType' => $vehicleType,
+                'vehicleTypeLabel' => match($vehicleType) {
+                    'car' => 'Ô tô',
+                    'motorcycle' => 'Xe máy',
+                    'electric_motorcycle' => 'Xe máy điện',
+                    default => $vehicleType,
+                },
+                'results' => $results,
+            ]);
+            return;
+        }
 
         $this->view('client/tracuu/index', [
             'title' => 'Kết quả tra cứu biển số ' . htmlspecialchars($plateNumber, ENT_QUOTES, 'UTF-8'),

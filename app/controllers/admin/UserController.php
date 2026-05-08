@@ -173,12 +173,22 @@ class UserController extends Controller
 
     public function toggleStatus(): void
     {
-        if (!$this->validateCsrf()) return;
+        if (!$this->validateCsrf()) {
+            if ($this->isAjax()) {
+                $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+                return;
+            }
+            return;
+        }
 
         $id = (int)($this->input('id', 0));
         $model = new User();
         $user = $model->find($id);
         if (!$user) {
+            if ($this->isAjax()) {
+                $this->json(['success' => false, 'message' => 'Người dùng không tồn tại.'], 404);
+                return;
+            }
             Session::setFlash('error', 'Người dùng không tồn tại.');
             $this->redirect('/admin/users');
             return;
@@ -186,6 +196,16 @@ class UserController extends Controller
 
         $newStatus = $user['status'] ? 0 : 1;
         $model->update($id, ['status' => $newStatus]);
+
+        if ($this->isAjax()) {
+            $this->json([
+                'success' => true,
+                'new_status' => $newStatus,
+                'message' => $newStatus ? 'Mở khóa người dùng thành công.' : 'Khóa người dùng thành công.',
+            ]);
+            return;
+        }
+
         $msg = $newStatus ? 'Mở khóa người dùng thành công.' : 'Khóa người dùng thành công.';
         Session::setFlash('success', $msg);
         $this->redirect('/admin/users');

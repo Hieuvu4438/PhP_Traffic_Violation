@@ -66,7 +66,16 @@ function vehicleTypeLabel(string $type): string {
                     <td><?= htmlspecialchars($v['location_name'] ?? '—', ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars(\App\Core\Helper::formatDateTime($v['violation_date']), ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($v['fine_amount'] ?? '—', ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= statusBadge($v['status']) ?></td>
+                    <td>
+                        <button type="button" class="badge border-0 cursor-pointer toggle-status-btn"
+                                style="cursor:pointer"
+                                data-id="<?= $v['id'] ?>"
+                                data-type="violation"
+                                data-current-status="<?= $v['status'] ?>"
+                                title="Click để đổi trạng thái">
+                            <?= statusBadge($v['status']) ?>
+                        </button>
+                    </td>
                     <td class="text-end">
                         <a href="/admin/violations/<?= $v['id'] ?>/edit" class="btn btn-sm btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="/admin/violations/<?= $v['id'] ?>/delete" class="delete-form d-inline">
