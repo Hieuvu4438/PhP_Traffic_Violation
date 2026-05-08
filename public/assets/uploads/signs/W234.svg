@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <polygon points="100,12 192,175 8,175" fill="#FFEB3B" stroke="#E53935" stroke-width="6"/>
+  <rect x="40" y="50" width="25" height="50" rx="5" fill="#333"/><circle cx="52.5" cy="62" r="7" fill="#E53935"/><circle cx="52.5" cy="78" r="7" fill="#FFC107"/><circle cx="52.5" cy="94" r="7" fill="#4CAF50"/>
+  <text x="100" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#333" font-family="Arial, sans-serif">W.234</text>
+</svg>

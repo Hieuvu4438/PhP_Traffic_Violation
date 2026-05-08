@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <polygon points="100,12 192,175 8,175" fill="#FFEB3B" stroke="#E53935" stroke-width="6"/>
+  <path d="M55,150 Q60,105 75,90 Q90,75 100,75 Q110,75 125,90 Q140,105 145,150" fill="none" stroke="#333" stroke-width="6" stroke-linecap="round"/><line x1="85" y1="65" x2="115" y2="65" stroke="#333" stroke-width="3"/><line x1="87" y1="57" x2="113" y2="57" stroke="#333" stroke-width="3"/>
+  <text x="100" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#333" font-family="Arial, sans-serif">W.215</text>
+</svg>
