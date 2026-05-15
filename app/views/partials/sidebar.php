@@ -99,6 +99,11 @@ function adminActive(string $path): string {
                     <i class="fas fa-envelope me-2"></i>Tin nhắn
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/admin/chat" class="nav-link text-white <?= adminActive('/admin/chat') ?>">
+                    <i class="fas fa-comments me-2"></i>Chat khách hàng
+                </a>
+            </li>
             <!-- Phân cách giữa menu quản lý và menu tiện ích.
                  mt-3: margin-top 1rem.
                  pt-2: padding-top 0.5rem.

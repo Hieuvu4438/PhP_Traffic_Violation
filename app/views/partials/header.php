@@ -59,6 +59,7 @@ function isActive(string $path): string {
                 <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/ban-do') ? 'active' : '' ?>" href="/ban-do">Bản đồ</a></li>
                 <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/thong-ke') ? 'active' : '' ?>" href="/thong-ke">Thống kê</a></li>
                 <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/faq') ? 'active' : '' ?>" href="/faq">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/chat') ? 'active' : '' ?>" href="/chat">Chat hỗ trợ</a></li>
             </ul>
             <!-- d-flex: kích hoạt flexbox cho vùng nút bên phải.
                  align-items-center: căn giữa theo chiều dọc.

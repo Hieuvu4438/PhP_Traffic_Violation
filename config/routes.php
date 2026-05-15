@@ -24,6 +24,11 @@ return function (Router $router): void {
     $router->get('/gioi-thieu', 'client/HomeController@about');
     $router->get('/lien-he', 'client/LienHeController@index');
     $router->post('/lien-he', 'client/LienHeController@send');
+    $router->get('/chat', 'client/ChatController@index');
+    $router->post('/chat/start', 'client/ChatController@start');
+    $router->post('/chat/restore', 'client/ChatController@restore');
+    $router->get('/chat/{id}/messages', 'client/ChatController@messages');
+    $router->post('/chat/{id}/send', 'client/ChatController@send');
     $router->get('/dang-nhap', 'client/AuthController@loginForm');
     $router->post('/dang-nhap', 'client/AuthController@login');
     $router->get('/dang-ky', 'client/AuthController@registerForm');
@@ -123,4 +128,11 @@ return function (Router $router): void {
     $router->get('/admin/messages', 'admin/MessageController@index');
     $router->post('/admin/messages/{id}/read', 'admin/MessageController@markRead');
     $router->post('/admin/messages/{id}/delete', 'admin/MessageController@delete');
+
+    // Customer Chat
+    $router->get('/admin/chat', 'admin/ChatController@index');
+    $router->get('/admin/chat/{id}', 'admin/ChatController@show');
+    $router->get('/admin/chat/{id}/messages', 'admin/ChatController@messages');
+    $router->post('/admin/chat/{id}/reply', 'admin/ChatController@reply');
+    $router->post('/admin/chat/{id}/close', 'admin/ChatController@close');
 };
