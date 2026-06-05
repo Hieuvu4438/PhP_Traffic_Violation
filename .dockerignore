@@ -1,0 +1,9 @@
+.git
+.claude
+*.log
+error.log
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+docs/

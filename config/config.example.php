@@ -6,7 +6,7 @@
 
 return [
     // Database
-    'db_host' => 'localhost',
+    'db_host' => getenv('DB_HOST') ?: 'localhost',
     'db_name' => 'traffic_violation_db',
     'db_user' => 'root',
     'db_pass' => '',

@@ -8,7 +8,7 @@ USE traffic_violation_db;
 -- Admin: admin@traffic.vn / admin123
 -- =============================================
 INSERT INTO users (fullname, email, phone, password, role, status) VALUES
-('Administrator', 'admin@traffic.vn', '0988888888', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 1),
+('Administrator', 'admin@traffic.vn', '0988888888', '$2y$10$jS9lPuklBq9XFyapWKnQ5OpU7yjBDn7SvbLFnrzE2aFGNcGysAUE6', 'admin', 1),
 ('Nguyễn Văn An', 'an.nguyen@gmail.com', '0912345678', '$2y$10$CXOPLhcpoJsdSMiRjCKtsuCKU0tGbvAMh5pnjDd.qSxEDjYj1b1Uy', 'user', 1),
 ('Trần Thị Bình', 'binh.tran@gmail.com', '0923456789', '$2y$10$CXOPLhcpoJsdSMiRjCKtsuCKU0tGbvAMh5pnjDd.qSxEDjYj1b1Uy', 'user', 1),
 ('Lê Văn Cường', 'cuong.le@gmail.com', '0934567890', '$2y$10$CXOPLhcpoJsdSMiRjCKtsuCKU0tGbvAMh5pnjDd.qSxEDjYj1b1Uy', 'user', 1),

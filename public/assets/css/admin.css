@@ -8,6 +8,10 @@
     --primary-dark: #1e40af;
 }
 
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .admin-wrapper {
     display: flex;
     min-height: 100vh;

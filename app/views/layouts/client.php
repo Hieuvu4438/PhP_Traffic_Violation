@@ -25,6 +25,10 @@ use App\Core\Session;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome 6.5.1: thư viện icon vector (fa-solid, fa-brands...), tải từ CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts Inter: font hỗ trợ đầy đủ tiếng Việt có dấu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- style.css: CSS tùy chỉnh của dự án, ghi đè và mở rộng Bootstrap -->
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
