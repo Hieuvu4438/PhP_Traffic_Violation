@@ -1,0 +1,15 @@
+# Chặn truy cập trực tiếp vào thư mục nhạy cảm
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(app|config|database|docs|vendor)/ - [F,L]
+    RewriteRule ^composer\.(json|lock)$ - [F,L]
+    RewriteRule ^README\.md$ - [F,L]
+</IfModule>
+
+# Chặn hiển thị file .htaccess, .env, error.log
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^(error\.log|schema\.sql|seed\.sql)$">
+    Require all denied
+</FilesMatch>

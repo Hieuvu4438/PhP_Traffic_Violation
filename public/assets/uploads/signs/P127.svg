@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="92" fill="#fff" stroke="#E53935" stroke-width="8"/>
+  <text x="100" y="118" text-anchor="middle" font-size="52" font-weight="bold" fill="#E53935" font-family="Arial">60</text>
+  <text x="100" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#333" font-family="Arial, sans-serif">P.127</text>
+</svg>
