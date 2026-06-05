@@ -18,7 +18,7 @@ class ChatController extends Controller
     {
         $page = (int) $this->input('page', 1);
         $data = (new ChatConversation())->paginateWithUnreadCount($page, 10);
-        $data['title'] = 'Chat khách hàng';
+        $data['title'] = 'Customer Chat';
         $data['baseUrl'] = '/admin/chat';
         $this->view('admin/chat/index', $data, 'admin');
     }
@@ -27,13 +27,13 @@ class ChatController extends Controller
     {
         $conversation = (new ChatConversation())->find($id);
         if (!$conversation) {
-            Session::setFlash('error', 'Cuộc trò chuyện không tồn tại.');
+            Session::setFlash('error', 'Conversation does not exist.');
             $this->redirect('/admin/chat');
         }
 
         (new ChatMessage())->markConversationRead($id, 'user');
         $this->view('admin/chat/show', [
-            'title' => 'Chi tiết chat',
+            'title' => 'Chat Details',
             'conversation' => $conversation,
         ], 'admin');
     }
@@ -42,7 +42,7 @@ class ChatController extends Controller
     {
         $conversation = (new ChatConversation())->find($id);
         if (!$conversation) {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện không tồn tại.'], 404);
+            $this->json(['success' => false, 'message' => 'Conversation does not exist.'], 404);
         }
 
         $afterId = (int) $this->input('after_id', 0);
@@ -59,21 +59,21 @@ class ChatController extends Controller
     public function reply(int $id): void
     {
         if (!$this->validateCsrf()) {
-            $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+            $this->json(['success' => false, 'message' => 'Session expired.'], 419);
         }
 
         $conversation = (new ChatConversation())->find($id);
         if (!$conversation) {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện không tồn tại.'], 404);
+            $this->json(['success' => false, 'message' => 'Conversation does not exist.'], 404);
         }
         if ($conversation['status'] === 'closed') {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện đã đóng.'], 422);
+            $this->json(['success' => false, 'message' => 'Conversation is closed.'], 422);
         }
 
         $message = trim($this->input('message', ''));
         $validator = new Validator();
         if (!$validator->validate(['message' => $message], ['message' => 'required|min:1|max:2000'])) {
-            $this->json(['success' => false, 'message' => $validator->firstError('message') ?? 'Tin nhắn không hợp lệ.'], 422);
+            $this->json(['success' => false, 'message' => $validator->firstError('message') ?? 'Invalid message.'], 422);
         }
 
         $messageId = (new ChatMessage())->create([
@@ -96,12 +96,12 @@ class ChatController extends Controller
 
         $conversation = new ChatConversation();
         if (!$conversation->find($id)) {
-            Session::setFlash('error', 'Cuộc trò chuyện không tồn tại.');
+            Session::setFlash('error', 'Conversation does not exist.');
             $this->redirect('/admin/chat');
         }
 
         $conversation->close($id);
-        Session::setFlash('success', 'Đã đóng cuộc trò chuyện.');
+        Session::setFlash('success', 'Conversation closed.');
         $this->redirect('/admin/chat/' . $id);
     }
 }

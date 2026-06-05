@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         wrapper.className = `d-flex mb-3 ${isUser ? 'justify-content-end' : 'justify-content-start'}`;
         wrapper.innerHTML = `
             <div class="${isUser ? 'bg-primary text-white' : 'bg-light border'} rounded px-3 py-2" style="max-width: 75%;">
-                <div class="small ${isUser ? 'text-white-50' : 'text-muted'} mb-1">${isUser ? 'Bạn' : 'Admin'}</div>
+                <div class="small ${isUser ? 'text-white-50' : 'text-muted'} mb-1">${isUser ? 'You' : 'Admin'}</div>
                 <div>${escapeHtml(message.message).replaceAll('\n', '<br>')}</div>
                 <div class="small ${isUser ? 'text-white-50' : 'text-muted'} mt-1">${escapeHtml(message.created_at || '')}</div>
             </div>
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         const data = await resp.json();
         if (!data.success) {
-            showError(data.message || 'Không thể bắt đầu chat.');
+            showError(data.message || 'Unable to start chat.');
             return false;
         }
 
@@ -130,11 +130,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             data.messages.forEach(appendMessage);
             if (data.status === 'closed') {
-                if (chatStatus) chatStatus.textContent = 'Đã đóng';
+                if (chatStatus) chatStatus.textContent = 'Closed';
                 if (sendForm) sendForm.style.display = 'none';
             }
         } catch (err) {
-            showError('Không thể tải tin nhắn mới.');
+            showError('Unable to load new messages.');
         }
     }
 
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 const data = await resp.json();
                 if (!data.success) {
-                    showError(data.message || 'Không thể bắt đầu chat.');
+                    showError(data.message || 'Unable to start chat.');
                     return;
                 }
 
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (sendForm) sendForm.style.display = '';
                 startPolling();
             } catch (err) {
-                showError('Lỗi kết nối, vui lòng thử lại.');
+                showError('Connection error, please try again.');
             }
         });
     }
@@ -184,14 +184,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 const data = await resp.json();
                 if (!data.success) {
-                    showError(data.message || 'Không thể gửi tin nhắn.');
+                    showError(data.message || 'Unable to send message.');
                     return;
                 }
 
                 sendForm.reset();
                 loadMessages();
             } catch (err) {
-                showError('Lỗi kết nối, vui lòng thử lại.');
+                showError('Connection error, please try again.');
             }
         });
     }

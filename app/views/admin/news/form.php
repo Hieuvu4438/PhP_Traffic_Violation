@@ -33,7 +33,7 @@ Session::remove('old_input');
             <div class="row g-3">
                 <!-- ===== Tiêu đề (col-md-8: 8/12 cột trên desktop) ===== -->
                 <div class="col-md-8">
-                    <label class="form-label">Tiêu đề <span class="text-danger">*</span></label>
+                    <label class="form-label">Title <span class="text-danger">*</span></label>
                     <input type="text" name="title" class="form-control <?= isset($errors['title']) ? 'is-invalid' : '' ?>"
                            value="<?= htmlspecialchars($old['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <?php if (isset($errors['title'])): ?>
@@ -43,9 +43,9 @@ Session::remove('old_input');
 
                 <!-- ===== Danh mục (col-md-4: 4/12 cột) ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Danh mục</label>
+                    <label class="form-label">Category</label>
                     <select name="category_id" class="form-select <?= isset($errors['category_id']) ? 'is-invalid' : '' ?>">
-                        <option value="">-- Chọn danh mục --</option>
+                        <option value="">-- Select category --</option>
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?= $cat['id'] ?>" <?= ($old['category_id'] ?? '') == $cat['id'] ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?>
@@ -56,7 +56,7 @@ Session::remove('old_input');
 
                 <!-- ===== Ảnh đại diện (col-md-4) ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Ảnh đại diện</label>
+                    <label class="form-label">Thumbnail</label>
                     <!-- accept="image/*": chỉ chấp nhận file ảnh -->
                     <input type="file" name="thumbnail" class="form-control" accept="image/*">
                     <?php if ($isEdit && !empty($news['thumbnail'])): ?>
@@ -70,17 +70,17 @@ Session::remove('old_input');
 
                 <!-- ===== Trạng thái (col-md-4) ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Trạng thái</label>
+                    <label class="form-label">Status</label>
                     <select name="status" class="form-select">
                         <!-- Mặc định là 'draft' (bản nháp) -->
-                        <option value="draft" <?= ($old['status'] ?? 'draft') === 'draft' ? 'selected' : '' ?>>Bản nháp</option>
-                        <option value="published" <?= ($old['status'] ?? '') === 'published' ? 'selected' : '' ?>>Đã đăng</option>
+                        <option value="draft" <?= ($old['status'] ?? 'draft') === 'draft' ? 'selected' : '' ?>>Draft</option>
+                        <option value="published" <?= ($old['status'] ?? '') === 'published' ? 'selected' : '' ?>>Published</option>
                     </select>
                 </div>
 
                 <!-- ===== Nội dung (col-12: full width) ===== -->
                 <div class="col-12">
-                    <label class="form-label">Nội dung <span class="text-danger">*</span></label>
+                    <label class="form-label">Content <span class="text-danger">*</span></label>
                     <!-- id="editor": để CKEditor 5 nhắm vào textarea này; rows="15": cao 15 dòng fallback -->
                     <textarea name="content" id="editor" class="form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" rows="15"><?= htmlspecialchars($old['content'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                     <?php if (isset($errors['content'])): ?>
@@ -93,9 +93,9 @@ Session::remove('old_input');
             <!-- mt-4: margin-top 1.5rem -->
             <div class="mt-4">
                 <!-- btn-primary: nút xanh dương; fa-save: icon đĩa mềm lưu -->
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Lưu</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save</button>
                 <!-- btn-secondary: nút xám; fa-arrow-left: icon mũi tên trái quay lại -->
-                <a href="/admin/news" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Quay lại</a>
+                <a href="/admin/news" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
             </div>
         </form>
     </div>

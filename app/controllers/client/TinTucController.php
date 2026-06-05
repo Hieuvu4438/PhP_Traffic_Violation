@@ -26,7 +26,7 @@ class TinTucController extends Controller
         $categories = $categoryModel->all([], 'name ASC');
 
         $this->view('client/tintuc/index', [
-            'title' => 'Tin tức giao thông',
+            'title' => 'Traffic News',
             'news' => $pagination['items'],
             'pagination' => $pagination,
             'categories' => $categories,
@@ -43,7 +43,7 @@ class TinTucController extends Controller
             // Try finding by slug directly
             $article = $newsModel->findBy('slug', $slug);
             if (!$article || $article['status'] !== 'published') {
-                Session::setFlash('error', 'Bài viết không tồn tại.');
+                Session::setFlash('error', 'Article does not exist.');
                 $this->redirect('/tin-tuc');
                 return;
             }

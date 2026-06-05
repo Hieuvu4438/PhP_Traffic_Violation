@@ -8,7 +8,7 @@
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-info-circle: icon thông tin -->
-        <i class="fas fa-info-circle me-2 text-primary"></i>Giới thiệu
+        <i class="fas fa-info-circle me-2 text-primary"></i>About
     </h2>
 
     <!-- row g-4: grid gap 1.5rem -->
@@ -19,19 +19,18 @@
             <div class="card shadow-sm border-0 mb-4">
                 <!-- p-4: padding 1.5rem -->
                 <div class="card-body p-4">
-                    <h3 class="fw-bold mb-3">Về chúng tôi</h3>
+                    <h3 class="fw-bold mb-3">About Us</h3>
                     <p>
-                        <strong>Tra Cứu Phạt Nguội</strong> là website cung cấp dịch vụ tra cứu phương tiện vi phạm
-                        giao thông trực tuyến, giúp người dân dễ dàng kiểm tra các vi phạm giao thông của phương tiện
-                        thông qua biển số xe.
+                        <strong>Traffic Violation Lookup</strong> is a website that provides online traffic violation lookup services,
+                        helping citizens easily check traffic violations of vehicles through license plate numbers.
                     </p>
                     <p>
-                        Dữ liệu được tổng hợp từ Cục Cảnh sát Giao thông (CSGT) và Cục Đăng Kiểm Việt Nam, đảm bảo
-                        tính chính xác và cập nhật thường xuyên.
+                        Data is compiled from the Traffic Police Department and the Vietnam Registry, ensuring
+                        accuracy and regular updates.
                     </p>
 
                     <!-- Tính năng chính: lưới 2 cột -->
-                    <h4 class="fw-bold mt-4 mb-3">Tính năng chính</h4>
+                    <h4 class="fw-bold mt-4 mb-3">Key Features</h4>
                     <div class="row g-3">
                         <!-- Tra cứu phạt nguội -->
                         <div class="col-md-6">
@@ -40,8 +39,8 @@
                                 <!-- fa-search text-primary mt-1 fa-fw: icon tìm kiếm xanh, căn đều width -->
                                 <i class="fas fa-search text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Tra cứu phạt nguội</strong>
-                                    <p class="text-muted mb-0 small">Tra cứu nhanh chóng bằng biển số xe và loại xe.</p>
+                                    <strong>Traffic Violation Lookup</strong>
+                                    <p class="text-muted mb-0 small">Quick search by license plate and vehicle type.</p>
                                 </div>
                             </div>
                         </div>
@@ -51,8 +50,8 @@
                                 <!-- fa-newspaper: icon tờ báo -->
                                 <i class="fas fa-newspaper text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Tin tức giao thông</strong>
-                                    <p class="text-muted mb-0 small">Cập nhật tin tức mới nhất về giao thông.</p>
+                                    <strong>Traffic News</strong>
+                                    <p class="text-muted mb-0 small">Latest traffic news updates.</p>
                                 </div>
                             </div>
                         </div>
@@ -62,8 +61,8 @@
                                 <!-- fa-sign: icon biển báo -->
                                 <i class="fas fa-sign text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Tra cứu biển báo</strong>
-                                    <p class="text-muted mb-0 small">Xem và tra cứu hệ thống biển báo giao thông.</p>
+                                    <strong>Traffic Sign Lookup</strong>
+                                    <p class="text-muted mb-0 small">Browse and search the traffic sign system.</p>
                                 </div>
                             </div>
                         </div>
@@ -73,8 +72,8 @@
                                 <!-- fa-chart-bar: icon biểu đồ cột -->
                                 <i class="fas fa-chart-bar text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Thống kê trực quan</strong>
-                                    <p class="text-muted mb-0 small">Biểu đồ thống kê vi phạm giao thông.</p>
+                                    <strong>Visual Statistics</strong>
+                                    <p class="text-muted mb-0 small">Traffic violation statistics charts.</p>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +83,8 @@
                                 <!-- fa-map-location-dot: icon bản đồ có đánh dấu -->
                                 <i class="fas fa-map-location-dot text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Bản đồ địa điểm</strong>
-                                    <p class="text-muted mb-0 small">Xem vị trí camera, trạm CSGT, trạm thu phí.</p>
+                                    <strong>Location Map</strong>
+                                    <p class="text-muted mb-0 small">View camera, traffic police, and toll station locations.</p>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +94,8 @@
                                 <!-- fa-user: icon người dùng -->
                                 <i class="fas fa-user text-primary mt-1 fa-fw"></i>
                                 <div>
-                                    <strong>Quản lý tài khoản</strong>
-                                    <p class="text-muted mb-0 small">Đăng ký tài khoản để quản lý phương tiện và lịch sử tra cứu.</p>
+                                    <strong>Account Management</strong>
+                                    <p class="text-muted mb-0 small">Register to manage vehicles and search history.</p>
                                 </div>
                             </div>
                         </div>
@@ -111,15 +110,15 @@
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-exclamation-circle: icon dấu chấm than trong vòng tròn (cảnh báo/lưu ý) -->
-                    <i class="fas fa-exclamation-circle me-2"></i>Lưu ý
+                    <i class="fas fa-exclamation-circle me-2"></i>Important Notes
                 </div>
                 <div class="card-body">
                     <!-- small: chữ nhỏ -->
                     <ul class="mb-0 small">
-                        <li class="mb-2">Dữ liệu tra cứu chỉ mang tính chất tham khảo.</li>
-                        <li class="mb-2">Kết quả có thể chưa cập nhật các vi phạm mới nhất.</li>
-                        <li class="mb-2">Để xác nhận chính xác, vui lòng liên hệ cơ quan CSGT địa phương.</li>
-                        <li class="mb-2">Website được xây dựng với mục đích học thuật.</li>
+                        <li class="mb-2">Lookup data is for reference only.</li>
+                        <li class="mb-2">Results may not include the latest violations.</li>
+                        <li class="mb-2">For accurate confirmation, please contact your local traffic police.</li>
+                        <li class="mb-2">This website was built for academic purposes.</li>
                     </ul>
                 </div>
             </div>
@@ -128,34 +127,34 @@
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-info text-white fw-bold">
                     <!-- fa-link: icon mắt xích (liên kết) -->
-                    <i class="fas fa-link me-2"></i>Liên kết hữu ích
+                    <i class="fas fa-link me-2"></i>Useful Links
                 </div>
                 <div class="card-body">
                     <!-- d-grid gap-2: các nút xếp dọc, gap 0.5rem -->
                     <div class="d-grid gap-2">
                         <!-- btn-outline-primary: nút viền xanh -->
                         <a href="/tra-cuu" class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-search me-2"></i>Tra cứu phạt nguội
+                            <i class="fas fa-search me-2"></i>Search Violations
                         </a>
                         <!-- btn-outline-info: nút viền xanh nhạt -->
                         <a href="/tin-tuc" class="btn btn-outline-info btn-sm">
-                            <i class="fas fa-newspaper me-2"></i>Tin tức giao thông
+                            <i class="fas fa-newspaper me-2"></i>Traffic News
                         </a>
                         <!-- btn-outline-secondary: nút viền xám -->
                         <a href="/bien-bao" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-sign me-2"></i>Biển báo giao thông
+                            <i class="fas fa-sign me-2"></i>Traffic Signs
                         </a>
                         <!-- btn-outline-success: nút viền xanh lá -->
                         <a href="/thong-ke" class="btn btn-outline-success btn-sm">
-                            <i class="fas fa-chart-bar me-2"></i>Thống kê
+                            <i class="fas fa-chart-bar me-2"></i>Statistics
                         </a>
                         <!-- btn-outline-warning: nút viền vàng -->
                         <a href="/faq" class="btn btn-outline-warning btn-sm">
-                            <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                            <i class="fas fa-question-circle me-2"></i>FAQ
                         </a>
                         <!-- btn-outline-danger: nút viền đỏ -->
                         <a href="/lien-he" class="btn btn-outline-danger btn-sm">
-                            <i class="fas fa-envelope me-2"></i>Liên hệ
+                            <i class="fas fa-envelope me-2"></i>Contact
                         </a>
                     </div>
                 </div>

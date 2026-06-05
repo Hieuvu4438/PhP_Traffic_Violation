@@ -9,7 +9,7 @@
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-question-circle: icon dấu hỏi trong vòng tròn -->
-        <i class="fas fa-question-circle me-2 text-primary"></i>Câu hỏi thường gặp
+        <i class="fas fa-question-circle me-2 text-primary"></i>Frequently Asked Questions
     </h2>
 
     <!-- Partial hiển thị thông báo -->
@@ -19,8 +19,8 @@
         <!-- Trạng thái rỗng -->
         <div class="text-center py-5">
             <i class="fas fa-question-circle fa-4x text-muted mb-3"></i>
-            <h4 class="text-muted">Chưa có câu hỏi nào</h4>
-            <p class="text-muted">Vui lòng quay lại sau.</p>
+            <h4 class="text-muted">No questions available</h4>
+            <p class="text-muted">Please check back later.</p>
         </div>
     <?php else: ?>
         <div class="row">
@@ -79,14 +79,14 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-primary text-white fw-bold">
                         <!-- fa-info-circle: icon thông tin -->
-                        <i class="fas fa-info-circle me-2"></i>Hỗ trợ thêm
+                        <i class="fas fa-info-circle me-2"></i>Additional Support
                     </div>
                     <div class="card-body">
-                        <p class="text-muted small">Không tìm thấy câu trả lời? Liên hệ với chúng tôi để được hỗ trợ.</p>
+                        <p class="text-muted small">Can't find the answer? Contact us for support.</p>
                         <!-- btn-sm w-100: nút nhỏ full width -->
                         <a href="/lien-he" class="btn btn-primary btn-sm w-100">
                             <!-- fa-envelope: icon phong bì thư (liên hệ) -->
-                            <i class="fas fa-envelope me-2"></i>Gửi yêu cầu hỗ trợ
+                            <i class="fas fa-envelope me-2"></i>Send Support Request
                         </a>
                     </div>
                 </div>

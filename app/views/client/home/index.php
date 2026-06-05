@@ -11,9 +11,9 @@ use App\Core\Helper;
  */
 function vehicleTypeBadge(string $type): string {
     return match($type) {
-        'car' => '<span class="badge bg-primary">Ô tô</span>',
-        'motorcycle' => '<span class="badge bg-info">Xe máy</span>',
-        'electric_motorcycle' => '<span class="badge bg-success">Xe máy điện</span>',
+        'car' => '<span class="badge bg-primary">Car</span>',
+        'motorcycle' => '<span class="badge bg-info">Motorcycle</span>',
+        'electric_motorcycle' => '<span class="badge bg-success">Electric Motorcycle</span>',
         default => $type,
     };
 }
@@ -37,9 +37,9 @@ function vehicleTypeBadge(string $type): string {
             <!-- col-lg-8: chiếm 8/12 trên desktop, full trên mobile -->
             <div class="col-lg-8">
                 <!-- fw-bold: in đậm | mb-3: margin-bottom 1rem -->
-                <h1 class="fw-bold mb-3">Tra Cứu Phương Tiện Vi Phạm Giao Thông</h1>
+                <h1 class="fw-bold mb-3">Traffic Violation Vehicle Lookup</h1>
                 <!-- lead: chữ to hơn bình thường | mb-4: margin-bottom 1.5rem -->
-                <p class="lead mb-4">Kiểm tra phạt nguội toàn quốc nhanh chóng, chính xác. Dữ liệu từ Cục CSGT & Cục Đăng Kiểm Việt Nam.</p>
+                <p class="lead mb-4">Quickly and accurately check traffic violations nationwide. Data from the Traffic Police Department & Vietnam Registry.</p>
 
                 <!-- Form tra cứu nhanh trong Hero -->
                 <!-- bg-white bg-opacity-10: nền trắng trong suốt 10% | rounded-3: bo góc lớn -->
@@ -53,7 +53,7 @@ function vehicleTypeBadge(string $type): string {
                         <!-- col-md-5: 5/12 trên desktop, full trên mobile -->
                         <div class="col-md-5">
                             <!-- form-label text-white: nhãn form màu trắng trên nền xanh -->
-                            <label for="plate_number" class="form-label text-white">Biển số xe</label>
+                            <label for="plate_number" class="form-label text-white">License Plate</label>
                             <!-- form-control-lg: input kích thước lớn -->
                             <input type="text" class="form-control form-control-lg" id="plate_number"
                                    name="plate_number" placeholder="VD: 30A-12345" required>
@@ -61,13 +61,13 @@ function vehicleTypeBadge(string $type): string {
 
                         <!-- col-md-4: 4/12 trên desktop -->
                         <div class="col-md-4">
-                            <label for="vehicle_type" class="form-label text-white">Loại xe</label>
+                            <label for="vehicle_type" class="form-label text-white">Vehicle Type</label>
                             <!-- form-select-lg: select kích thước lớn -->
                             <select class="form-select form-select-lg" id="vehicle_type" name="vehicle_type" required>
-                                <option value="">-- Chọn loại xe --</option>
-                                <option value="car">Ô tô</option>
-                                <option value="motorcycle">Xe máy</option>
-                                <option value="electric_motorcycle">Xe máy điện</option>
+                                <option value="">-- Select Vehicle Type --</option>
+                                <option value="car">Car</option>
+                                <option value="motorcycle">Motorcycle</option>
+                                <option value="electric_motorcycle">Electric Motorcycle</option>
                             </select>
                         </div>
 
@@ -76,7 +76,7 @@ function vehicleTypeBadge(string $type): string {
                             <!-- btn-warning: nút màu cam | btn-lg: lớn | w-100: full width | fw-bold: in đậm -->
                             <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">
                                 <!-- fa-search: icon kính lúp (tìm kiếm) -->
-                                <i class="fas fa-search me-2"></i>Tra cứu ngay
+                                <i class="fas fa-search me-2"></i>Search Now
                             </button>
                         </div>
                     </form>
@@ -110,7 +110,7 @@ function vehicleTypeBadge(string $type): string {
                         </div>
                         <!-- number_format: định dạng số với dấu phẩy ngăn cách hàng nghìn -->
                         <h3 class="fw-bold mb-0"><?= number_format($totalViolations ?? 0) ?></h3>
-                        <p class="text-muted mb-0 small">Tổng vi phạm</p>
+                        <p class="text-muted mb-0 small">Total Violations</p>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@ function vehicleTypeBadge(string $type): string {
                             <i class="fas fa-clock fa-2x"></i>
                         </div>
                         <h3 class="fw-bold mb-0"><?= number_format($todayViolations ?? 0) ?></h3>
-                        <p class="text-muted mb-0 small">Vi phạm hôm nay</p>
+                        <p class="text-muted mb-0 small">Today's Violations</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@ function vehicleTypeBadge(string $type): string {
                             <i class="fas fa-check-circle fa-2x"></i>
                         </div>
                         <h3 class="fw-bold mb-0">3</h3>
-                        <p class="text-muted mb-0 small">Loại phương tiện</p>
+                        <p class="text-muted mb-0 small">Vehicle Types</p>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@ function vehicleTypeBadge(string $type): string {
                         </div>
                         <!-- ceil($totalViolations / 100): ước tính số địa điểm, hiển thị dạng ước lượng (dấu +) -->
                         <h3 class="fw-bold mb-0"><?= number_format($totalViolations ? ceil($totalViolations / 100) : 0) ?>+</h3>
-                        <p class="text-muted mb-0 small">Địa điểm</p>
+                        <p class="text-muted mb-0 small">Locations</p>
                     </div>
                 </div>
             </div>
@@ -170,9 +170,9 @@ function vehicleTypeBadge(string $type): string {
                 <!-- d-flex justify-content-between: tiêu đề trái + nút "Xem tất cả" phải -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <!-- fa-newspaper: icon tờ báo (tin tức) -->
-                    <h3 class="fw-bold mb-0"><i class="fas fa-newspaper me-2 text-primary"></i>Tin tức mới nhất</h3>
+                    <h3 class="fw-bold mb-0"><i class="fas fa-newspaper me-2 text-primary"></i>Latest News</h3>
                     <!-- btn-outline-primary btn-sm: nút viền xanh, kích thước nhỏ -->
-                    <a href="/tin-tuc" class="btn btn-outline-primary btn-sm">Xem tất cả <i class="fas fa-arrow-right ms-1"></i></a>
+                    <a href="/tin-tuc" class="btn btn-outline-primary btn-sm">View All <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
 
                 <!-- Lưới tin tức 2 cột trên desktop (col-md-6) -->
@@ -236,7 +236,7 @@ function vehicleTypeBadge(string $type): string {
                         <div class="col-12">
                             <div class="text-center py-5 text-muted">
                                 <i class="fas fa-newspaper fa-3x mb-3"></i>
-                                <p>Chưa có tin tức nào.</p>
+                                <p>No news available yet.</p>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -252,7 +252,7 @@ function vehicleTypeBadge(string $type): string {
                 <div class="card shadow-sm border-0 mb-4">
                     <div class="card-header bg-warning text-dark fw-bold">
                         <!-- fa-list-ol: icon danh sách số (xếp hạng) -->
-                        <i class="fas fa-list-ol me-2"></i>Top lỗi vi phạm
+                        <i class="fas fa-list-ol me-2"></i>Top Violations
                     </div>
                     <!-- p-0: không padding để list-group sát viền -->
                     <div class="card-body p-0">
@@ -275,7 +275,7 @@ function vehicleTypeBadge(string $type): string {
                             </ul>
                         <?php else: ?>
                             <div class="text-center py-4 text-muted">
-                                <p class="mb-0 small">Chưa có dữ liệu.</p>
+                                <p class="mb-0 small">No data available.</p>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -286,25 +286,25 @@ function vehicleTypeBadge(string $type): string {
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-primary text-white fw-bold">
                         <!-- fa-bolt: icon tia sét (nhanh chóng) -->
-                        <i class="fas fa-bolt me-2"></i>Truy cập nhanh
+                        <i class="fas fa-bolt me-2"></i>Quick Access
                     </div>
                     <div class="card-body">
                         <!-- d-grid gap-2: các nút xếp dạng grid, cách nhau 0.5rem -->
                         <div class="d-grid gap-2">
                             <a href="/tra-cuu" class="btn btn-outline-primary">
-                                <i class="fas fa-search me-2"></i>Tra cứu phạt nguội
+                                <i class="fas fa-search me-2"></i>Search Violations
                             </a>
                             <a href="/bien-bao" class="btn btn-outline-info">
                                 <!-- fa-sign: icon biển báo -->
-                                <i class="fas fa-sign me-2"></i>Tra cứu biển báo
+                                <i class="fas fa-sign me-2"></i>Traffic Signs
                             </a>
                             <a href="/thong-ke" class="btn btn-outline-success">
                                 <!-- fa-chart-bar: icon biểu đồ cột -->
-                                <i class="fas fa-chart-bar me-2"></i>Xem thống kê
+                                <i class="fas fa-chart-bar me-2"></i>View Statistics
                             </a>
                             <a href="/ban-do" class="btn btn-outline-warning">
                                 <!-- fa-map: icon bản đồ -->
-                                <i class="fas fa-map me-2"></i>Bản đồ địa điểm
+                                <i class="fas fa-map me-2"></i>Location Map
                             </a>
                         </div>
                     </div>

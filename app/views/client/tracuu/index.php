@@ -9,9 +9,9 @@ use App\Core\Helper;
  */
 function vehicleTypeBadge(string $type): string {
     return match($type) {
-        'car' => '<span class="badge bg-primary">Ô tô</span>',
-        'motorcycle' => '<span class="badge bg-info">Xe máy</span>',
-        'electric_motorcycle' => '<span class="badge bg-success">Xe máy điện</span>',
+        'car' => '<span class="badge bg-primary">Car</span>',
+        'motorcycle' => '<span class="badge bg-info">Motorcycle</span>',
+        'electric_motorcycle' => '<span class="badge bg-success">Electric Motorcycle</span>',
         default => htmlspecialchars($type, ENT_QUOTES, 'UTF-8'),
     };
 }
@@ -22,9 +22,9 @@ function vehicleTypeBadge(string $type): string {
  */
 function statusBadge(string $status): string {
     return match($status) {
-        'pending' => '<span class="badge bg-danger">Chưa xử lý</span>',
-        'processed' => '<span class="badge bg-warning text-dark">Đã xử lý</span>',
-        'paid' => '<span class="badge bg-success">Đã nộp phạt</span>',
+        'pending' => '<span class="badge bg-danger">Pending</span>',
+        'processed' => '<span class="badge bg-warning text-dark">Processed</span>',
+        'paid' => '<span class="badge bg-success">Paid</span>',
         default => htmlspecialchars($status, ENT_QUOTES, 'UTF-8'),
     };
 }
@@ -54,7 +54,7 @@ $hasResults = isset($results);
             <!-- mb-4 fw-bold: margin-bottom 1.5rem, in đậm -->
             <h2 class="card-title mb-4 fw-bold">
                 <!-- fa-search: icon kính lúp tìm kiếm -->
-                <i class="fas fa-search me-2 text-primary"></i>Tra cứu phạt nguội
+                <i class="fas fa-search me-2 text-primary"></i>Traffic Violation Lookup
             </h2>
 
             <!-- Nhúng partial hiển thị thông báo từ session (lỗi, thành công) -->
@@ -68,31 +68,31 @@ $hasResults = isset($results);
                 <!-- col-md-5: Ô nhập biển số xe -->
                 <div class="col-md-5">
                     <!-- form-label fw-bold: nhãn form in đậm -->
-                    <label for="plate_number" class="form-label fw-bold">Biển số xe</label>
+                    <label for="plate_number" class="form-label fw-bold">License Plate</label>
                     <!-- input-group input-group-lg: nhóm input kích thước lớn -->
                     <div class="input-group input-group-lg">
                         <!-- fa-car: icon xe ô tô -->
                         <span class="input-group-text"><i class="fas fa-car"></i></span>
                         <!-- value giữ lại giá trị đã nhập trước đó khi submit -->
                         <input type="text" class="form-control" id="plate_number" name="plate_number"
-                               placeholder="VD: 30A-12345"
+                               placeholder="e.g. 30A-12345"
                                value="<?= htmlspecialchars($plateNumber ?? '', ENT_QUOTES, 'UTF-8') ?>"
                                required>
                     </div>
                     <!-- form-text: văn bản hướng dẫn nhỏ dưới input -->
-                    <div class="form-text">VD: 30A-12345, 30A12345, 30A 12345, 59F1-12345.</div>
+                    <div class="form-text">e.g. 30A-12345, 30A12345, 30A 12345, 59F1-12345.</div>
                 </div>
 
                 <!-- col-md-4: Select loại xe -->
                 <div class="col-md-4">
-                    <label for="vehicle_type" class="form-label fw-bold">Loại xe</label>
+                    <label for="vehicle_type" class="form-label fw-bold">Vehicle Type</label>
                     <!-- form-select-lg: select kích thước lớn -->
                     <!-- selected: giữ nguyên lựa chọn trước đó -->
                     <select class="form-select form-select-lg" id="vehicle_type" name="vehicle_type" required>
-                        <option value="">-- Chọn loại xe --</option>
-                        <option value="car" <?= ($vehicleType ?? '') === 'car' ? 'selected' : '' ?>>Ô tô</option>
-                        <option value="motorcycle" <?= ($vehicleType ?? '') === 'motorcycle' ? 'selected' : '' ?>>Xe máy</option>
-                        <option value="electric_motorcycle" <?= ($vehicleType ?? '') === 'electric_motorcycle' ? 'selected' : '' ?>>Xe máy điện</option>
+                        <option value="">-- Select Vehicle Type --</option>
+                        <option value="car" <?= ($vehicleType ?? '') === 'car' ? 'selected' : '' ?>>Car</option>
+                        <option value="motorcycle" <?= ($vehicleType ?? '') === 'motorcycle' ? 'selected' : '' ?>>Motorcycle</option>
+                        <option value="electric_motorcycle" <?= ($vehicleType ?? '') === 'electric_motorcycle' ? 'selected' : '' ?>>Electric Motorcycle</option>
                     </select>
                 </div>
 
@@ -100,7 +100,7 @@ $hasResults = isset($results);
                 <div class="col-md-3 d-flex align-items-end">
                     <!-- btn-primary: nút xanh | btn-lg: lớn | w-100: full width | fw-bold: in đậm -->
                     <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold" id="search-btn">
-                        <i class="fas fa-search me-2"></i>Tra cứu
+                        <i class="fas fa-search me-2"></i>Search
                     </button>
                 </div>
             </form>
@@ -124,12 +124,12 @@ $hasResults = isset($results);
                     <h5 class="mb-0">
                         <!-- fa-list-alt: icon danh sách kết quả -->
                         <i class="fas fa-list-alt me-2"></i>
-                        Kết quả tra cứu: <?= htmlspecialchars($plateNumber ?? '', ENT_QUOTES, 'UTF-8') ?>
+                        Search Results: <?= htmlspecialchars($plateNumber ?? '', ENT_QUOTES, 'UTF-8') ?>
                         (<?= vehicleTypeBadge($vehicleType ?? '') ?>)
                     </h5>
                     <!-- badge bg-light text-dark: huy hiệu nền xám sáng chữ tối -->
                     <span class="badge bg-light text-dark">
-                        Tìm thấy <?= count($results) ?> kết quả
+                        Found <?= count($results) ?> result(s)
                     </span>
                 </div>
 
@@ -138,9 +138,9 @@ $hasResults = isset($results);
                     <div class="card-body text-center py-5">
                         <!-- fa-check-circle fa-4x text-success: icon check xanh lớn -->
                         <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
-                        <h4 class="text-success">Không tìm thấy vi phạm nào!</h4>
-                        <p class="text-muted">Phương tiện của bạn không có vi phạm nào trong hệ thống.</p>
-                        <p class="text-muted small">Lưu ý: Dữ liệu có thể chưa cập nhật đầy đủ. Vui lòng kiểm tra lại sau.</p>
+                        <h4 class="text-success">No violations found!</h4>
+                        <p class="text-muted">Your vehicle has no violations in the system.</p>
+                        <p class="text-muted small">Note: Data may not be fully updated. Please check again later.</p>
                     </div>
                 <?php else: ?>
                     <!-- table-responsive: cho phép cuộn ngang trên mobile -->
@@ -150,12 +150,12 @@ $hasResults = isset($results);
                             <!-- table-light: nền xám nhạt cho header -->
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-center" style="width: 60px;">STT</th>
-                                    <th>Thời gian</th>
-                                    <th>Địa điểm</th>
-                                    <th>Hành vi vi phạm</th>
-                                    <th>Mức phạt</th>
-                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-center" style="width: 60px;">No.</th>
+                                    <th>Date/Time</th>
+                                    <th>Location</th>
+                                    <th>Violation</th>
+                                    <th>Fine</th>
+                                    <th class="text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -209,13 +209,13 @@ $hasResults = isset($results);
                             <small class="text-muted">
                                 <!-- fa-info-circle: icon thông tin -->
                                 <i class="fas fa-info-circle me-1"></i>
-                                Dữ liệu được cập nhật từ Cục CSGT & Cục Đăng Kiểm Việt Nam.
+                                Data updated from the Traffic Police Department & Vietnam Registry.
                             </small>
                             <!-- Nếu chưa đăng nhập: gợi ý đăng ký để lưu lịch sử tra cứu -->
                             <?php if (!Session::isLoggedIn()): ?>
                                 <small>
                                     <a href="/dang-ky" class="text-decoration-none">
-                                        <i class="fas fa-user-plus me-1"></i>Đăng ký để lưu lịch sử tra cứu
+                                        <i class="fas fa-user-plus me-1"></i>Register to save search history
                                     </a>
                                 </small>
                             <?php endif; ?>
@@ -228,8 +228,8 @@ $hasResults = isset($results);
             <div class="card shadow-sm" id="info-card">
                 <div class="card-body text-center py-5">
                     <i class="fas fa-info-circle fa-4x text-muted mb-3"></i>
-                    <h5 class="text-muted">Nhập biển số xe và chọn loại xe để tra cứu</h5>
-                    <p class="text-muted">Hệ thống sẽ kiểm tra và hiển thị các vi phạm giao thông của phương tiện.</p>
+                    <h5 class="text-muted">Enter license plate and select vehicle type to search</h5>
+                    <p class="text-muted">The system will check and display the vehicle's traffic violations.</p>
                     <!-- w-50 mx-auto: đường kẻ ngang rộng 50%, căn giữa -->
                     <hr class="w-50 mx-auto">
                     <!-- 3 cột thông tin hướng dẫn cho từng loại xe -->
@@ -238,24 +238,24 @@ $hasResults = isset($results);
                             <div class="p-3">
                                 <!-- fa-car: icon ô tô -->
                                 <i class="fas fa-car fa-2x text-primary mb-2"></i>
-                                <h6>Ô tô</h6>
-                                <p class="text-muted small">Biển số dạng: 30A-12345, 51F-12345</p>
+                                <h6>Car</h6>
+                                <p class="text-muted small">Plate format: 30A-12345, 51F-12345</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="p-3">
                                 <!-- fa-motorcycle: icon xe máy -->
                                 <i class="fas fa-motorcycle fa-2x text-info mb-2"></i>
-                                <h6>Xe máy</h6>
-                                <p class="text-muted small">Biển số dạng: 59F1-12345</p>
+                                <h6>Motorcycle</h6>
+                                <p class="text-muted small">Plate format: 59F1-12345</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="p-3">
                                 <!-- fa-bicycle: icon xe đạp (đại diện xe điện) -->
                                 <i class="fas fa-bicycle fa-2x text-success mb-2"></i>
-                                <h6>Xe máy điện</h6>
-                                <p class="text-muted small">Biển số dạng: 29M1-12345</p>
+                                <h6>Electric Motorcycle</h6>
+                                <p class="text-muted small">Plate format: 29M1-12345</p>
                             </div>
                         </div>
                     </div>
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // ---- Trạng thái loading ----
         searchBtn.disabled = true;
         // spinner-border: icon xoay loading của Bootstrap
-        searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang tra cứu...';
+        searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Searching...';
 
         // Hiển thị skeleton loading trong khu vực kết quả
         resultsContainer.innerHTML = `
@@ -299,9 +299,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="card-body text-center py-5">
                     <div class="spinner-border text-primary mb-3" role="status">
                         <!-- visually-hidden: ẩn text nhưng vẫn đọc được bằng screen reader -->
-                        <span class="visually-hidden">Đang tải...</span>
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                    <p class="text-muted">Đang tra cứu dữ liệu từ Cục CSGT...</p>
+                    <p class="text-muted">Searching data from Traffic Police Department...</p>
                 </div>
             </div>`;
 
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="alert alert-danger">
                         <!-- fa-exclamation-circle: icon dấu chấm than trong vòng tròn -->
                         <i class="fas fa-exclamation-circle me-2"></i>
-                        ${data.message || 'Có lỗi xảy ra, vui lòng thử lại.'}
+                        ${data.message || 'An error occurred, please try again.'}
                     </div>`;
                 return;
             }
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
             resultsContainer.innerHTML = `
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle me-2"></i>
-                    Lỗi kết nối, vui lòng thử lại sau.
+                    Connection error, please try again later.
                 </div>`;
         } finally {
             // Luôn khôi phục nút về trạng thái ban đầu
@@ -355,16 +355,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderResults(data) {
         // Map type -> badge HTML (sao chép logic PHP server-side)
         const typeBadges = {
-            'car': '<span class="badge bg-primary">Ô tô</span>',
-            'motorcycle': '<span class="badge bg-info">Xe máy</span>',
-            'electric_motorcycle': '<span class="badge bg-success">Xe máy điện</span>'
+            'car': '<span class="badge bg-primary">Car</span>',
+            'motorcycle': '<span class="badge bg-info">Motorcycle</span>',
+            'electric_motorcycle': '<span class="badge bg-success">Electric Motorcycle</span>'
         };
 
         // Map status -> badge HTML
         const statusBadges = {
-            'pending': '<span class="badge bg-danger">Chưa xử lý</span>',
-            'processed': '<span class="badge bg-warning text-dark">Đã xử lý</span>',
-            'paid': '<span class="badge bg-success">Đã nộp phạt</span>'
+            'pending': '<span class="badge bg-danger">Pending</span>',
+            'processed': '<span class="badge bg-warning text-dark">Processed</span>',
+            'paid': '<span class="badge bg-success">Paid</span>'
         };
 
         let bodyHtml = '';
@@ -373,9 +373,9 @@ document.addEventListener('DOMContentLoaded', function () {
             bodyHtml = `
                 <div class="card-body text-center py-5">
                     <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
-                    <h4 class="text-success">Không tìm thấy vi phạm nào!</h4>
-                    <p class="text-muted">Phương tiện của bạn không có vi phạm nào trong hệ thống.</p>
-                    <p class="text-muted small">Lưu ý: Dữ liệu có thể chưa cập nhật đầy đủ. Vui lòng kiểm tra lại sau.</p>
+                    <h4 class="text-success">No violations found!</h4>
+                    <p class="text-muted">Your vehicle has no violations in the system.</p>
+                    <p class="text-muted small">Note: Data may not be fully updated. Please check again later.</p>
                 </div>`;
         } else {
             // Có kết quả: duyệt qua mảng data.results
@@ -409,12 +409,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center" style="width: 60px;">STT</th>
-                                <th>Thời gian</th>
-                                <th>Địa điểm</th>
-                                <th>Hành vi vi phạm</th>
-                                <th>Mức phạt</th>
-                                <th class="text-center">Trạng thái</th>
+                                <th class="text-center" style="width: 60px;">No.</th>
+                                <th>Date/Time</th>
+                                <th>Location</th>
+                                <th>Violation</th>
+                                <th>Fine</th>
+                                <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>${rows}</tbody>
@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="d-flex justify-content-between align-items-center">
                         <small class="text-muted">
                             <i class="fas fa-info-circle me-1"></i>
-                            Dữ liệu được cập nhật từ Cục CSGT & Cục Đăng Kiểm Việt Nam.
+                            Data updated from the Traffic Police Department & Vietnam Registry.
                         </small>
                     </div>
                 </div>`;
@@ -436,11 +436,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i class="fas fa-list-alt me-2"></i>
-                        Kết quả tra cứu: ${escHtml(data.plateNumber)}
+                        Search Results: ${escHtml(data.plateNumber)}
                         (${typeBadges[data.vehicleType] || data.vehicleType})
                     </h5>
                     <span class="badge bg-light text-dark">
-                        Tìm thấy ${data.count} kết quả
+                        Found ${data.count} result(s)
                     </span>
                 </div>
                 ${bodyHtml}

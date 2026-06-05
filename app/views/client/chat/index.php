@@ -14,10 +14,10 @@ $guestToken = $conversation['guest_token'] ?? '';
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <div>
-                            <h1 class="h4 mb-1"><i class="fas fa-comments me-2"></i>Chat hỗ trợ</h1>
-                            <p class="mb-0 small">Gửi câu hỏi cho bộ phận hỗ trợ, admin sẽ phản hồi trong thời gian sớm nhất.</p>
+                            <h1 class="h4 mb-1"><i class="fas fa-comments me-2"></i>Support Chat</h1>
+                            <p class="mb-0 small">Send questions to our support team, admin will respond as soon as possible.</p>
                         </div>
-                        <span class="badge bg-light text-primary" id="chatStatus">Đang mở</span>
+                        <span class="badge bg-light text-primary" id="chatStatus">Open</span>
                     </div>
 
                     <div class="card-body">
@@ -26,7 +26,7 @@ $guestToken = $conversation['guest_token'] ?? '';
                             <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label" for="chatName">Họ tên <span class="text-danger">*</span></label>
+                                    <label class="form-label" for="chatName">Full Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="chatName" name="name" required>
                                 </div>
                                 <div class="col-md-6">
@@ -34,12 +34,12 @@ $guestToken = $conversation['guest_token'] ?? '';
                                     <input type="email" class="form-control" id="chatEmail" name="email" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label" for="chatPhone">Số điện thoại</label>
-                                    <input type="tel" class="form-control" id="chatPhone" name="phone" placeholder="VD: 0912345678">
+                                    <label class="form-label" for="chatPhone">Phone Number</label>
+                                    <input type="tel" class="form-control" id="chatPhone" name="phone" placeholder="e.g. 0912345678">
                                 </div>
                                 <div class="col-md-6 d-flex align-items-end">
                                     <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-comment-dots me-2"></i>Bắt đầu chat
+                                        <i class="fas fa-comment-dots me-2"></i>Start Chat
                                     </button>
                                 </div>
                             </div>
@@ -47,18 +47,18 @@ $guestToken = $conversation['guest_token'] ?? '';
                         <?php endif; ?>
 
                         <div id="chatBox" class="border rounded bg-white p-3 mb-3" style="height: 420px; overflow-y: auto; <?= (!$isLoggedIn && !$conversationId) ? 'display:none;' : '' ?>">
-                            <div class="text-center text-muted py-5" id="chatEmpty">Chưa có tin nhắn nào.</div>
+                            <div class="text-center text-muted py-5" id="chatEmpty">No messages yet.</div>
                         </div>
 
                         <form id="chatSendForm" style="<?= (!$isLoggedIn && !$conversationId) ? 'display:none;' : '' ?>">
                             <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
                             <div class="input-group">
-                                <textarea class="form-control" name="message" rows="2" placeholder="Nhập nội dung tin nhắn..." required></textarea>
+                                <textarea class="form-control" name="message" rows="2" placeholder="Type your message..." required></textarea>
                                 <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-paper-plane me-1"></i>Gửi
+                                    <i class="fas fa-paper-plane me-1"></i>Send
                                 </button>
                             </div>
-                            <div class="form-text">Tin nhắn tối đa 2000 ký tự.</div>
+                            <div class="form-text">Maximum 2000 characters per message.</div>
                         </form>
 
                         <div class="alert alert-danger mt-3 d-none" id="chatError"></div>

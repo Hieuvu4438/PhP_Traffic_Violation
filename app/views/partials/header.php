@@ -36,7 +36,7 @@ function isActive(string $path): string {
              fw-bold: font-weight bold (chữ đậm) -->
         <a class="navbar-brand fw-bold" href="/">
             <!-- fa-car: icon xe hơi, liên quan đến chủ đề giao thông. me-2: margin-right 0.5rem -->
-            <i class="fas fa-car me-2"></i>Tra Cứu Phạt Nguội
+            <i class="fas fa-car me-2"></i>Traffic Violation Lookup
         </a>
         <!-- navbar-toggler: nút hamburger (3 gạch) hiển thị trên mobile khi menu bị thu gọn.
              data-bs-toggle="collapse": kích hoạt collapse.
@@ -51,15 +51,15 @@ function isActive(string $path): string {
                  mb-2 mb-lg-0: margin-bottom 0.5rem trên mobile, 0 trên desktop. -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- nav-item: mỗi mục trong navbar. isActive('/'): kiểm tra trang chủ -->
-                <li class="nav-item"><a class="nav-link <?= isActive('/') ?>" href="/">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link <?= isActive('/') ?>" href="/">Home</a></li>
                 <!-- str_starts_with: kiểm tra URL bắt đầu bằng /tra-cuu (xử lý cả /tra-cuu và /tra-cuu/ket-qua) -->
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/tra-cuu') ? 'active' : '' ?>" href="/tra-cuu">Tra cứu</a></li>
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/tin-tuc') ? 'active' : '' ?>" href="/tin-tuc">Tin tức</a></li>
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/bien-bao') ? 'active' : '' ?>" href="/bien-bao">Biển báo</a></li>
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/ban-do') ? 'active' : '' ?>" href="/ban-do">Bản đồ</a></li>
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/thong-ke') ? 'active' : '' ?>" href="/thong-ke">Thống kê</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/tra-cuu') ? 'active' : '' ?>" href="/tra-cuu">Search</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/tin-tuc') ? 'active' : '' ?>" href="/tin-tuc">News</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/bien-bao') ? 'active' : '' ?>" href="/bien-bao">Traffic Signs</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/ban-do') ? 'active' : '' ?>" href="/ban-do">Map</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/thong-ke') ? 'active' : '' ?>" href="/thong-ke">Statistics</a></li>
                 <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/faq') ? 'active' : '' ?>" href="/faq">FAQ</a></li>
-                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/chat') ? 'active' : '' ?>" href="/chat">Chat hỗ trợ</a></li>
+                <li class="nav-item"><a class="nav-link <?= str_starts_with($currentUrl, '/chat') ? 'active' : '' ?>" href="/chat">Support Chat</a></li>
             </ul>
             <!-- d-flex: kích hoạt flexbox cho vùng nút bên phải.
                  align-items-center: căn giữa theo chiều dọc.
@@ -83,11 +83,11 @@ function isActive(string $path): string {
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <!-- fa-tachometer-alt: icon đồng hồ đo (dashboard/tài khoản) -->
-                            <li><a class="dropdown-item" href="/tai-khoan"><i class="fas fa-tachometer-alt me-2"></i>Tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/tai-khoan"><i class="fas fa-tachometer-alt me-2"></i>Account</a></li>
                             <!-- fa-car: icon xe hơi (quản lý phương tiện) -->
-                            <li><a class="dropdown-item" href="/tai-khoan/phuong-tien"><i class="fas fa-car me-2"></i>Phương tiện</a></li>
+                            <li><a class="dropdown-item" href="/tai-khoan/phuong-tien"><i class="fas fa-car me-2"></i>Vehicles</a></li>
                             <!-- fa-history: icon đồng hồ lịch sử -->
-                            <li><a class="dropdown-item" href="/tai-khoan/lich-su"><i class="fas fa-history me-2"></i>Lịch sử</a></li>
+                            <li><a class="dropdown-item" href="/tai-khoan/lich-su"><i class="fas fa-history me-2"></i>History</a></li>
                             <?php if ($isAdmin): ?>
                                 <!-- Đường kẻ phân cách trước mục Admin (chỉ hiện cho admin) -->
                                 <li><hr class="dropdown-divider"></li>
@@ -96,15 +96,15 @@ function isActive(string $path): string {
                             <?php endif; ?>
                             <li><hr class="dropdown-divider"></li>
                             <!-- text-danger: chữ đỏ cho hành động đăng xuất -->
-                            <li><a class="dropdown-item text-danger" href="/dang-xuat"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                            <li><a class="dropdown-item text-danger" href="/dang-xuat"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                         </ul>
                     </div>
                 <?php else: ?>
                     <!-- Trường hợp chưa đăng nhập: hiển thị nút Đăng nhập và Đăng ký -->
                     <!-- btn-outline-light btn-sm: nút viền trắng nhỏ (Đăng nhập - ít nổi bật hơn) -->
-                    <a href="/dang-nhap" class="btn btn-outline-light btn-sm">Đăng nhập</a>
+                    <a href="/dang-nhap" class="btn btn-outline-light btn-sm">Login</a>
                     <!-- btn-light btn-sm: nút nền trắng chữ xanh (Đăng ký - nổi bật hơn, kêu gọi hành động) -->
-                    <a href="/dang-ky" class="btn btn-light btn-sm">Đăng ký</a>
+                    <a href="/dang-ky" class="btn btn-light btn-sm">Register</a>
                 <?php endif; ?>
             </div>
         </div>

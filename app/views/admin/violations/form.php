@@ -36,10 +36,10 @@ Session::remove('old_input');
                 <!-- ===== Biển số xe (col-md-6) ===== -->
                 <div class="col-md-6">
                     <!-- text-danger: dấu * màu đỏ cho trường bắt buộc -->
-                    <label class="form-label">Biển số xe <span class="text-danger">*</span></label>
+                    <label class="form-label">Plate Number <span class="text-danger">*</span></label>
                     <!-- form-control: input Bootstrap; is-invalid: viền đỏ khi có lỗi -->
                     <input type="text" name="plate_number" class="form-control <?= isset($errors['plate_number']) ? 'is-invalid' : '' ?>"
-                           value="<?= htmlspecialchars($old['plate_number'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="VD: 30A-12345">
+                           value="<?= htmlspecialchars($old['plate_number'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="e.g., 30A-12345">
                     <?php if (isset($errors['plate_number'])): ?>
                         <!-- invalid-feedback: dòng chữ đỏ hiển thị lỗi đầu tiên -->
                         <div class="invalid-feedback"><?= htmlspecialchars($errors['plate_number'][0], ENT_QUOTES, 'UTF-8') ?></div>
@@ -48,14 +48,14 @@ Session::remove('old_input');
 
                 <!-- ===== Loại xe (col-md-6) ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Loại xe <span class="text-danger">*</span></label>
+                    <label class="form-label">Vehicle Type <span class="text-danger">*</span></label>
                     <!-- form-select: dropdown Bootstrap -->
                     <select name="vehicle_type" class="form-select <?= isset($errors['vehicle_type']) ? 'is-invalid' : '' ?>">
-                        <option value="">-- Chọn loại xe --</option>
+                        <option value="">-- Select vehicle type --</option>
                         <!-- Lưu ý: giá trị lưu trong DB là tiếng Anh (car/motorcycle/electric_motorcycle), label hiển thị là tiếng Việt -->
-                        <option value="car" <?= ($old['vehicle_type'] ?? '') === 'car' ? 'selected' : '' ?>>Ô tô</option>
-                        <option value="motorcycle" <?= ($old['vehicle_type'] ?? '') === 'motorcycle' ? 'selected' : '' ?>>Xe máy</option>
-                        <option value="electric_motorcycle" <?= ($old['vehicle_type'] ?? '') === 'electric_motorcycle' ? 'selected' : '' ?>>Xe máy điện</option>
+                        <option value="car" <?= ($old['vehicle_type'] ?? '') === 'car' ? 'selected' : '' ?>>Car</option>
+                        <option value="motorcycle" <?= ($old['vehicle_type'] ?? '') === 'motorcycle' ? 'selected' : '' ?>>Motorcycle</option>
+                        <option value="electric_motorcycle" <?= ($old['vehicle_type'] ?? '') === 'electric_motorcycle' ? 'selected' : '' ?>>Electric Motorcycle</option>
                     </select>
                     <?php if (isset($errors['vehicle_type'])): ?>
                         <div class="invalid-feedback"><?= htmlspecialchars($errors['vehicle_type'][0], ENT_QUOTES, 'UTF-8') ?></div>
@@ -64,7 +64,7 @@ Session::remove('old_input');
 
                 <!-- ===== Thời gian vi phạm (col-md-6) ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Thời gian vi phạm <span class="text-danger">*</span></label>
+                    <label class="form-label">Violation Date <span class="text-danger">*</span></label>
                     <!-- type="datetime-local": input chọn ngày + giờ của trình duyệt -->
                     <input type="datetime-local" name="violation_date" class="form-control <?= isset($errors['violation_date']) ? 'is-invalid' : '' ?>"
                            value="<?= htmlspecialchars($old['violation_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
@@ -75,9 +75,9 @@ Session::remove('old_input');
 
                 <!-- ===== Lỗi vi phạm (col-md-6) - select từ danh sách offenses ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Lỗi vi phạm</label>
+                    <label class="form-label">Offense</label>
                     <select name="offense_id" class="form-select <?= isset($errors['offense_id']) ? 'is-invalid' : '' ?>">
-                        <option value="">-- Chọn lỗi vi phạm --</option>
+                        <option value="">-- Select offense --</option>
                         <?php foreach ($offenses as $o): ?>
                             <!-- So sánh == (không strict) vì old['offense_id'] có thể là string, $o['id'] là int -->
                             <option value="<?= $o['id'] ?>" <?= ($old['offense_id'] ?? '') == $o['id'] ? 'selected' : '' ?>>
@@ -91,9 +91,9 @@ Session::remove('old_input');
 
                 <!-- ===== Địa điểm (col-md-6) - select từ danh sách locations ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Địa điểm</label>
+                    <label class="form-label">Location</label>
                     <select name="location_id" class="form-select <?= isset($errors['location_id']) ? 'is-invalid' : '' ?>">
-                        <option value="">-- Chọn địa điểm --</option>
+                        <option value="">-- Select location --</option>
                         <?php foreach ($locations as $loc): ?>
                             <option value="<?= $loc['id'] ?>" <?= ($old['location_id'] ?? '') == $loc['id'] ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($loc['name'], ENT_QUOTES, 'UTF-8') ?>
@@ -104,32 +104,32 @@ Session::remove('old_input');
 
                 <!-- ===== Trạng thái (col-md-3) ===== -->
                 <div class="col-md-3">
-                    <label class="form-label">Trạng thái <span class="text-danger">*</span></label>
+                    <label class="form-label">Status <span class="text-danger">*</span></label>
                     <select name="status" class="form-select <?= isset($errors['status']) ? 'is-invalid' : '' ?>">
                         <!-- Mặc định là 'pending' (chưa xử lý) -->
-                        <option value="pending" <?= ($old['status'] ?? 'pending') === 'pending' ? 'selected' : '' ?>>Chưa xử lý</option>
-                        <option value="processed" <?= ($old['status'] ?? '') === 'processed' ? 'selected' : '' ?>>Đã xử lý</option>
-                        <option value="paid" <?= ($old['status'] ?? '') === 'paid' ? 'selected' : '' ?>>Đã nộp phạt</option>
+                        <option value="pending" <?= ($old['status'] ?? 'pending') === 'pending' ? 'selected' : '' ?>>Pending</option>
+                        <option value="processed" <?= ($old['status'] ?? '') === 'processed' ? 'selected' : '' ?>>Processed</option>
+                        <option value="paid" <?= ($old['status'] ?? '') === 'paid' ? 'selected' : '' ?>>Paid</option>
                     </select>
                 </div>
 
                 <!-- ===== Mức phạt (col-md-3) ===== -->
                 <div class="col-md-3">
-                    <label class="form-label">Mức phạt</label>
+                    <label class="form-label">Fine Amount</label>
                     <input type="text" name="fine_amount" class="form-control"
                            value="<?= htmlspecialchars($old['fine_amount'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                 </div>
 
                 <!-- ===== Số quyết định (col-md-3) ===== -->
                 <div class="col-md-3">
-                    <label class="form-label">Số quyết định</label>
+                    <label class="form-label">Decision Number</label>
                     <input type="text" name="decision_number" class="form-control"
                            value="<?= htmlspecialchars($old['decision_number'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                 </div>
 
                 <!-- ===== Ngày ra quyết định (col-md-3) ===== -->
                 <div class="col-md-3">
-                    <label class="form-label">Ngày ra quyết định</label>
+                    <label class="form-label">Decision Date</label>
                     <!-- type="date": input chọn ngày -->
                     <input type="date" name="decision_date" class="form-control"
                            value="<?= htmlspecialchars($old['decision_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
@@ -137,7 +137,7 @@ Session::remove('old_input');
 
                 <!-- ===== Ghi chú (col-12: full width) ===== -->
                 <div class="col-12">
-                    <label class="form-label">Ghi chú</label>
+                    <label class="form-label">Notes</label>
                     <!-- rows="3": textarea cao 3 dòng -->
                     <textarea name="notes" class="form-control" rows="3"><?= htmlspecialchars($old['notes'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
@@ -147,9 +147,9 @@ Session::remove('old_input');
             <!-- mt-4: margin-top 1.5rem -->
             <div class="mt-4">
                 <!-- btn-primary: nút xanh; fa-save: icon đĩa mềm lưu; me-1: margin-right 0.25rem -->
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Lưu</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save</button>
                 <!-- btn-secondary: nút xám; fa-arrow-left: icon mũi tên trái quay lại -->
-                <a href="/admin/violations" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Quay lại</a>
+                <a href="/admin/violations" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
             </div>
         </form>
     </div>

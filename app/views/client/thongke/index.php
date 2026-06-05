@@ -23,8 +23,8 @@ foreach ($topLocations as $row) {
     $locationData[] = (int) $row['count'];
 }
 
-$months = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-           'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+$months = ['January', 'February', 'March', 'April', 'May', 'June',
+           'July', 'August', 'September', 'October', 'November', 'December'];
 
 // range(date('Y'), date('Y') - 3): tạo mảng 4 năm từ năm hiện tại lùi về
 $years = range(date('Y'), date('Y') - 3);
@@ -34,9 +34,9 @@ $years = range(date('Y'), date('Y') - 3);
  */
 function vehicleTypeBadge(string $type): string {
     return match($type) {
-        'car' => '<span class="badge bg-primary">Ô tô</span>',
-        'motorcycle' => '<span class="badge bg-info">Xe máy</span>',
-        'electric_motorcycle' => '<span class="badge bg-success">Xe máy điện</span>',
+        'car' => '<span class="badge bg-primary">Car</span>',
+        'motorcycle' => '<span class="badge bg-info">Motorcycle</span>',
+        'electric_motorcycle' => '<span class="badge bg-success">Electric Motorcycle</span>',
         default => htmlspecialchars($type, ENT_QUOTES, 'UTF-8'),
     };
 }
@@ -45,7 +45,7 @@ function vehicleTypeBadge(string $type): string {
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-chart-bar: icon biểu đồ cột -->
-        <i class="fas fa-chart-bar me-2 text-primary"></i>Thống kê vi phạm giao thông
+        <i class="fas fa-chart-bar me-2 text-primary"></i>Traffic Violation Statistics
     </h2>
 
     <!-- === Selector chọn năm === -->
@@ -54,7 +54,7 @@ function vehicleTypeBadge(string $type): string {
         <!-- form GET -> query string: /thong-ke?year=2025 -->
         <form method="GET" action="/thong-ke" class="d-flex align-items-center gap-2">
             <!-- form-label fw-bold mb-0: nhãn in đậm, không margin bottom -->
-            <label for="year" class="form-label mb-0 fw-bold">Năm:</label>
+            <label for="year" class="form-label mb-0 fw-bold">Year:</label>
             <!-- form-select-sm: select kích thước nhỏ | onchange="this.form.submit()" -> tự submit khi chọn -->
             <select class="form-select form-select-sm" id="year" name="year" onchange="this.form.submit()"
                     style="width: auto;">
@@ -79,7 +79,7 @@ function vehicleTypeBadge(string $type): string {
                 <div class="card-body">
                     <!-- text-danger: chữ đỏ -->
                     <h3 class="fw-bold text-danger mb-0"><?= number_format($statusCounts['pending'] ?? 0) ?></h3>
-                    <p class="text-muted mb-0 small">Chưa xử lý</p>
+                    <p class="text-muted mb-0 small">Pending</p>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@ function vehicleTypeBadge(string $type): string {
             <div class="card border-0 shadow-sm bg-warning bg-opacity-10 text-center h-100">
                 <div class="card-body">
                     <h3 class="fw-bold text-warning mb-0"><?= number_format($statusCounts['processed'] ?? 0) ?></h3>
-                    <p class="text-muted mb-0 small">Đã xử lý</p>
+                    <p class="text-muted mb-0 small">Processed</p>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@ function vehicleTypeBadge(string $type): string {
             <div class="card border-0 shadow-sm bg-success bg-opacity-10 text-center h-100">
                 <div class="card-body">
                     <h3 class="fw-bold text-success mb-0"><?= number_format($statusCounts['paid'] ?? 0) ?></h3>
-                    <p class="text-muted mb-0 small">Đã nộp phạt</p>
+                    <p class="text-muted mb-0 small">Paid</p>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@ function vehicleTypeBadge(string $type): string {
                     <h3 class="fw-bold text-info mb-0">
                         <?= number_format(array_sum($statusCounts)) ?>
                     </h3>
-                    <p class="text-muted mb-0 small">Tổng cộng</p>
+                    <p class="text-muted mb-0 small">Total</p>
                 </div>
             </div>
         </div>
@@ -122,11 +122,11 @@ function vehicleTypeBadge(string $type): string {
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-list-ol: icon danh sách xếp hạng -->
-                    <i class="fas fa-list-ol me-2"></i>Top lỗi vi phạm
+                    <i class="fas fa-list-ol me-2"></i>Top Violations
                 </div>
                 <div class="card-body">
                     <?php if (empty($topOffenses)): ?>
-                        <div class="text-center py-4 text-muted">Chưa có dữ liệu.</div>
+                        <div class="text-center py-4 text-muted">No data available.</div>
                     <?php else: ?>
                         <!-- Canvas cho Chart.js, id="offenseChart" -->
                         <canvas id="offenseChart" height="300"></canvas>
@@ -140,11 +140,11 @@ function vehicleTypeBadge(string $type): string {
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-info text-white fw-bold">
                     <!-- fa-map-marker-alt: icon địa điểm bản đồ -->
-                    <i class="fas fa-map-marker-alt me-2"></i>Top địa điểm vi phạm
+                    <i class="fas fa-map-marker-alt me-2"></i>Top Violation Locations
                 </div>
                 <div class="card-body">
                     <?php if (empty($topLocations)): ?>
-                        <div class="text-center py-4 text-muted">Chưa có dữ liệu.</div>
+                        <div class="text-center py-4 text-muted">No data available.</div>
                     <?php else: ?>
                         <canvas id="locationChart" height="300"></canvas>
                     <?php endif; ?>
@@ -160,7 +160,7 @@ function vehicleTypeBadge(string $type): string {
                 <!-- card-header bg-warning text-dark: header vàng chữ tối -->
                 <div class="card-header bg-warning text-dark fw-bold">
                     <!-- fa-chart-line: icon biểu đồ đường -->
-                    <i class="fas fa-chart-line me-2"></i>Vi phạm theo tháng - Năm <?= $year ?>
+                    <i class="fas fa-chart-line me-2"></i>Monthly Violations - Year <?= $year ?>
                 </div>
                 <div class="card-body">
                     <canvas id="monthlyChart" height="100"></canvas>
@@ -176,7 +176,7 @@ function vehicleTypeBadge(string $type): string {
                 <!-- card-header bg-success text-white: header xanh lá chữ trắng -->
                 <div class="card-header bg-success text-white fw-bold">
                     <!-- fa-car: icon xe ô tô -->
-                    <i class="fas fa-car me-2"></i>Top biển số vi phạm nhiều nhất
+                    <i class="fas fa-car me-2"></i>Top License Plates with Most Violations
                 </div>
                 <!-- table-responsive: bảng cuộn ngang trên mobile -->
                 <div class="table-responsive">
@@ -186,16 +186,16 @@ function vehicleTypeBadge(string $type): string {
                             <tr>
                                 <!-- text-center style width: căn giữa + cố định chiều rộng cột STT -->
                                 <th class="text-center" style="width: 60px;">#</th>
-                                <th>Biển số xe</th>
-                                <th>Loại xe</th>
-                                <th class="text-center">Số lần vi phạm</th>
+                                <th>License Plate</th>
+                                <th>Vehicle Type</th>
+                                <th class="text-center">Violations</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($topPlates)): ?>
                                 <!-- colspan="4": gộp 4 cột cho dòng thông báo rỗng -->
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">Chưa có dữ liệu.</td>
+                                    <td colspan="4" class="text-center text-muted py-4">No data available.</td>
                                 </tr>
                             <?php else: ?>
                                 <!-- $rank: thứ hạng 1, 2, 3... -->
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // json_encode: chuyển mảng PHP labels sang JS array
                 labels: <?= json_encode($offenseLabels, JSON_UNESCAPED_UNICODE) ?>,
                 datasets: [{
-                    label: 'Số lần vi phạm', // Chú thích dataset
+                    label: 'Number of violations', // Chú thích dataset
                     data: <?= json_encode($offenseData) ?>,
                     backgroundColor: colors, // Màu nền cột
                     borderColor: colors,     // Màu viền cột
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data: {
                 labels: <?= json_encode($months, JSON_UNESCAPED_UNICODE) ?>,
                 datasets: [{
-                    label: 'Số vi phạm năm <?= $year ?>',
+                    label: 'Violations in <?= $year ?>',
                     data: <?= json_encode($monthlyData) ?>,
                     borderColor: '#dc3545',  // Đường màu đỏ
                     backgroundColor: 'rgba(220, 53, 69, 0.1)', // Nền đỏ trong suốt dưới đường

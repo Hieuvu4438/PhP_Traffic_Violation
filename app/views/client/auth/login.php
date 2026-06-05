@@ -21,7 +21,7 @@
                     <!-- text-center: căn giữa | mb-4: margin-bottom 1.5rem | fw-bold: in đậm -->
                     <h3 class="card-title text-center mb-4 fw-bold">
                         <!-- fa-sign-in-alt: icon mũi tên vào cửa (đăng nhập) | text-primary: màu xanh chủ đạo -->
-                        <i class="fas fa-sign-in-alt me-2 text-primary"></i>Đăng nhập
+                        <i class="fas fa-sign-in-alt me-2 text-primary"></i>Login
                     </h3>
 
                     <!-- Nhúng partial hiển thị thông báo lỗi/thành công từ session -->
@@ -42,17 +42,17 @@
                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 <!-- form-control: kiểu input Bootstrap | autofocus: tự focus khi load trang -->
                                 <input type="email" class="form-control" id="email" name="email"
-                                       placeholder="Nhập địa chỉ email" required autofocus>
+                                       placeholder="Enter your email address" required autofocus>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu</label>
+                            <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <!-- fa-lock: icon khóa (mật khẩu) -->
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password"
-                                       placeholder="Nhập mật khẩu" required>
+                                       placeholder="Enter your password" required>
                             </div>
                         </div>
 
@@ -60,15 +60,15 @@
                         <div class="d-grid mb-3">
                             <!-- btn btn-primary btn-lg: nút màu xanh, kích thước lớn -->
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
                             </button>
                         </div>
 
                         <!-- text-center: căn giữa nội dung -->
                         <div class="text-center">
-                            <p class="mb-0">Chưa có tài khoản?
+                            <p class="mb-0">Don't have an account?
                                 <!-- fw-bold: in đậm | text-decoration-none: bỏ gạch chân link -->
-                                <a href="/dang-ky" class="fw-bold text-decoration-none">Đăng ký ngay</a>
+                                <a href="/dang-ky" class="fw-bold text-decoration-none">Register now</a>
                             </p>
                         </div>
                     </form>
@@ -80,7 +80,7 @@
                 <!-- text-muted: chữ xám nhạt | text-decoration-none: bỏ gạch chân -->
                 <a href="/" class="text-muted text-decoration-none">
                     <!-- fa-arrow-left: icon mũi tên sang trái (quay lại) -->
-                    <i class="fas fa-arrow-left me-1"></i>Quay về trang chủ
+                    <i class="fas fa-arrow-left me-1"></i>Back to Home
                 </a>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <?php
 /**
- * Cấu hình ứng dụng — TEMPLATE
- * Copy file này thành config.php và điền thông tin thật.
+ * Application configuration — TEMPLATE
+ * Copy this file to config.php and fill in real values.
  */
 
 return [
@@ -13,7 +13,7 @@ return [
     'db_charset' => 'utf8mb4',
 
     // Application
-    'app_name' => 'Tra Cứu Phương Tiện Vi Phạm Giao Thông',
+    'app_name' => 'Traffic Violation Lookup',
     'app_url' => 'http://localhost',
     'app_version' => '1.0.0',
 

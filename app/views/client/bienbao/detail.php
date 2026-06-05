@@ -14,8 +14,8 @@
     <!-- === Breadcrumb điều hướng === -->
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="/bien-bao" class="text-decoration-none">Biển báo</a></li>
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item"><a href="/bien-bao" class="text-decoration-none">Traffic Signs</a></li>
             <!-- Hiển thị mã biển báo (VD: P.102) thay vì tên đầy đủ -->
             <li class="breadcrumb-item active"><?= htmlspecialchars($sign['sign_code'], ENT_QUOTES, 'UTF-8') ?></li>
         </ol>
@@ -54,7 +54,7 @@
                             <!-- Tên nhóm biển báo (nếu có $group) -->
                             <?php if (!empty($group)): ?>
                                 <p class="mb-2">
-                                    <strong>Nhóm:</strong>
+                                    <strong>Group:</strong>
                                     <!-- badge bg-primary: huy hiệu xanh hiển thị tên nhóm -->
                                     <span class="badge bg-primary">
                                         <?= htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8') ?>
@@ -65,7 +65,7 @@
                             <!-- Mô tả biển báo (nếu có) -->
                             <?php if (!empty($sign['description'])): ?>
                                 <hr>
-                                <h5 class="fw-bold">Mô tả</h5>
+                                <h5 class="fw-bold">Description</h5>
                                 <!-- nl2br: chuyển newline thành <br> | text-muted: chữ xám -->
                                 <p class="text-muted">
                                     <?= nl2br(htmlspecialchars($sign['description'], ENT_QUOTES, 'UTF-8')) ?>
@@ -79,7 +79,7 @@
             <!-- Nút quay lại -->
             <div class="mt-3">
                 <a href="/bien-bao" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách biển báo
+                    <i class="fas fa-arrow-left me-2"></i>Back to Traffic Signs
                 </a>
             </div>
         </div>
@@ -93,7 +93,7 @@
                     <!-- card-header bg-info text-white: header xanh nhạt chữ trắng -->
                     <div class="card-header bg-info text-white fw-bold">
                         <!-- fa-folder: icon thư mục (phân nhóm) -->
-                        <i class="fas fa-folder me-2"></i>Cùng nhóm: <?= htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8') ?>
+                        <i class="fas fa-folder me-2"></i>Same Group: <?= htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8') ?>
                     </div>
                     <div class="card-body p-0">
                         <!-- list-group-flush: danh sách sát viền -->
@@ -116,14 +116,14 @@
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-link: icon mắt xích liên kết -->
-                    <i class="fas fa-link me-2"></i>Liên kết nhanh
+                    <i class="fas fa-link me-2"></i>Quick Links
                 </div>
                 <div class="card-body">
                     <!-- d-grid gap-2: các nút xếp dọc grid, gap 0.5rem -->
                     <div class="d-grid gap-2">
                         <!-- Link tra cứu phạt nguội -->
                         <a href="/tra-cuu" class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-search me-2"></i>Tra cứu phạt nguội
+                            <i class="fas fa-search me-2"></i>Search Violations
                         </a>
                         <!-- Hiển thị tối đa 3 biển báo liên quan khác (không trùng với biển hiện tại) -->
                         <?php foreach (array_slice($related, 0, 3) as $rel): ?>

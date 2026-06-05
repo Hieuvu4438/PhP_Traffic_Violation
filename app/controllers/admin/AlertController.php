@@ -47,7 +47,7 @@ class AlertController extends Controller
         $page = (int)($this->input('page', 1));
         // Sắp xếp theo created_at DESC: cảnh báo mới nhất hiển thị đầu tiên
         $data = $model->paginate($page, 10, [], 'created_at DESC');
-        $data['title'] = 'Quản lý cảnh báo giao thông';
+        $data['title'] = 'Manage Traffic Alerts';
         $data['baseUrl'] = '/admin/alerts';
         $this->view('admin/alerts/index', $data, 'admin');
     }
@@ -63,7 +63,7 @@ class AlertController extends Controller
      */
     public function create(): void
     {
-        $data = ['title' => 'Thêm cảnh báo giao thông'];
+        $data = ['title' => 'Add Traffic Alert'];
         $this->view('admin/alerts/form', $data, 'admin');
     }
 
@@ -111,7 +111,7 @@ class AlertController extends Controller
             'status'     => (int)($_POST['status'] ?? 1),         // 1=hiển thị, 0=ẩn
         ]);
 
-        Session::setFlash('success', 'Thêm cảnh báo thành công.');
+        Session::setFlash('success', 'Alert added successfully.');
         $this->redirect('/admin/alerts');
     }
 
@@ -130,13 +130,13 @@ class AlertController extends Controller
         $model = new TrafficAlert();
         $alert = $model->find($id);
         if (!$alert) {
-            Session::setFlash('error', 'Cảnh báo không tồn tại.');
+            Session::setFlash('error', 'Alert does not exist.');
             $this->redirect('/admin/alerts');
             return;
         }
 
         $data = [
-            'title' => 'Sửa cảnh báo giao thông',
+            'title' => 'Edit Traffic Alert',
             'alert' => $alert,
         ];
         $this->view('admin/alerts/form', $data, 'admin');
@@ -162,7 +162,7 @@ class AlertController extends Controller
         $model = new TrafficAlert();
         $alert = $model->find($id);
         if (!$alert) {
-            Session::setFlash('error', 'Cảnh báo không tồn tại.');
+            Session::setFlash('error', 'Alert does not exist.');
             $this->redirect('/admin/alerts');
             return;
         }
@@ -186,7 +186,7 @@ class AlertController extends Controller
             'status'     => (int)($_POST['status'] ?? 1),
         ]);
 
-        Session::setFlash('success', 'Cập nhật cảnh báo thành công.');
+        Session::setFlash('success', 'Alert updated successfully.');
         $this->redirect('/admin/alerts');
     }
 
@@ -205,13 +205,13 @@ class AlertController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new TrafficAlert();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Cảnh báo không tồn tại.');
+            Session::setFlash('error', 'Alert does not exist.');
             $this->redirect('/admin/alerts');
             return;
         }
 
         $model->delete($id);    // DELETE FROM traffic_alerts WHERE id = ?
-        Session::setFlash('success', 'Xóa cảnh báo thành công.');
+        Session::setFlash('success', 'Alert deleted successfully.');
         $this->redirect('/admin/alerts');
     }
 }

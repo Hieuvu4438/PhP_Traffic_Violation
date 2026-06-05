@@ -2,20 +2,20 @@
 namespace App\Core;
 
 /**
- * Validate dữ liệu đầu vào
+ * Validate input data
  */
 class Validator
 {
     private array $errors = [];
 
     /**
-     * Validate biển số xe Việt Nam
+     * Validate Vietnamese license plate number
      * Format: 30A-12345, 59F1-12345, 30A12345, 59F112345
      */
     public static function plateNumber(string $plate): bool
     {
         $plate = strtoupper(trim($plate));
-        // Cho phép có hoặc không có dấu gạch ngang
+        // Allow with or without hyphen
         $pattern = '/^\d{2}[A-Z]\d?[-\s]?\d{4,5}$/';
         return (bool) preg_match($pattern, $plate);
     }
@@ -27,7 +27,7 @@ class Validator
 
     public static function phone(string $phone): bool
     {
-        // Số điện thoại VN: 10 số, bắt đầu bằng 0
+        // VN phone: 10 digits, starts with 0
         $phone = preg_replace('/\s+/', '', $phone);
         return (bool) preg_match('/^0\d{9}$/', $phone);
     }
@@ -56,7 +56,7 @@ class Validator
     }
 
     /**
-     * Validate một mảng dữ liệu theo rules
+     * Validate data array against rules
      * Rules format: ['field' => 'required|min:3|max:255']
      */
     public function validate(array $data, array $rules): bool
@@ -85,49 +85,49 @@ class Validator
     private function validateRequired(string $field, mixed $value, ?string $param): void
     {
         if (!self::required($value)) {
-            $this->errors[$field][] = "Trường này không được để trống.";
+            $this->errors[$field][] = "This field is required.";
         }
     }
 
     private function validateEmail(string $field, mixed $value, ?string $param): void
     {
         if ($value && !self::email($value)) {
-            $this->errors[$field][] = "Email không đúng định dạng.";
+            $this->errors[$field][] = "Invalid email format.";
         }
     }
 
     private function validatePhone(string $field, mixed $value, ?string $param): void
     {
         if ($value && !self::phone($value)) {
-            $this->errors[$field][] = "Số điện thoại không đúng định dạng (10 số, bắt đầu bằng 0).";
+            $this->errors[$field][] = "Invalid phone number format (10 digits, starts with 0).";
         }
     }
 
     private function validatePlateNumber(string $field, mixed $value, ?string $param): void
     {
         if ($value && !self::plateNumber($value)) {
-            $this->errors[$field][] = "Biển số xe không đúng định dạng (VD: 30A-12345).";
+            $this->errors[$field][] = "Invalid license plate format (e.g. 30A-12345).";
         }
     }
 
     private function validateMin(string $field, mixed $value, ?string $param): void
     {
         if ($value && $param && !self::minLength($value, (int) $param)) {
-            $this->errors[$field][] = "Tối thiểu {$param} ký tự.";
+            $this->errors[$field][] = "Minimum {$param} characters.";
         }
     }
 
     private function validateMax(string $field, mixed $value, ?string $param): void
     {
         if ($value && $param && !self::maxLength($value, (int) $param)) {
-            $this->errors[$field][] = "Tối đa {$param} ký tự.";
+            $this->errors[$field][] = "Maximum {$param} characters.";
         }
     }
 
     private function validateNumeric(string $field, mixed $value, ?string $param): void
     {
         if ($value !== null && $value !== '' && !self::numeric($value)) {
-            $this->errors[$field][] = "Phải là số.";
+            $this->errors[$field][] = "Must be a number.";
         }
     }
 

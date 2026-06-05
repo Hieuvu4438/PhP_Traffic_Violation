@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const deleteForms = document.querySelectorAll('.delete-form');
     deleteForms.forEach(form => {
         form.addEventListener('submit', function (e) {
-            if (!confirm('Bạn có chắc chắn muốn xóa? Hành động này không thể hoàn tác.')) {
+            if (!confirm('Are you sure you want to delete? This action cannot be undone.')) {
                 e.preventDefault();
             }
         });
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const data = await resp.json();
 
                 if (!data.success) {
-                    alert(data.message || 'Có lỗi xảy ra.');
+                    alert(data.message || 'An error occurred.');
                     this.disabled = false;
                     this.innerHTML = originalHtml;
                     return;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     updateViolationToggle(this, data);
                 }
             } catch (err) {
-                alert('Lỗi kết nối, vui lòng thử lại.');
+                alert('Connection error, please try again.');
                 this.disabled = false;
                 this.innerHTML = originalHtml;
             }
@@ -87,11 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (newStatus == 1) {
             btn.className = 'btn btn-sm btn-secondary toggle-status-btn';
-            btn.title = 'Khóa';
+            btn.title = 'Lock';
             btn.innerHTML = '<i class="fas fa-lock"></i>';
         } else {
             btn.className = 'btn btn-sm btn-success toggle-status-btn';
-            btn.title = 'Mở khóa';
+            btn.title = 'Unlock';
             btn.innerHTML = '<i class="fas fa-unlock"></i>';
         }
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const badge = row.querySelector('td:nth-child(6) .badge');
         if (badge) {
             badge.className = newStatus == 1 ? 'badge bg-success' : 'badge bg-danger';
-            badge.textContent = newStatus == 1 ? 'Hoạt động' : 'Bị khóa';
+            badge.textContent = newStatus == 1 ? 'Active' : 'Locked';
         }
     }
 

@@ -16,8 +16,8 @@ use App\Core\Helper;
     <!-- aria-label="breadcrumb": cho accessibility (screen reader) -->
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="/tin-tuc" class="text-decoration-none">Tin tức</a></li>
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item"><a href="/tin-tuc" class="text-decoration-none">News</a></li>
             <!-- breadcrumb-item active: mục hiện tại (không click được) -->
             <li class="breadcrumb-item active"><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8') ?></li>
         </ol>
@@ -76,7 +76,7 @@ use App\Core\Helper;
                         <span>
                             <!-- far fa-eye: icon con mắt (lượt xem) -->
                             <i class="far fa-eye me-1"></i>
-                            <?= (int)($article['views'] ?? 0) ?> lượt xem
+                            <?= (int)($article['views'] ?? 0) ?> views
                         </span>
                     </div>
 
@@ -96,7 +96,7 @@ use App\Core\Helper;
                 <!-- btn-outline-secondary: nút viền xám -->
                 <a href="/tin-tuc" class="btn btn-outline-secondary">
                     <!-- fa-arrow-left: icon mũi tên sang trái (quay lại) -->
-                    <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách tin tức
+                    <i class="fas fa-arrow-left me-2"></i>Back to News List
                 </a>
             </div>
         </div>
@@ -109,7 +109,7 @@ use App\Core\Helper;
                 <!-- card-header bg-primary text-white: header xanh chữ trắng -->
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-info-circle: icon thông tin -->
-                    <i class="fas fa-info-circle me-2"></i>Thông tin bài viết
+                    <i class="fas fa-info-circle me-2"></i>Article Information
                 </div>
                 <div class="card-body">
                     <!-- list-unstyled: bỏ bullet mặc định của ul -->
@@ -117,17 +117,17 @@ use App\Core\Helper;
                         <li class="mb-2">
                             <!-- fa-folder text-primary: icon thư mục màu xanh -->
                             <i class="fas fa-folder text-primary me-2"></i>
-                            <strong>Danh mục:</strong>
-                            <?= htmlspecialchars($article['category_name'] ?? 'Chưa phân loại', ENT_QUOTES, 'UTF-8') ?>
+                            <strong>Category:</strong>
+                            <?= htmlspecialchars($article['category_name'] ?? 'Uncategorized', ENT_QUOTES, 'UTF-8') ?>
                         </li>
                         <li class="mb-2">
                             <i class="far fa-calendar text-primary me-2"></i>
-                            <strong>Ngày đăng:</strong>
+                            <strong>Published:</strong>
                             <?= htmlspecialchars(Helper::formatDate($article['created_at'], 'd/m/Y'), ENT_QUOTES, 'UTF-8') ?>
                         </li>
                         <li>
                             <i class="far fa-eye text-primary me-2"></i>
-                            <strong>Lượt xem:</strong>
+                            <strong>Views:</strong>
                             <?= (int)($article['views'] ?? 0) ?>
                         </li>
                     </ul>
@@ -140,7 +140,7 @@ use App\Core\Helper;
                     <!-- card-header bg-info text-white: header xanh nhạt chữ trắng -->
                     <div class="card-header bg-info text-white fw-bold">
                         <!-- fa-link: icon mắt xích (liên kết) -->
-                        <i class="fas fa-link me-2"></i>Bài viết liên quan
+                        <i class="fas fa-link me-2"></i>Related Articles
                     </div>
                     <!-- p-0: không padding để list-group sát viền -->
                     <div class="card-body p-0">

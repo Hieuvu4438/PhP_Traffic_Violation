@@ -118,7 +118,7 @@ class ViolationController extends Controller
         }
 
         $data = [
-            'title'       => 'Quản lý vi phạm',
+            'title'       => 'Manage Violations',
             'items'       => $search ? $stmt->fetchAll() : $items,
             'total'       => $total,
             'page'        => $page,
@@ -149,7 +149,7 @@ class ViolationController extends Controller
         $offenseModel = new Offense();
         $locationModel = new Location();
         $data = [
-            'title'     => 'Thêm vi phạm',
+            'title'     => 'Add Violation',
             'offenses'  => $offenseModel->getWithCategory(),    // JOIN offenses + offense_categories
             'locations' => $locationModel->all([], 'name ASC'),  // Tất cả địa điểm theo thứ tự ABC
         ];
@@ -210,7 +210,7 @@ class ViolationController extends Controller
             'notes'           => $_POST['notes'] ?? null,             // Ghi chú thêm
         ]);
 
-        Session::setFlash('success', 'Thêm vi phạm thành công.');
+        Session::setFlash('success', 'Violation added successfully.');
         $this->redirect('/admin/violations');
     }
 
@@ -229,7 +229,7 @@ class ViolationController extends Controller
         $model = new Violation();
         $violation = $model->find($id);
         if (!$violation) {
-            Session::setFlash('error', 'Vi phạm không tồn tại.');
+            Session::setFlash('error', 'Violation does not exist.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -237,7 +237,7 @@ class ViolationController extends Controller
         $offenseModel = new Offense();
         $locationModel = new Location();
         $data = [
-            'title'     => 'Sửa vi phạm',
+            'title'     => 'Edit Violation',
             'violation' => $violation,
             'offenses'  => $offenseModel->getWithCategory(),
             'locations' => $locationModel->all([], 'name ASC'),
@@ -262,7 +262,7 @@ class ViolationController extends Controller
         $model = new Violation();
         $violation = $model->find($id);
         if (!$violation) {
-            Session::setFlash('error', 'Vi phạm không tồn tại.');
+            Session::setFlash('error', 'Violation does not exist.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -295,7 +295,7 @@ class ViolationController extends Controller
             'notes'           => $_POST['notes'] ?? null,
         ]);
 
-        Session::setFlash('success', 'Cập nhật vi phạm thành công.');
+        Session::setFlash('success', 'Violation updated successfully.');
         $this->redirect('/admin/violations');
     }
 
@@ -314,13 +314,13 @@ class ViolationController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new Violation();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Vi phạm không tồn tại.');
+            Session::setFlash('error', 'Violation does not exist.');
             $this->redirect('/admin/violations');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa vi phạm thành công.');
+        Session::setFlash('success', 'Violation deleted successfully.');
         $this->redirect('/admin/violations');
     }
 
@@ -354,7 +354,7 @@ class ViolationController extends Controller
     {
         if (!$this->validateCsrf()) {
             if ($this->isAjax()) {
-                $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+                $this->json(['success' => false, 'message' => 'Session expired.'], 419);
                 return;
             }
             return;
@@ -365,10 +365,10 @@ class ViolationController extends Controller
         $violation = $model->find($id);
         if (!$violation) {
             if ($this->isAjax()) {
-                $this->json(['success' => false, 'message' => 'Vi phạm không tồn tại.'], 404);
+                $this->json(['success' => false, 'message' => 'Violation does not exist.'], 404);
                 return;
             }
-            Session::setFlash('error', 'Vi phạm không tồn tại.');
+            Session::setFlash('error', 'Violation does not exist.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -379,19 +379,19 @@ class ViolationController extends Controller
         $model->update($id, ['status' => $newStatus]);
 
         // Nhãn tiếng Việt cho từng trạng thái
-        $labels = ['pending' => 'Chưa xử lý', 'processed' => 'Đã xử lý', 'paid' => 'Đã nộp phạt'];
+        $labels = ['pending' => 'Pending', 'processed' => 'Processed', 'paid' => 'Paid'];
 
         if ($this->isAjax()) {
             $this->json([
                 'success'    => true,
                 'new_status' => $newStatus,
                 'label'      => $labels[$newStatus],    // Gửi label để JS cập nhật badge UI
-                'message'    => "Đã chuyển sang: {$labels[$newStatus]}",
+                'message'    => "Changed to: {$labels[$newStatus]}",
             ]);
             return;
         }
 
-        Session::setFlash('success', "Đã chuyển trạng thái vi phạm sang: {$labels[$newStatus]}");
+        Session::setFlash('success', "Violation status changed to: {$labels[$newStatus]}");
         $this->redirect('/admin/violations');
     }
 
@@ -432,7 +432,7 @@ class ViolationController extends Controller
         // Kiểm tra file upload tồn tại và không có lỗi
         $file = $_FILES['csv_file'] ?? null;
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
-            Session::setFlash('error', 'Vui lòng chọn file CSV hợp lệ.');
+            Session::setFlash('error', 'Please select a valid CSV file.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -440,7 +440,7 @@ class ViolationController extends Controller
         // Xác thực phần mở rộng file (.csv)
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if ($ext !== 'csv') {
-            Session::setFlash('error', 'Chỉ chấp nhận file CSV.');
+            Session::setFlash('error', 'Only CSV files are accepted.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -448,7 +448,7 @@ class ViolationController extends Controller
         // Mở file CSV từ thư mục tạm của PHP
         $handle = fopen($file['tmp_name'], 'r');
         if (!$handle) {
-            Session::setFlash('error', 'Không thể đọc file.');
+            Session::setFlash('error', 'Cannot read the file.');
             $this->redirect('/admin/violations');
             return;
         }
@@ -481,7 +481,7 @@ class ViolationController extends Controller
         }
 
         fclose($handle);
-        Session::setFlash('success', "Đã nhập {$imported} vi phạm từ file CSV.");
+        Session::setFlash('success', "Imported {$imported} violations from CSV file.");
         $this->redirect('/admin/violations');
     }
 }

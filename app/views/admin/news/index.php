@@ -13,9 +13,9 @@ require __DIR__ . '/../../partials/alerts.php';
 <!-- ========== Hàng tiêu đề + nút Thêm tin tức ========== -->
 <!-- d-flex...align-items-center: flexbox căn đều 2 bên trái-phải, căn dọc giữa; mb-3: margin-bottom 1rem -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Quản lý tin tức</h2>
+    <h2 class="mb-0">Manage News</h2>
     <!-- btn btn-primary: nút xanh; fa-plus me-1: icon dấu cộng + margin-right 0.25rem -->
-    <a href="/admin/news/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Thêm tin tức</a>
+    <a href="/admin/news/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add News</a>
 </div>
 
 <!-- ========== Bảng danh sách tin tức ========== -->
@@ -28,19 +28,19 @@ require __DIR__ . '/../../partials/alerts.php';
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Ảnh</th>
-                    <th>Tiêu đề</th>
-                    <th>Danh mục</th>
-                    <th>Trạng thái</th>
-                    <th>Lượt xem</th>
-                    <th>Ngày tạo</th>
-                    <th class="text-end">Thao tác</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Views</th>
+                    <th>Created</th>
+                    <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($items)): ?>
                     <!-- colspan 8: gộp 8 cột; text-center text-muted py-3: căn giữa, chữ xám, padding trên/dưới 1rem -->
-                    <tr><td colspan="8" class="text-center text-muted py-3">Chưa có tin tức nào.</td></tr>
+                    <tr><td colspan="8" class="text-center text-muted py-3">No news found.</td></tr>
                 <?php else:
                     foreach ($items as $news): ?>
                 <tr>
@@ -69,7 +69,7 @@ require __DIR__ . '/../../partials/alerts.php';
                              status='published' => bg-success (xanh lá): Đã đăng
                              status='draft' => bg-secondary (xám): Bản nháp -->
                         <span class="badge <?= $news['status'] === 'published' ? 'bg-success' : 'bg-secondary' ?>">
-                            <?= $news['status'] === 'published' ? 'Đã đăng' : 'Bản nháp' ?>
+                            <?= $news['status'] === 'published' ? 'Published' : 'Draft' ?>
                         </span>
                     </td>
                     <td><?= $news['views'] ?></td>
@@ -77,13 +77,13 @@ require __DIR__ . '/../../partials/alerts.php';
                     <td><?= htmlspecialchars(\App\Core\Helper::formatDate($news['created_at']), ENT_QUOTES, 'UTF-8') ?></td>
                     <td class="text-end">
                         <!-- Nút Sửa: btn-sm = nút nhỏ, btn-warning = vàng, fa-edit: icon bút sửa -->
-                        <a href="/admin/news/<?= $news['id'] ?>/edit" class="btn btn-sm btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
+                        <a href="/admin/news/<?= $news['id'] ?>/edit" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
                         <!-- Form xóa tin tức: class="delete-form d-inline" để JS confirm trước khi xóa -->
                         <form method="POST" action="/admin/news/<?= $news['id'] ?>/delete" class="delete-form d-inline">
                             <!-- CSRF token -->
                             <input type="hidden" name="csrf_token" value="<?= \App\Core\Session::csrfToken() ?>">
                             <!-- btn-danger: nút đỏ; fa-trash: icon thùng rác -->
-                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

@@ -13,7 +13,7 @@
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-sign: icon biển báo giao thông -->
-        <i class="fas fa-sign me-2 text-primary"></i>Tra cứu biển báo giao thông
+        <i class="fas fa-sign me-2 text-primary"></i>Traffic Sign Lookup
     </h2>
 
     <!-- Partial hiển thị thông báo -->
@@ -32,13 +32,13 @@
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                         <!-- Giữ lại từ khóa đã nhập trong input -->
                         <input type="text" class="form-control" name="q"
-                               placeholder="Tìm kiếm biển báo (tên, mã...)"
+                               placeholder="Search traffic signs (name, code...)"
                                value="<?= htmlspecialchars($keyword ?? '', ENT_QUOTES, 'UTF-8') ?>">
                         <!-- Nút Tìm -->
-                        <button type="submit" class="btn btn-primary">Tìm</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                         <!-- Nếu có từ khóa thì hiển thị nút "Xóa" (reset filter) -->
                         <?php if (!empty($keyword)): ?>
-                            <a href="/bien-bao" class="btn btn-outline-secondary">Xóa</a>
+                            <a href="/bien-bao" class="btn btn-outline-secondary">Clear</a>
                         <?php endif; ?>
                     </form>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="d-flex flex-wrap gap-2">
                         <!-- Nút "Tất cả": active (btn-primary) khi không có group được chọn -->
                         <a href="/bien-bao" class="btn <?= empty($currentGroup) ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
-                            Tất cả
+                            All
                         </a>
                         <!-- Lặp qua tất cả nhóm biển báo, đánh dấu active nếu đang lọc -->
                         <?php foreach ($groups as $group): ?>
@@ -69,9 +69,9 @@
         <!-- Trạng thái rỗng: không tìm thấy biển báo nào -->
         <div class="text-center py-5">
             <i class="fas fa-search fa-4x text-muted mb-3"></i>
-            <h4 class="text-muted">Không tìm thấy biển báo nào</h4>
-            <p class="text-muted">Thử tìm kiếm với từ khóa khác.</p>
-            <a href="/bien-bao" class="btn btn-outline-primary">Xem tất cả</a>
+            <h4 class="text-muted">No traffic signs found</h4>
+            <p class="text-muted">Try searching with different keywords.</p>
+            <a href="/bien-bao" class="btn btn-outline-primary">View All</a>
         </div>
     <?php else: ?>
         <!-- Duyệt qua từng nhóm biển báo: $groupName = tên nhóm, $signs = danh sách biển -->

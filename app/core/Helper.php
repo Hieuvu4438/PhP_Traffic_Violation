@@ -2,12 +2,12 @@
 namespace App\Core;
 
 /**
- * Các hàm tiện ích dùng chung
+ * Common utility functions
  */
 class Helper
 {
     /**
-     * Tạo slug từ chuỗi tiếng Việt
+     * Generate slug from Vietnamese string
      */
     public static function slug(string $str): string
     {
@@ -19,7 +19,7 @@ class Helper
     }
 
     /**
-     * Bỏ dấu tiếng Việt
+     * Remove Vietnamese diacritics
      */
     public static function removeAccents(string $str): string
     {
@@ -40,15 +40,15 @@ class Helper
     }
 
     /**
-     * Format số thành chuỗi tiền tệ VNĐ
+     * Format number as VND currency string
      */
     public static function formatCurrency(float|int $amount): string
     {
-        return number_format($amount, 0, ',', '.') . ' VNĐ';
+        return number_format($amount, 0, ',', '.') . ' VND';
     }
 
     /**
-     * Format ngày giờ sang định dạng VN
+     * Format date in VN format
      */
     public static function formatDate(string $datetime, string $format = 'd/m/Y'): string
     {
@@ -57,7 +57,7 @@ class Helper
     }
 
     /**
-     * Format ngày giờ sang định dạng VN (có giờ)
+     * Format date and time in VN format
      */
     public static function formatDateTime(string $datetime): string
     {
@@ -66,7 +66,7 @@ class Helper
     }
 
     /**
-     * Rút gọn văn bản
+     * Excerpt text
      */
     public static function excerpt(string $text, int $length = 150): string
     {
@@ -113,7 +113,7 @@ class Helper
     }
 
     /**
-     * Truncate text an toàn
+     * Truncate text safely
      */
     public static function truncate(string $text, int $length = 100): string
     {
@@ -124,7 +124,7 @@ class Helper
     }
 
     /**
-     * Lấy giá trị mảng an toàn
+     * Safely get array value
      */
     public static function arrGet(array $array, string $key, mixed $default = null): mixed
     {

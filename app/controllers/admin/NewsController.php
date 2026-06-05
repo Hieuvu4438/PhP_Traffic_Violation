@@ -55,7 +55,7 @@ class NewsController extends Controller
         $items = $model->getAllWithCategory([], 'n.created_at DESC', 10, $offset);
 
         $data = [
-            'title'       => 'Quản lý tin tức',
+            'title'       => 'Manage News',
             'items'       => $items,
             'total'       => $total,
             'page'        => $page,
@@ -83,7 +83,7 @@ class NewsController extends Controller
     {
         $categoryModel = new NewsCategory();
         $data = [
-            'title'      => 'Thêm tin tức',
+            'title'      => 'Add News',
             'categories' => $categoryModel->all([], 'name ASC'),
         ];
         $this->view('admin/news/form', $data, 'admin');
@@ -156,7 +156,7 @@ class NewsController extends Controller
             'status'      => $_POST['status'] ?? 'draft',
         ]);
 
-        Session::setFlash('success', 'Thêm tin tức thành công.');
+        Session::setFlash('success', 'News added successfully.');
         $this->redirect('/admin/news');
     }
 
@@ -180,14 +180,14 @@ class NewsController extends Controller
         $model = new News();
         $news = $model->find($id);
         if (!$news) {
-            Session::setFlash('error', 'Tin tức không tồn tại.');
+            Session::setFlash('error', 'News does not exist.');
             $this->redirect('/admin/news');
             return;
         }
 
         $categoryModel = new NewsCategory();
         $data = [
-            'title'      => 'Sửa tin tức',
+            'title'      => 'Edit News',
             'news'       => $news,
             'categories' => $categoryModel->all([], 'name ASC'),
         ];
@@ -220,7 +220,7 @@ class NewsController extends Controller
         $model = new News();
         $news = $model->find($id);
         if (!$news) {
-            Session::setFlash('error', 'Tin tức không tồn tại.');
+            Session::setFlash('error', 'News does not exist.');
             $this->redirect('/admin/news');
             return;
         }
@@ -262,7 +262,7 @@ class NewsController extends Controller
         }
 
         $model->update($id, $updateData);
-        Session::setFlash('success', 'Cập nhật tin tức thành công.');
+        Session::setFlash('success', 'News updated successfully.');
         $this->redirect('/admin/news');
     }
 
@@ -285,13 +285,13 @@ class NewsController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new News();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Tin tức không tồn tại.');
+            Session::setFlash('error', 'News does not exist.');
             $this->redirect('/admin/news');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa tin tức thành công.');
+        Session::setFlash('success', 'News deleted successfully.');
         $this->redirect('/admin/news');
     }
 }

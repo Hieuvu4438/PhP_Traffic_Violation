@@ -16,7 +16,7 @@ use App\Core\Helper;
     <!-- Tiêu đề trang | fw-bold: in đậm -->
     <h2 class="fw-bold mb-4">
         <!-- fa-newspaper: icon tờ báo (tin tức) -->
-        <i class="fas fa-newspaper me-2 text-primary"></i>Tin tức giao thông
+        <i class="fas fa-newspaper me-2 text-primary"></i>Traffic News
     </h2>
 
     <!-- Partial hiển thị thông báo từ session -->
@@ -29,14 +29,14 @@ use App\Core\Helper;
                 <!-- card-header: header card | bg-primary text-white: nền xanh chữ trắng | fw-bold: in đậm -->
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-list: icon danh sách -->
-                    <i class="fas fa-list me-2"></i>Danh mục
+                    <i class="fas fa-list me-2"></i>Categories
                 </div>
                 <!-- list-group-flush: danh sách sát viền, không bo góc -->
                 <div class="list-group list-group-flush">
                     <!-- Link "Tất cả": active class khi không có category đang chọn -->
                     <a href="/tin-tuc"
                        class="list-group-item list-group-item-action <?= ($currentCategory ?? '') === '' ? 'active' : '' ?>">
-                        Tất cả
+                        All
                     </a>
                     <!-- Lặp qua tất cả danh mục, đánh dấu active nếu đang lọc -->
                     <?php foreach ($categories as $cat): ?>
@@ -55,8 +55,8 @@ use App\Core\Helper;
                 <!-- Trạng thái rỗng: chưa có bài viết nào -->
                 <div class="text-center py-5">
                     <i class="fas fa-newspaper fa-4x text-muted mb-3"></i>
-                    <h4 class="text-muted">Chưa có bài viết nào</h4>
-                    <p class="text-muted">Vui lòng quay lại sau.</p>
+                    <h4 class="text-muted">No articles yet</h4>
+                    <p class="text-muted">Please check back later.</p>
                 </div>
             <?php else: ?>
                 <!-- row g-4: lưới grid gap 1.5rem -->

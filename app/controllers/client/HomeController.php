@@ -18,7 +18,7 @@ class HomeController extends Controller
         $todayViolations = $violationModel->countToday();
 
         $this->view('client/home/index', [
-            'title' => 'Tra Cứu Phương Tiện Vi Phạm Giao Thông',
+            'title' => 'Traffic Violation Lookup',
             'latestNews' => $latestNews,
             'topOffenses' => $topOffenses,
             'totalViolations' => $totalViolations,
@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function about(): void
     {
         $this->view('client/pages/gioi-thieu', [
-            'title' => 'Giới thiệu',
+            'title' => 'About',
         ]);
     }
 }

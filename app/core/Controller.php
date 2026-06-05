@@ -2,19 +2,19 @@
 namespace App\Core;
 
 /**
- * Base Controller — tất cả controller đều kế thừa
+ * Base Controller — all controllers inherit from this
  */
 class Controller
 {
     /**
-     * Render view với layout
+     * Render view with layout
      */
     protected function view(string $view, array $data = [], string $layout = 'client'): void
     {
-        // Extract data để view dùng trực tiếp
+        // Extract data for direct use in view
         extract($data);
 
-        // Render nội dung view
+        // Render view content
         $viewPath = __DIR__ . '/../views/' . $view . '.php';
         if (!file_exists($viewPath)) {
             throw new \Exception("View '{$view}' not found at: {$viewPath}");
@@ -24,7 +24,7 @@ class Controller
         require $viewPath;
         $content = ob_get_clean();
 
-        // Nhúng vào layout
+        // Embed into layout
         $layoutPath = __DIR__ . '/../views/layouts/' . $layout . '.php';
         if (!file_exists($layoutPath)) {
             throw new \Exception("Layout '{$layout}' not found at: {$layoutPath}");
@@ -43,7 +43,7 @@ class Controller
     }
 
     /**
-     * Lấy input từ $_GET hoặc $_POST (đã trim)
+     * Get input from $_GET or $_POST (trimmed)
      */
     protected function input(string $key, mixed $default = null): mixed
     {
@@ -55,43 +55,43 @@ class Controller
     }
 
     /**
-     * Kiểm tra đăng nhập — redirect nếu chưa login
+     * Require login — redirect if not logged in
      */
     protected function requireLogin(): void
     {
         if (!Session::isLoggedIn()) {
-            Session::setFlash('error', 'Vui lòng đăng nhập để tiếp tục.');
+            Session::setFlash('error', 'Please log in to continue.');
             $this->redirect('/dang-nhap');
         }
     }
 
     /**
-     * Kiểm tra admin — redirect nếu không phải admin
+     * Require admin — redirect if not admin
      */
     protected function requireAdmin(): void
     {
         $this->requireLogin();
         if (!Session::isAdmin()) {
-            Session::setFlash('error', 'Bạn không có quyền truy cập khu vực này.');
+            Session::setFlash('error', 'You do not have permission to access this area.');
             $this->redirect('/');
         }
     }
 
     /**
-     * Validate CSRF token cho request POST
+     * Validate CSRF token for POST requests
      */
     protected function validateCsrf(): bool
     {
         $token = $this->input('csrf_token', '');
         if (!Session::validateCsrf($token)) {
-            Session::setFlash('error', 'Phiên làm việc hết hạn, vui lòng thử lại.');
+            Session::setFlash('error', 'Session expired, please try again.');
             return false;
         }
         return true;
     }
 
     /**
-     * Kiểm tra request có phải AJAX không
+     * Check if request is AJAX
      */
     protected function isAjax(): bool
     {
@@ -100,7 +100,7 @@ class Controller
     }
 
     /**
-     * Trả về JSON response
+     * Return JSON response
      */
     protected function json(array $data, int $statusCode = 200): void
     {

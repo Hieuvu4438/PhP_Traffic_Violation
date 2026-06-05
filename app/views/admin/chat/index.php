@@ -5,7 +5,7 @@ require __DIR__ . '/../../partials/alerts.php';
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Chat khách hàng</h2>
+    <h2 class="mb-0">Customer Chat</h2>
 </div>
 
 <div class="card">
@@ -14,20 +14,20 @@ require __DIR__ . '/../../partials/alerts.php';
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Khách hàng</th>
+                    <th>Customer</th>
                     <th>Email</th>
-                    <th>Trạng thái</th>
-                    <th>Chưa đọc</th>
-                    <th>Cập nhật</th>
-                    <th class="text-end">Thao tác</th>
+                    <th>Status</th>
+                    <th>Unread</th>
+                    <th>Updated</th>
+                    <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($items)): ?>
-                    <tr><td colspan="7" class="text-center text-muted py-3">Chưa có cuộc trò chuyện nào.</td></tr>
+                    <tr><td colspan="7" class="text-center text-muted py-3">No conversations found.</td></tr>
                 <?php else: foreach ($items as $item): ?>
                 <?php
-                $name = $item['user_name'] ?: ($item['guest_name'] ?: 'Khách');
+                $name = $item['user_name'] ?: ($item['guest_name'] ?: 'Guest');
                 $email = $item['user_email'] ?: ($item['guest_email'] ?: '—');
                 $unread = (int) ($item['unread_count'] ?? 0);
                 ?>
@@ -37,7 +37,7 @@ require __DIR__ . '/../../partials/alerts.php';
                     <td><?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
                         <span class="badge <?= $item['status'] === 'open' ? 'bg-success' : 'bg-secondary' ?>">
-                            <?= $item['status'] === 'open' ? 'Đang mở' : 'Đã đóng' ?>
+                            <?= $item['status'] === 'open' ? 'Open' : 'Closed' ?>
                         </span>
                     </td>
                     <td>
@@ -50,7 +50,7 @@ require __DIR__ . '/../../partials/alerts.php';
                     <td><?= htmlspecialchars(Helper::formatDateTime($item['last_message_at'] ?: $item['created_at']), ENT_QUOTES, 'UTF-8') ?></td>
                     <td class="text-end">
                         <a href="/admin/chat/<?= (int) $item['id'] ?>" class="btn btn-sm btn-primary">
-                            <i class="fas fa-comments me-1"></i>Mở chat
+                            <i class="fas fa-comments me-1"></i>Open Chat
                         </a>
                     </td>
                 </tr>

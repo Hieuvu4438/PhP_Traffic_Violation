@@ -1,6 +1,6 @@
 <?php
 /**
- * Bảng định tuyến URL → Controller@action
+ * URL routing table → Controller@action
  */
 
 use App\Core\Router;
@@ -8,7 +8,7 @@ use App\Core\Router;
 return function (Router $router): void {
 
     // ============================================================
-    // ROUTES CÔNG KHAI (KHÔNG CẦN ĐĂNG NHẬP)
+    // PUBLIC ROUTES (NO LOGIN REQUIRED)
     // ============================================================
 
     $router->get('/', 'client/HomeController@index');
@@ -36,18 +36,18 @@ return function (Router $router): void {
     $router->get('/dang-xuat', 'client/AuthController@logout');
 
     // ============================================================
-    // ROUTES USER (CẦN ĐĂNG NHẬP)
+    // USER ROUTES (LOGIN REQUIRED)
     // ============================================================
 
     $router->get('/tai-khoan', 'client/TaiKhoanController@dashboard');
 
-    // Phương tiện
+    // Vehicles
     $router->get('/tai-khoan/phuong-tien', 'client/TaiKhoanController@vehicles');
     $router->post('/tai-khoan/phuong-tien', 'client/TaiKhoanController@addVehicle');
     $router->post('/tai-khoan/phuong-tien/{id}/edit', 'client/TaiKhoanController@updateVehicle');
     $router->post('/tai-khoan/phuong-tien/{id}/delete', 'client/TaiKhoanController@deleteVehicle');
 
-    // Lịch sử & hồ sơ
+    // History & Profile
     $router->get('/tai-khoan/lich-su', 'client/TaiKhoanController@history');
     $router->get('/tai-khoan/ho-so', 'client/TaiKhoanController@profile');
     $router->post('/tai-khoan/ho-so', 'client/TaiKhoanController@updateProfile');

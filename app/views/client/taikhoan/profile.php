@@ -12,7 +12,7 @@
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-user-edit: icon người + bút chì (chỉnh sửa hồ sơ) -->
-        <i class="fas fa-user-edit me-2 text-primary"></i>Hồ sơ cá nhân
+        <i class="fas fa-user-edit me-2 text-primary"></i>Personal Profile
     </h2>
 
     <!-- Partial hiển thị thông báo -->
@@ -20,7 +20,7 @@
 
     <!-- Nút quay lại dashboard -->
     <a href="/tai-khoan" class="btn btn-outline-secondary btn-sm mb-3">
-        <i class="fas fa-arrow-left me-1"></i>Quay lại tài khoản
+        <i class="fas fa-arrow-left me-1"></i>Back to Account
     </a>
 
     <!-- row g-4: grid gap 1.5rem -->
@@ -31,7 +31,7 @@
                 <!-- card-header bg-primary text-white: header xanh chữ trắng -->
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-user: icon người dùng -->
-                    <i class="fas fa-user me-2"></i>Thông tin cá nhân
+                    <i class="fas fa-user me-2"></i>Personal Information
                 </div>
                 <!-- p-4: padding 1.5rem -->
                 <div class="card-body p-4">
@@ -41,7 +41,7 @@
 
                         <!-- Họ và tên (bắt buộc) -->
                         <div class="mb-3">
-                            <label for="fullname" class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                            <label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 <!-- value từ $user['fullname'] - giữ giá trị hiện tại -->
@@ -65,7 +65,7 @@
 
                         <!-- Số điện thoại (bắt buộc) -->
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <!-- fa-phone: icon điện thoại -->
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
@@ -78,15 +78,15 @@
                         <!-- Vai trò: readonly, không thể sửa -->
                         <!-- bg-light: nền xám nhạt -> thể hiện trường chỉ đọc -->
                         <div class="mb-3">
-                            <label class="form-label">Vai trò</label>
+                            <label class="form-label">Role</label>
                             <input type="text" class="form-control bg-light"
-                                   value="<?= ($user['role'] ?? '') === 'admin' ? 'Quản trị viên' : 'Người dùng' ?>"
+                                   value="<?= ($user['role'] ?? '') === 'admin' ? 'Administrator' : 'User' ?>"
                                    readonly disabled>
                         </div>
 
                         <!-- Ngày tham gia: readonly -->
                         <div class="mb-3">
-                            <label class="form-label">Ngày tham gia</label>
+                            <label class="form-label">Joined Date</label>
                             <input type="text" class="form-control bg-light"
                                    value="<?= htmlspecialchars((new DateTime($user['created_at'] ?? 'now'))->format('d/m/Y H:i'), ENT_QUOTES, 'UTF-8') ?>"
                                    readonly disabled>
@@ -96,7 +96,7 @@
                         <div class="d-grid">
                             <!-- fa-save: icon đĩa mềm (lưu) -->
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Cập nhật hồ sơ
+                                <i class="fas fa-save me-2"></i>Update Profile
                             </button>
                         </div>
                     </form>
@@ -110,7 +110,7 @@
                 <!-- card-header bg-warning text-dark: header vàng chữ tối -->
                 <div class="card-header bg-warning text-dark fw-bold">
                     <!-- fa-lock: icon khóa -->
-                    <i class="fas fa-lock me-2"></i>Đổi mật khẩu
+                    <i class="fas fa-lock me-2"></i>Change Password
                 </div>
                 <div class="card-body">
                     <!-- Form POST đến /tai-khoan/doi-mat-khau -->
@@ -119,29 +119,29 @@
 
                         <!-- Mật khẩu hiện tại -->
                         <div class="mb-3">
-                            <label for="old_password" class="form-label">Mật khẩu hiện tại</label>
+                            <label for="old_password" class="form-label">Current Password</label>
                             <input type="password" class="form-control" id="old_password" name="old_password"
-                                   placeholder="Nhập mật khẩu hiện tại" required>
+                                   placeholder="Enter current password" required>
                         </div>
 
                         <!-- Mật khẩu mới | minlength="6": tối thiểu 6 ký tự -->
                         <div class="mb-3">
-                            <label for="new_password" class="form-label">Mật khẩu mới</label>
+                            <label for="new_password" class="form-label">New Password</label>
                             <input type="password" class="form-control" id="new_password" name="new_password"
-                                   placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                                   placeholder="Minimum 6 characters" required minlength="6">
                         </div>
 
                         <!-- Xác nhận mật khẩu mới -->
                         <div class="mb-3">
-                            <label for="password_confirm" class="form-label">Xác nhận mật khẩu mới</label>
+                            <label for="password_confirm" class="form-label">Confirm New Password</label>
                             <input type="password" class="form-control" id="password_confirm"
-                                   name="password_confirm" placeholder="Nhập lại mật khẩu mới" required>
+                                   name="password_confirm" placeholder="Re-enter new password" required>
                         </div>
 
                         <div class="d-grid">
                             <!-- btn-warning: nút vàng | fa-key: icon chìa khóa -->
                             <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-key me-2"></i>Đổi mật khẩu
+                                <i class="fas fa-key me-2"></i>Change Password
                             </button>
                         </div>
                     </form>

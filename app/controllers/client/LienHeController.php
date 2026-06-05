@@ -11,7 +11,7 @@ class LienHeController extends Controller
     public function index(): void
     {
         $this->view('client/pages/lien-he', [
-            'title' => 'Liên hệ',
+            'title' => 'Contact',
         ]);
     }
 
@@ -37,7 +37,7 @@ class LienHeController extends Controller
         ];
 
         if (!$validator->validate($data, $rules)) {
-            Session::setFlash('error', $validator->firstError('name') ?? $validator->firstError('email') ?? $validator->firstError('subject') ?? $validator->firstError('message') ?? 'Dữ liệu không hợp lệ.');
+            Session::setFlash('error', $validator->firstError('name') ?? $validator->firstError('email') ?? $validator->firstError('subject') ?? $validator->firstError('message') ?? 'Invalid data.');
             $this->redirect('/lien-he');
             return;
         }
@@ -51,7 +51,7 @@ class LienHeController extends Controller
             'is_read' => 0,
         ]);
 
-        Session::setFlash('success', 'Cảm ơn bạn đã gửi tin nhắn. Chúng tôi sẽ phản hồi sớm nhất có thể.');
+        Session::setFlash('success', 'Thank you for your message. We will respond as soon as possible.');
         $this->redirect('/lien-he');
     }
 }

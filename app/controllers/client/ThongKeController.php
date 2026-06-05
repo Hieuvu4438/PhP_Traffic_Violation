@@ -31,7 +31,7 @@ class ThongKeController extends Controller
         }
 
         $this->view('client/thongke/index', [
-            'title' => 'Thống kê vi phạm giao thông',
+            'title' => 'Traffic Violation Statistics',
             'topOffenses' => $topOffenses,
             'topLocations' => $topLocations,
             'topPlates' => $topPlates,

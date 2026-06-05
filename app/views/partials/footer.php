@@ -21,38 +21,38 @@
                  mb-4: margin-bottom 1.5rem (khoảng cách dưới trên mobile khi các cột xếp chồng). -->
             <div class="col-md-4 mb-4">
                 <!-- fw-bold: chữ đậm. mb-3: margin-bottom 1rem. -->
-                <h5 class="fw-bold mb-3"><i class="fas fa-car me-2"></i>Tra Cứu Phạt Nguội</h5>
+                <h5 class="fw-bold mb-3"><i class="fas fa-car me-2"></i>Traffic Violation Lookup</h5>
                 <!-- text-secondary: chữ màu xám (mức độ quan trọng thứ cấp).
                      small: cỡ chữ nhỏ hơn 1 bậc. -->
-                <p class="text-secondary small">Website tra cứu phương tiện vi phạm giao thông toàn quốc. Dữ liệu được tổng hợp từ Cục CSGT và Cục Đăng Kiểm Việt Nam, cập nhật thường xuyên.</p>
-                <p class="text-secondary small">Website được xây dựng với mục đích học thuật - Đồ án PHP.</p>
+                <p class="text-secondary small">National traffic violation lookup website. Data aggregated from the Traffic Police Department and Vietnam Registry, updated regularly.</p>
+                <p class="text-secondary small">Website built for academic purposes - PHP capstone project.</p>
             </div>
             <!-- Cột 2 - Liên kết nhanh -->
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Liên kết nhanh</h5>
+                <h5 class="fw-bold mb-3">Quick Links</h5>
                 <!-- list-unstyled: bỏ dấu chấm đầu dòng mặc định của <ul> -->
                 <ul class="list-unstyled">
                     <!-- mb-2: margin-bottom 0.5rem giữa các mục.
                          text-secondary: chữ màu xám cho link.
                          text-decoration-none: bỏ gạch chân mặc định của thẻ <a>. -->
-                    <li class="mb-2"><a href="/" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Trang chủ</a></li>
+                    <li class="mb-2"><a href="/" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Home</a></li>
                     <!-- fa-chevron-right: icon mũi tên sang phải, chỉ hướng cho liên kết -->
-                    <li class="mb-2"><a href="/tra-cuu" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Tra cứu phạt nguội</a></li>
-                    <li class="mb-2"><a href="/tin-tuc" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Tin tức giao thông</a></li>
-                    <li class="mb-2"><a href="/bien-bao" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Biển báo giao thông</a></li>
-                    <li class="mb-2"><a href="/thong-ke" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Thống kê</a></li>
-                    <li class="mb-2"><a href="/faq" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Câu hỏi thường gặp</a></li>
-                    <li class="mb-2"><a href="/gioi-thieu" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Giới thiệu</a></li>
-                    <li class="mb-2"><a href="/lien-he" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Liên hệ</a></li>
+                    <li class="mb-2"><a href="/tra-cuu" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Violation Lookup</a></li>
+                    <li class="mb-2"><a href="/tin-tuc" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Traffic News</a></li>
+                    <li class="mb-2"><a href="/bien-bao" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Traffic Signs</a></li>
+                    <li class="mb-2"><a href="/thong-ke" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Statistics</a></li>
+                    <li class="mb-2"><a href="/faq" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>FAQ</a></li>
+                    <li class="mb-2"><a href="/gioi-thieu" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>About</a></li>
+                    <li class="mb-2"><a href="/lien-he" class="text-secondary text-decoration-none"><i class="fas fa-chevron-right me-2 small"></i>Contact</a></li>
                 </ul>
             </div>
             <!-- Cột 3 - Thông tin liên hệ -->
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Thông tin liên hệ</h5>
+                <h5 class="fw-bold mb-3">Contact Information</h5>
                 <!-- Danh sách thông tin liên hệ không có bullet -->
                 <ul class="list-unstyled text-secondary">
                     <!-- fa-map-marker-alt: icon đánh dấu vị trí bản đồ (địa chỉ) -->
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Hà Nội, Việt Nam</li>
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Hanoi, Vietnam</li>
                     <!-- fa-envelope: icon phong bì thư (email) -->
                     <li class="mb-2"><i class="fas fa-envelope me-2"></i>contact@tracuuphatnguoi.vn</li>
                     <!-- fa-phone: icon điện thoại -->
@@ -75,9 +75,9 @@
         <div class="text-center text-secondary small">
             <!-- date('Y'): hiển thị năm hiện tại (tự động cập nhật).
                  &copy;: ký hiệu bản quyền © (HTML entity). -->
-            <p class="mb-0">&copy; <?= date('Y') ?> Tra Cứu Phạt Nguội. Tất cả quyền được bảo lưu.</p>
+            <p class="mb-0">&copy; <?= date('Y') ?> Traffic Violation Lookup. All rights reserved.</p>
             <!-- mt-1: margin-top 0.25rem -->
-            <p class="mb-0 mt-1">Website được xây dựng cho mục đích học thuật - Đồ án bài tập lớn PHP.</p>
+            <p class="mb-0 mt-1">Website built for academic purposes - PHP capstone project.</p>
         </div>
     </div>
 </footer>

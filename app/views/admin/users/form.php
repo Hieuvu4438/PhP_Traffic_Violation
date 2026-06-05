@@ -39,7 +39,7 @@ Session::remove('old_input');
                 <!-- ===== Họ tên (col-md-6: chiếm nửa dòng trên desktop) ===== -->
                 <div class="col-md-6">
                     <!-- form-label: nhãn input Bootstrap; text-danger: chữ đỏ cho dấu * bắt buộc -->
-                    <label class="form-label">Họ tên <span class="text-danger">*</span></label>
+                    <label class="form-label">Full Name <span class="text-danger">*</span></label>
                     <!-- form-control: input Bootstrap; is-invalid: thêm viền đỏ nếu có lỗi validation -->
                     <input type="text" name="fullname" class="form-control <?= isset($errors['fullname']) ? 'is-invalid' : '' ?>"
                            value="<?= htmlspecialchars($old['fullname'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
@@ -61,7 +61,7 @@ Session::remove('old_input');
 
                 <!-- ===== Số điện thoại (col-md-6) ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Số điện thoại</label>
+                    <label class="form-label">Phone Number</label>
                     <input type="text" name="phone" class="form-control <?= isset($errors['phone']) ? 'is-invalid' : '' ?>"
                            value="<?= htmlspecialchars($old['phone'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <?php if (isset($errors['phone'])): ?>
@@ -72,9 +72,9 @@ Session::remove('old_input');
                 <!-- ===== Mật khẩu (col-md-6) ===== -->
                 <div class="col-md-6">
                     <!-- Khi sửa: không bắt buộc mật khẩu (để trống = giữ nguyên) -->
-                    <label class="form-label">Mật khẩu <?= $isEdit ? '' : '<span class="text-danger">*</span>' ?></label>
+                    <label class="form-label">Password <?= $isEdit ? '' : '<span class="text-danger">*</span>' ?></label>
                     <input type="password" name="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>"
-                           placeholder="<?= $isEdit ? 'Để trống nếu không đổi' : '' ?>">
+                           placeholder="<?= $isEdit ? 'Leave blank to keep current' : '' ?>">
                     <?php if (isset($errors['password'])): ?>
                         <div class="invalid-feedback"><?= htmlspecialchars($errors['password'][0], ENT_QUOTES, 'UTF-8') ?></div>
                     <?php endif; ?>
@@ -82,7 +82,7 @@ Session::remove('old_input');
 
                 <!-- ===== Vai trò (col-md-6) ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Vai trò</label>
+                    <label class="form-label">Role</label>
                     <!-- form-select: dropdown select Bootstrap -->
                     <select name="role" class="form-select">
                         <option value="user" <?= ($old['role'] ?? '') === 'user' ? 'selected' : '' ?>>User</option>
@@ -92,11 +92,11 @@ Session::remove('old_input');
 
                 <!-- ===== Trạng thái (col-md-6) ===== -->
                 <div class="col-md-6">
-                    <label class="form-label">Trạng thái</label>
+                    <label class="form-label">Status</label>
                     <select name="status" class="form-select">
                         <!-- (int) để so sánh chính xác, mặc định là 1 (hoạt động) -->
-                        <option value="1" <?= (int)($old['status'] ?? 1) === 1 ? 'selected' : '' ?>>Hoạt động</option>
-                        <option value="0" <?= (int)($old['status'] ?? 1) === 0 ? 'selected' : '' ?>>Bị khóa</option>
+                        <option value="1" <?= (int)($old['status'] ?? 1) === 1 ? 'selected' : '' ?>>Active</option>
+                        <option value="0" <?= (int)($old['status'] ?? 1) === 0 ? 'selected' : '' ?>>Locked</option>
                     </select>
                 </div>
             </div>
@@ -105,9 +105,9 @@ Session::remove('old_input');
             <!-- mt-4: margin-top 1.5rem -->
             <div class="mt-4">
                 <!-- btn-primary: nút xanh; fa-save: icon đĩa mềm (lưu); me-1: margin-right 0.25rem -->
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Lưu</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save</button>
                 <!-- btn-secondary: nút xám; fa-arrow-left: icon mũi tên trái (quay lại) -->
-                <a href="/admin/users" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Quay lại</a>
+                <a href="/admin/users" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
             </div>
         </form>
     </div>

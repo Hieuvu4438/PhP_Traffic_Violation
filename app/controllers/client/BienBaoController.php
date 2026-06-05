@@ -23,7 +23,7 @@ class BienBaoController extends Controller
             // Group search results
             $signsByGroup = [];
             foreach ($signs as $sign) {
-                $groupName = $sign['group_name'] ?? 'Khác';
+                $groupName = $sign['group_name'] ?? 'Other';
                 $signsByGroup[$groupName][] = $sign;
             }
         } elseif ($groupId !== '') {
@@ -33,13 +33,13 @@ class BienBaoController extends Controller
             $allSigns = $signModel->getWithGroup();
             $signsByGroup = [];
             foreach ($allSigns as $sign) {
-                $groupName = $sign['group_name'] ?? 'Khác';
+                $groupName = $sign['group_name'] ?? 'Other';
                 $signsByGroup[$groupName][] = $sign;
             }
         }
 
         $this->view('client/bienbao/index', [
-            'title' => 'Tra cứu biển báo giao thông',
+            'title' => 'Traffic Sign Lookup',
             'signsByGroup' => $signsByGroup,
             'groups' => $groups,
             'currentGroup' => $groupId,
@@ -54,7 +54,7 @@ class BienBaoController extends Controller
 
         $sign = $signModel->find($id);
         if (!$sign) {
-            Session::setFlash('error', 'Biển báo không tồn tại.');
+            Session::setFlash('error', 'Traffic sign does not exist.');
             $this->redirect('/bien-bao');
             return;
         }
@@ -63,7 +63,7 @@ class BienBaoController extends Controller
         $related = $signModel->findByGroup($sign['group_id'] ?? 0);
 
         $this->view('client/bienbao/detail', [
-            'title' => 'Biển báo ' . htmlspecialchars($sign['sign_code'], ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($sign['name'], ENT_QUOTES, 'UTF-8'),
+            'title' => 'Traffic Sign ' . htmlspecialchars($sign['sign_code'], ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($sign['name'], ENT_QUOTES, 'UTF-8'),
             'sign' => $sign,
             'group' => $group,
             'related' => $related,

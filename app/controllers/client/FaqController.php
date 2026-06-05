@@ -12,7 +12,7 @@ class FaqController extends Controller
         $faqs = $faqModel->getActive();
 
         $this->view('client/faq/index', [
-            'title' => 'Câu hỏi thường gặp',
+            'title' => 'Frequently Asked Questions',
             'faqs' => $faqs,
         ]);
     }

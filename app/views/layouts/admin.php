@@ -12,7 +12,7 @@ if (!Session::isLoggedIn() || !Session::isAdmin()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,14 +62,14 @@ if (!Session::isLoggedIn() || !Session::isAdmin()) {
                 <!-- dropdown-menu-end: căn dropdown về bên phải, tránh tràn màn hình -->
                 <ul class="dropdown-menu dropdown-menu-end">
                     <!-- fa-user-edit: icon chỉnh sửa hồ sơ -->
-                    <li><a class="dropdown-item" href="/tai-khoan/ho-so"><i class="fas fa-user-edit me-2"></i>Hồ sơ</a></li>
+                    <li><a class="dropdown-item" href="/tai-khoan/ho-so"><i class="fas fa-user-edit me-2"></i>Profile</a></li>
                     <!-- fa-external-link-alt: icon mở liên kết ngoài (mũi tên chéo) -->
-                    <li><a class="dropdown-item" href="/"><i class="fas fa-external-link-alt me-2"></i>Xem website</a></li>
+                    <li><a class="dropdown-item" href="/"><i class="fas fa-external-link-alt me-2"></i>View Website</a></li>
                     <!-- dropdown-divider: đường kẻ ngang phân cách các mục trong dropdown -->
                     <li><hr class="dropdown-divider"></li>
                     <!-- text-danger: chữ màu đỏ, báo hiệu hành động quan trọng (đăng xuất).
                          fa-sign-out-alt: icon mũi tên ra khỏi cửa (đăng xuất) -->
-                    <li><a class="dropdown-item text-danger" href="/dang-xuat"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                    <li><a class="dropdown-item text-danger" href="/dang-xuat"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                 </ul>
             </div>
         </header>

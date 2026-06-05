@@ -14,7 +14,7 @@ use App\Core\Session;
 ?>
 
 <!-- Tiêu đề trang; mb-4: margin-bottom 1.5rem -->
-<h2 class="mb-4">Quản lý danh mục</h2>
+<h2 class="mb-4">Manage Categories</h2>
 
 <!-- row g-4: hàng flex, khoảng cách giữa các cột 1.5rem -->
 <div class="row g-4">
@@ -25,11 +25,11 @@ use App\Core\Session;
         <div class="card">
             <!-- card-header: phần đầu thẻ; d-flex justify-content-between align-items-center: flexbox căn đều 2 bên, căn dọc giữa -->
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Danh mục tin tức</h5>
+                <h5 class="mb-0">News Categories</h5>
                 <!-- btn btn-sm btn-primary: nút nhỏ màu xanh; data-bs-toggle="modal" data-bs-target="#addNewsCatModal": mở modal thêm danh mục tin -->
                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addNewsCatModal">
                     <!-- fa-plus: icon dấu cộng thêm mới -->
-                    <i class="fas fa-plus"></i> Thêm
+                    <i class="fas fa-plus"></i> Add
                 </button>
             </div>
             <!-- card-body p-0: nội dung thẻ không padding -->
@@ -40,14 +40,14 @@ use App\Core\Session;
                     <thead class="table-light">
                         <tr>
                             <th>ID</th>
-                            <th>Tên</th>
+                            <th>Name</th>
                             <th>Slug</th>
-                            <th class="text-end">Thao tác</th>
+                            <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($newsCategories)): ?>
-                            <tr><td colspan="4" class="text-center text-muted py-3">Chưa có danh mục nào.</td></tr>
+                            <tr><td colspan="4" class="text-center text-muted py-3">No categories found.</td></tr>
                         <?php else:
                             foreach ($newsCategories as $cat): ?>
                         <tr>
@@ -58,13 +58,13 @@ use App\Core\Session;
                             <td class="text-end">
                                 <!-- Nút Sửa mở modal edit riêng cho từng danh mục (id động: editNewsCatModal{id}) -->
                                 <!-- btn-sm btn-warning: nút nhỏ màu vàng; fa-edit: icon bút sửa -->
-                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editNewsCatModal<?= $cat['id'] ?>" title="Sửa"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editNewsCatModal<?= $cat['id'] ?>" title="Edit"><i class="fas fa-edit"></i></button>
                                 <!-- Form xóa danh mục: có hidden input category_type="news" để controller biết xóa loại nào -->
                                 <form method="POST" action="/admin/categories/<?= $cat['id'] ?>/delete" class="delete-form d-inline">
                                     <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
                                     <input type="hidden" name="category_type" value="news">
                                     <!-- btn-sm btn-danger: nút nhỏ đỏ; fa-trash: icon thùng rác -->
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -79,10 +79,10 @@ use App\Core\Session;
     <div class="col-md-6">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Danh mục lỗi vi phạm</h5>
+                <h5 class="mb-0">Offense Categories</h5>
                 <!-- data-bs-target="#addOffenseCatModal": mở modal thêm danh mục lỗi vi phạm -->
                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addOffenseCatModal">
-                    <i class="fas fa-plus"></i> Thêm
+                    <i class="fas fa-plus"></i> Add
                 </button>
             </div>
             <div class="card-body p-0">
@@ -90,14 +90,14 @@ use App\Core\Session;
                     <thead class="table-light">
                         <tr>
                             <th>ID</th>
-                            <th>Tên</th>
-                            <th>Mô tả</th>
-                            <th class="text-end">Thao tác</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($offenseCategories)): ?>
-                            <tr><td colspan="4" class="text-center text-muted py-3">Chưa có danh mục nào.</td></tr>
+                            <tr><td colspan="4" class="text-center text-muted py-3">No categories found.</td></tr>
                         <?php else:
                             foreach ($offenseCategories as $cat): ?>
                         <tr>
@@ -106,12 +106,12 @@ use App\Core\Session;
                             <!-- Cắt mô tả còn 40 ký tự nếu dài -->
                             <td><?= htmlspecialchars(\App\Core\Helper::truncate($cat['description'] ?? '—', 40), ENT_QUOTES, 'UTF-8') ?></td>
                             <td class="text-end">
-                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editOffenseCatModal<?= $cat['id'] ?>" title="Sửa"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editOffenseCatModal<?= $cat['id'] ?>" title="Edit"><i class="fas fa-edit"></i></button>
                                 <form method="POST" action="/admin/categories/<?= $cat['id'] ?>/delete" class="delete-form d-inline">
                                     <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
                                     <!-- category_type="offense": để controller biết xóa danh mục lỗi vi phạm -->
                                     <input type="hidden" name="category_type" value="offense">
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -135,20 +135,20 @@ use App\Core\Session;
             <!-- category_type="news" để controller biết tạo danh mục loại nào -->
             <input type="hidden" name="category_type" value="news">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm danh mục tin tức</h5>
+                <h5 class="modal-title">Add News Category</h5>
                 <!-- btn-close: nút X đóng modal; data-bs-dismiss="modal": thuộc tính Bootstrap 5 để đóng modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <label class="form-label">Tên danh mục</label>
+                <label class="form-label">Category Name</label>
                 <!-- form-control: input Bootstrap; required: bắt buộc nhập -->
                 <input type="text" name="name" class="form-control" required>
             </div>
             <div class="modal-footer">
                 <!-- btn-secondary: nút xám Hủy; data-bs-dismiss="modal": đóng modal -->
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <!-- btn-primary: nút xanh Lưu -->
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
@@ -162,24 +162,24 @@ use App\Core\Session;
             <!-- category_type="offense" -->
             <input type="hidden" name="category_type" value="offense">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm danh mục lỗi vi phạm</h5>
+                <h5 class="modal-title">Add Offense Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <!-- mb-3: margin-bottom 1rem -->
                 <div class="mb-3">
-                    <label class="form-label">Tên danh mục</label>
+                    <label class="form-label">Category Name</label>
                     <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Mô tả</label>
+                    <label class="form-label">Description</label>
                     <!-- rows="2": textarea cao 2 dòng -->
                     <textarea name="description" class="form-control" rows="2"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
@@ -195,17 +195,17 @@ use App\Core\Session;
             <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
             <input type="hidden" name="category_type" value="news">
             <div class="modal-header">
-                <h5 class="modal-title">Sửa danh mục tin tức</h5>
+                <h5 class="modal-title">Edit News Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <label class="form-label">Tên danh mục</label>
+                <label class="form-label">Category Name</label>
                 <!-- Giá trị hiện tại được đổ vào input để người dùng sửa -->
                 <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
@@ -220,22 +220,22 @@ use App\Core\Session;
             <input type="hidden" name="csrf_token" value="<?= Session::csrfToken() ?>">
             <input type="hidden" name="category_type" value="offense">
             <div class="modal-header">
-                <h5 class="modal-title">Sửa danh mục lỗi vi phạm</h5>
+                <h5 class="modal-title">Edit Offense Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Tên danh mục</label>
+                    <label class="form-label">Category Name</label>
                     <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Mô tả</label>
+                    <label class="form-label">Description</label>
                     <textarea name="description" class="form-control" rows="2"><?= htmlspecialchars($cat['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>

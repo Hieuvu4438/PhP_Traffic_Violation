@@ -13,9 +13,9 @@ require __DIR__ . '/../../partials/alerts.php';
 <!-- ========== Hàng tiêu đề + nút Thêm biển báo ========== -->
 <!-- d-flex...align-items-center: flexbox căn đều 2 bên trái-phải, căn dọc giữa; mb-3: margin-bottom 1rem -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Quản lý biển báo</h2>
+    <h2 class="mb-0">Manage Traffic Signs</h2>
     <!-- btn btn-primary: nút xanh dương; fa-plus me-1: icon dấu cộng + margin-right 0.25rem -->
-    <a href="/admin/signs/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Thêm biển báo</a>
+    <a href="/admin/signs/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add Traffic Sign</a>
 </div>
 
 <!-- ========== Bảng danh sách biển báo ========== -->
@@ -28,18 +28,18 @@ require __DIR__ . '/../../partials/alerts.php';
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Mã</th>
-                    <th>Hình ảnh</th>
-                    <th>Tên biển báo</th>
-                    <th>Nhóm</th>
-                    <th>Mô tả</th>
-                    <th class="text-end">Thao tác</th>
+                    <th>Code</th>
+                    <th>Image</th>
+                    <th>Sign Name</th>
+                    <th>Group</th>
+                    <th>Description</th>
+                    <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($items)): ?>
                     <!-- colspan 7: gộp 7 cột; text-center text-muted py-3: căn giữa, chữ xám, padding trên/dưới 1rem -->
-                    <tr><td colspan="7" class="text-center text-muted py-3">Chưa có biển báo nào.</td></tr>
+                    <tr><td colspan="7" class="text-center text-muted py-3">No traffic signs found.</td></tr>
                 <?php else:
                     // Lặp qua danh sách biển báo
                     foreach ($items as $sign): ?>
@@ -63,13 +63,13 @@ require __DIR__ . '/../../partials/alerts.php';
                     <td><?= htmlspecialchars(\App\Core\Helper::truncate($sign['description'] ?? '', 60), ENT_QUOTES, 'UTF-8') ?></td>
                     <td class="text-end">
                         <!-- Nút Sửa: btn-sm = nút nhỏ, btn-warning = vàng, fa-edit = icon bút sửa -->
-                        <a href="/admin/signs/<?= $sign['id'] ?>/edit" class="btn btn-sm btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
+                        <a href="/admin/signs/<?= $sign['id'] ?>/edit" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
                         <!-- Form xóa biển báo: class="delete-form d-inline" để JS confirm trước khi submit -->
                         <form method="POST" action="/admin/signs/<?= $sign['id'] ?>/delete" class="delete-form d-inline">
                             <!-- CSRF token -->
                             <input type="hidden" name="csrf_token" value="<?= \App\Core\Session::csrfToken() ?>">
                             <!-- btn-sm btn-danger: nút nhỏ đỏ; fa-trash: icon thùng rác -->
-                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

@@ -46,7 +46,7 @@ class MessageController extends Controller
         $model = new ContactMessage();
         $page = (int)($this->input('page', 1));
         $data = $model->paginate($page, 10, [], 'created_at DESC');
-        $data['title'] = 'Quản lý tin nhắn liên hệ';
+        $data['title'] = 'Manage Contact Messages';
         $data['baseUrl'] = '/admin/messages';
         $this->view('admin/messages/index', $data, 'admin');
     }
@@ -73,14 +73,14 @@ class MessageController extends Controller
         $model = new ContactMessage();
         $msg = $model->find($id);
         if (!$msg) {
-            Session::setFlash('error', 'Tin nhắn không tồn tại.');
+            Session::setFlash('error', 'Message does not exist.');
             $this->redirect('/admin/messages');
             return;
         }
 
         // UPDATE contact_messages SET is_read = 1 WHERE id = ?
         $model->markRead($id);
-        Session::setFlash('success', 'Đã đánh dấu là đã đọc.');
+        Session::setFlash('success', 'Marked as read.');
         $this->redirect('/admin/messages');
     }
 
@@ -105,13 +105,13 @@ class MessageController extends Controller
         $id = (int)$id;    // Ép kiểu lại để đảm bảo an toàn kiểu dữ liệu
         $model = new ContactMessage();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Tin nhắn không tồn tại.');
+            Session::setFlash('error', 'Message does not exist.');
             $this->redirect('/admin/messages');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa tin nhắn thành công.');
+        Session::setFlash('success', 'Message deleted successfully.');
         $this->redirect('/admin/messages');
     }
 }

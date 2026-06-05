@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $offenseCatModel = new OffenseCategory();
 
         $data = [
-            'title'            => 'Quản lý danh mục',
+            'title'            => 'Manage Categories',
             'newsCategories'   => $newsCatModel->all([], 'name ASC'),
             'offenseCategories'=> $offenseCatModel->all([], 'name ASC'),
         ];
@@ -83,14 +83,14 @@ class CategoryController extends Controller
 
         // Xác thực loại danh mục hợp lệ
         if (!in_array($type, ['news', 'offense'])) {
-            Session::setFlash('error', 'Loại danh mục không hợp lệ.');
+            Session::setFlash('error', 'Invalid category type.');
             $this->redirect('/admin/categories');
             return;
         }
 
         // Validate tên: không rỗng và tối thiểu 2 ký tự
         if (!Validator::required($name) || !Validator::minLength($name, 2)) {
-            Session::setFlash('error', 'Tên danh mục không được để trống và tối thiểu 2 ký tự.');
+            Session::setFlash('error', 'Category name cannot be empty and must be at least 2 characters.');
             $this->redirect('/admin/categories');
             return;
         }
@@ -108,7 +108,7 @@ class CategoryController extends Controller
             $model->create(['name' => $name, 'description' => $_POST['description'] ?? null]);
         }
 
-        Session::setFlash('success', 'Thêm danh mục thành công.');
+        Session::setFlash('success', 'Category added successfully.');
         $this->redirect('/admin/categories');
     }
 
@@ -141,13 +141,13 @@ class CategoryController extends Controller
         $name = $_POST['name'] ?? '';
 
         if (!in_array($type, ['news', 'offense'])) {
-            Session::setFlash('error', 'Loại danh mục không hợp lệ.');
+            Session::setFlash('error', 'Invalid category type.');
             $this->redirect('/admin/categories');
             return;
         }
 
         if (!Validator::required($name) || !Validator::minLength($name, 2)) {
-            Session::setFlash('error', 'Tên danh mục không được để trống và tối thiểu 2 ký tự.');
+            Session::setFlash('error', 'Category name cannot be empty and must be at least 2 characters.');
             $this->redirect('/admin/categories');
             return;
         }
@@ -156,7 +156,7 @@ class CategoryController extends Controller
             $model = new NewsCategory();
             $cat = $model->find($id);
             if (!$cat) {
-                Session::setFlash('error', 'Danh mục không tồn tại.');
+                Session::setFlash('error', 'Category does not exist.');
                 $this->redirect('/admin/categories');
                 return;
             }
@@ -171,14 +171,14 @@ class CategoryController extends Controller
             $model = new OffenseCategory();
             $cat = $model->find($id);
             if (!$cat) {
-                Session::setFlash('error', 'Danh mục không tồn tại.');
+                Session::setFlash('error', 'Category does not exist.');
                 $this->redirect('/admin/categories');
                 return;
             }
             $model->update($id, ['name' => $name, 'description' => $_POST['description'] ?? null]);
         }
 
-        Session::setFlash('success', 'Cập nhật danh mục thành công.');
+        Session::setFlash('success', 'Category updated successfully.');
         $this->redirect('/admin/categories');
     }
 
@@ -208,7 +208,7 @@ class CategoryController extends Controller
         $type = $_POST['category_type'] ?? '';
 
         if (!in_array($type, ['news', 'offense'])) {
-            Session::setFlash('error', 'Loại danh mục không hợp lệ.');
+            Session::setFlash('error', 'Invalid category type.');
             $this->redirect('/admin/categories');
             return;
         }
@@ -221,13 +221,13 @@ class CategoryController extends Controller
         }
 
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Danh mục không tồn tại.');
+            Session::setFlash('error', 'Category does not exist.');
             $this->redirect('/admin/categories');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa danh mục thành công.');
+        Session::setFlash('success', 'Category deleted successfully.');
         $this->redirect('/admin/categories');
     }
 }

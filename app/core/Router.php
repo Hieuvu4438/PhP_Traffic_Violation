@@ -2,7 +2,7 @@
 namespace App\Core;
 
 /**
- * Bộ định tuyến URL → Controller@action
+ * URL Router → Controller@action
  */
 class Router
 {
@@ -21,7 +21,7 @@ class Router
 
     private function addRoute(string $method, string $uri, string $handler): void
     {
-        // Chuyển {param} thành regex named group
+        // Convert {param} to regex named group
         $pattern = preg_replace('/\{([a-zA-Z_]+)\}/', '(?P<$1>[^/]+)', $uri);
         $pattern = '#^' . $pattern . '$#';
 
@@ -34,7 +34,7 @@ class Router
 
     public function dispatch(string $uri, string $method): void
     {
-        // Xóa query string
+        // Strip query string
         $uri = parse_url($uri, PHP_URL_PATH);
         $uri = rtrim($uri, '/') ?: '/';
 
@@ -44,16 +44,16 @@ class Router
             }
             
             if (preg_match($route['pattern'], $uri, $matches)) {
-                // Lấy các named params
+                // Extract named params
                 $this->params = array_filter($matches, fn($key) => is_string($key), ARRAY_FILTER_USE_KEY);
 
-                // Merge vào $_GET để controller dùng $this->input() lấy được
+                // Merge into $_GET so controller can access via $this->input()
                 $_GET = array_merge($_GET, $this->params);
 
                 // Parse handler: "client/HomeController@index"
                 [$controllerPath, $action] = explode('@', $route['handler']);
 
-                // Chuyển thành namespace đầy đủ
+                // Build full namespace
                 $parts = explode('/', $controllerPath);
                 $subFolder = ucfirst($parts[0]); // client → Client, admin → Admin
                 $className = $parts[1];           // HomeController
@@ -76,7 +76,7 @@ class Router
             }
         }
 
-        // Không khớp route nào
+        // No matching route
         $this->send404("Route not found: {$method} {$uri}");
     }
 
@@ -88,13 +88,13 @@ class Router
     private function send404(string $message): void
     {
         http_response_code(404);
-        echo '<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8">'
-           . '<title>404 - Không tìm thấy</title>'
+        echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
+           . '<title>404 - Not Found</title>'
            . '<style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f3f4f6}'
            . '.box{text-align:center;padding:40px;background:#fff;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.1)}'
            . 'h1{font-size:72px;color:#1a56db;margin:0}h2{color:#374151}p{color:#6b7280}a{color:#1a56db}</style></head>'
-           . '<body><div class="box"><h1>404</h1><h2>Không tìm thấy trang</h2>'
+           . '<body><div class="box"><h1>404</h1><h2>Page Not Found</h2>'
            . '<p>' . htmlspecialchars($message) . '</p>'
-           . '<p><a href="/">Quay về trang chủ</a></p></div></body></html>';
+           . '<p><a href="/">Back to Home</a></p></div></body></html>';
     }
 }

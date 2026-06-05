@@ -53,7 +53,7 @@ class UserController extends Controller
         $model = new User();
         $page = (int)($this->input('page', 1));
         $data = $model->paginate($page, 10, [], 'created_at DESC');
-        $data['title'] = 'Quản lý người dùng';
+        $data['title'] = 'Manage Users';
         $data['baseUrl'] = '/admin/users';
         $this->view('admin/users/index', $data, 'admin');
     }
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function create(): void
     {
-        $data = ['title' => 'Thêm người dùng'];
+        $data = ['title' => 'Add User'];
         $this->view('admin/users/form', $data, 'admin');
     }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
 
         // Kiểm tra trùng email — tránh duplicate key violation trên UNIQUE constraint
         if ($model->findBy('email', $_POST['email'])) {
-            Session::setFlash('error', 'Email đã tồn tại.');
+            Session::setFlash('error', 'Email already exists.');
             Session::set('old_input', $_POST);    // Giữ lại dữ liệu đã nhập, trừ mật khẩu
             $this->redirect('/admin/users/create');
             return;
@@ -129,7 +129,7 @@ class UserController extends Controller
 
         // Kiểm tra trùng số điện thoại — chỉ kiểm tra nếu người dùng có nhập
         if (!empty($_POST['phone']) && $model->findBy('phone', $_POST['phone'])) {
-            Session::setFlash('error', 'Số điện thoại đã tồn tại.');
+            Session::setFlash('error', 'Phone number already exists.');
             Session::set('old_input', $_POST);
             $this->redirect('/admin/users/create');
             return;
@@ -145,7 +145,7 @@ class UserController extends Controller
             'status'    => (int)($_POST['status'] ?? 1),    // 1=hoạt động, 0=bị khóa
         ]);
 
-        Session::setFlash('success', 'Thêm người dùng thành công.');
+        Session::setFlash('success', 'User added successfully.');
         $this->redirect('/admin/users');
     }
 
@@ -165,13 +165,13 @@ class UserController extends Controller
         $model = new User();
         $user = $model->find($id);
         if (!$user) {
-            Session::setFlash('error', 'Người dùng không tồn tại.');
+            Session::setFlash('error', 'User does not exist.');
             $this->redirect('/admin/users');
             return;
         }
 
         $data = [
-            'title' => 'Sửa người dùng',
+            'title' => 'Edit User',
             'user'  => $user,
         ];
         $this->view('admin/users/form', $data, 'admin');
@@ -209,7 +209,7 @@ class UserController extends Controller
         $model = new User();
         $user = $model->find($id);
         if (!$user) {
-            Session::setFlash('error', 'Người dùng không tồn tại.');
+            Session::setFlash('error', 'User does not exist.');
             $this->redirect('/admin/users');
             return;
         }
@@ -232,7 +232,7 @@ class UserController extends Controller
         // Kiểm tra trùng email: bỏ qua nếu email thuộc về chính user đang sửa
         $existing = $model->findBy('email', $_POST['email']);
         if ($existing && $existing['id'] != $id) {
-            Session::setFlash('error', 'Email đã tồn tại.');
+            Session::setFlash('error', 'Email already exists.');
             Session::set('old_input', $_POST);
             $this->redirect("/admin/users/{$id}/edit");
             return;
@@ -242,7 +242,7 @@ class UserController extends Controller
         if (!empty($_POST['phone'])) {
             $phoneExisting = $model->findBy('phone', $_POST['phone']);
             if ($phoneExisting && $phoneExisting['id'] != $id) {
-                Session::setFlash('error', 'Số điện thoại đã tồn tại.');
+                Session::setFlash('error', 'Phone number already exists.');
                 Session::set('old_input', $_POST);
                 $this->redirect("/admin/users/{$id}/edit");
                 return;
@@ -264,7 +264,7 @@ class UserController extends Controller
         }
 
         $model->update($id, $updateData);
-        Session::setFlash('success', 'Cập nhật người dùng thành công.');
+        Session::setFlash('success', 'User updated successfully.');
         $this->redirect('/admin/users');
     }
 
@@ -288,13 +288,13 @@ class UserController extends Controller
         $model = new User();
         $user = $model->find($id);
         if (!$user) {
-            Session::setFlash('error', 'Người dùng không tồn tại.');
+            Session::setFlash('error', 'User does not exist.');
             $this->redirect('/admin/users');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa người dùng thành công.');
+        Session::setFlash('success', 'User deleted successfully.');
         $this->redirect('/admin/users');
     }
 
@@ -330,7 +330,7 @@ class UserController extends Controller
         if (!$this->validateCsrf()) {
             if ($this->isAjax()) {
                 // HTTP 419: Authentication Timeout / Session Expired
-                $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+                $this->json(['success' => false, 'message' => 'Session expired.'], 419);
                 return;
             }
             return;
@@ -341,10 +341,10 @@ class UserController extends Controller
         $user = $model->find($id);
         if (!$user) {
             if ($this->isAjax()) {
-                $this->json(['success' => false, 'message' => 'Người dùng không tồn tại.'], 404);
+                $this->json(['success' => false, 'message' => 'User does not exist.'], 404);
                 return;
             }
-            Session::setFlash('error', 'Người dùng không tồn tại.');
+            Session::setFlash('error', 'User does not exist.');
             $this->redirect('/admin/users');
             return;
         }
@@ -358,13 +358,13 @@ class UserController extends Controller
             $this->json([
                 'success'    => true,
                 'new_status' => $newStatus,
-                'message'    => $newStatus ? 'Mở khóa người dùng thành công.' : 'Khóa người dùng thành công.',
+                'message'    => $newStatus ? 'User unlocked successfully.' : 'User locked successfully.',
             ]);
             return;
         }
 
         // Phản hồi non-AJAX: redirect kèm flash message
-        $msg = $newStatus ? 'Mở khóa người dùng thành công.' : 'Khóa người dùng thành công.';
+        $msg = $newStatus ? 'User unlocked successfully.' : 'User locked successfully.';
         Session::setFlash('success', $msg);
         $this->redirect('/admin/users');
     }

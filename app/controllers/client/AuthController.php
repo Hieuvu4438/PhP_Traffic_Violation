@@ -14,7 +14,7 @@ class AuthController extends Controller
         if (Session::isLoggedIn()) {
             $this->redirect('/');
         }
-        $this->view('client/auth/login', ['title' => 'Đăng nhập']);
+        $this->view('client/auth/login', ['title' => 'Login']);
     }
 
     public function login(): void
@@ -28,7 +28,7 @@ class AuthController extends Controller
         $password = $this->input('password', '');
 
         if (empty($email) || empty($password)) {
-            Session::setFlash('error', 'Vui lòng nhập đầy đủ email và mật khẩu.');
+            Session::setFlash('error', 'Please enter both email and password.');
             $this->redirect('/dang-nhap');
             return;
         }
@@ -37,19 +37,19 @@ class AuthController extends Controller
         $user = $userModel->findBy('email', $email);
 
         if (!$user || !password_verify($password, $user['password'])) {
-            Session::setFlash('error', 'Email hoặc mật khẩu không chính xác.');
+            Session::setFlash('error', 'Incorrect email or password.');
             $this->redirect('/dang-nhap');
             return;
         }
 
         if ((int)$user['status'] === 0) {
-            Session::setFlash('error', 'Tài khoản đã bị khóa. Vui lòng liên hệ quản trị viên.');
+            Session::setFlash('error', 'Account has been locked. Please contact the administrator.');
             $this->redirect('/dang-nhap');
             return;
         }
 
         Session::login($user);
-        Session::setFlash('success', 'Đăng nhập thành công!');
+        Session::setFlash('success', 'Login successful!');
 
         if ($user['role'] === 'admin') {
             $this->redirect('/admin');
@@ -64,7 +64,7 @@ class AuthController extends Controller
         if (Session::isLoggedIn()) {
             $this->redirect('/');
         }
-        $this->view('client/auth/register', ['title' => 'Đăng ký']);
+        $this->view('client/auth/register', ['title' => 'Register']);
     }
 
     public function register(): void
@@ -92,26 +92,26 @@ class AuthController extends Controller
         ];
 
         if (!$validator->validate($data, $rules)) {
-            Session::setFlash('error', $validator->firstError('fullname') ?? $validator->firstError('email') ?? $validator->firstError('phone') ?? $validator->firstError('password') ?? 'Dữ liệu không hợp lệ.');
+            Session::setFlash('error', $validator->firstError('fullname') ?? $validator->firstError('email') ?? $validator->firstError('phone') ?? $validator->firstError('password') ?? 'Invalid data.');
             $this->redirect('/dang-ky');
             return;
         }
 
         if ($data['password'] !== $data['password_confirm']) {
-            Session::setFlash('error', 'Mật khẩu xác nhận không khớp.');
+            Session::setFlash('error', 'Password confirmation does not match.');
             $this->redirect('/dang-ky');
             return;
         }
 
         $userModel = new User();
         if ($userModel->findBy('email', $data['email'])) {
-            Session::setFlash('error', 'Email này đã được đăng ký.');
+            Session::setFlash('error', 'This email is already registered.');
             $this->redirect('/dang-ky');
             return;
         }
 
         if ($data['phone'] && $userModel->findBy('phone', $data['phone'])) {
-            Session::setFlash('error', 'Số điện thoại này đã được đăng ký.');
+            Session::setFlash('error', 'This phone number is already registered.');
             $this->redirect('/dang-ky');
             return;
         }
@@ -128,7 +128,7 @@ class AuthController extends Controller
 
         $newUser = $userModel->find($userId);
         Session::login($newUser);
-        Session::setFlash('success', 'Đăng ký thành công! Chào mừng bạn đến với hệ thống.');
+        Session::setFlash('success', 'Registration successful! Welcome to the system.');
         $this->redirect('/tai-khoan');
     }
 

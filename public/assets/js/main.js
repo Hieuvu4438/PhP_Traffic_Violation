@@ -2,7 +2,7 @@
  * Main JS - Client
  */
 document.addEventListener('DOMContentLoaded', function () {
-    // Tự động ẩn alerts sau 5 giây
+    // Auto-hide alerts after 5 seconds
     const alerts = document.querySelectorAll('.alert-dismissible');
     alerts.forEach(alert => {
         setTimeout(() => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     });
 
-    // Validate biển số xe client-side
+    // Validate license plate client-side
     const plateInput = document.querySelector('#plate_number');
     if (plateInput) {
         plateInput.addEventListener('input', function () {

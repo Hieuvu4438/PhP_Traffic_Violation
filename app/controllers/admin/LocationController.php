@@ -50,7 +50,7 @@ class LocationController extends Controller
         $page = (int)($this->input('page', 1));
         // paginate() trả về mảng gồm items + metadata phân trang
         $data = $model->paginate($page, 10, [], 'name ASC');
-        $data['title'] = 'Quản lý địa điểm';
+        $data['title'] = 'Manage Locations';
         $data['baseUrl'] = '/admin/locations';
         $this->view('admin/locations/index', $data, 'admin');
     }
@@ -66,7 +66,7 @@ class LocationController extends Controller
      */
     public function create(): void
     {
-        $data = ['title' => 'Thêm địa điểm'];
+        $data = ['title' => 'Add Location'];
         $this->view('admin/locations/form', $data, 'admin');
     }
 
@@ -122,7 +122,7 @@ class LocationController extends Controller
             'status'      => (int)($_POST['status'] ?? 1),
         ]);
 
-        Session::setFlash('success', 'Thêm địa điểm thành công.');
+        Session::setFlash('success', 'Location added successfully.');
         $this->redirect('/admin/locations');
     }
 
@@ -144,13 +144,13 @@ class LocationController extends Controller
         $model = new Location();
         $location = $model->find($id);
         if (!$location) {
-            Session::setFlash('error', 'Địa điểm không tồn tại.');
+            Session::setFlash('error', 'Location does not exist.');
             $this->redirect('/admin/locations');
             return;
         }
 
         $data = [
-            'title'    => 'Sửa địa điểm',
+            'title'    => 'Edit Location',
             'location' => $location,
         ];
         $this->view('admin/locations/form', $data, 'admin');
@@ -177,7 +177,7 @@ class LocationController extends Controller
         $model = new Location();
         $location = $model->find($id);
         if (!$location) {
-            Session::setFlash('error', 'Địa điểm không tồn tại.');
+            Session::setFlash('error', 'Location does not exist.');
             $this->redirect('/admin/locations');
             return;
         }
@@ -207,7 +207,7 @@ class LocationController extends Controller
             'status'      => (int)($_POST['status'] ?? 1),
         ]);
 
-        Session::setFlash('success', 'Cập nhật địa điểm thành công.');
+        Session::setFlash('success', 'Location updated successfully.');
         $this->redirect('/admin/locations');
     }
 
@@ -233,13 +233,13 @@ class LocationController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new Location();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Địa điểm không tồn tại.');
+            Session::setFlash('error', 'Location does not exist.');
             $this->redirect('/admin/locations');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa địa điểm thành công.');
+        Session::setFlash('success', 'Location deleted successfully.');
         $this->redirect('/admin/locations');
     }
 }

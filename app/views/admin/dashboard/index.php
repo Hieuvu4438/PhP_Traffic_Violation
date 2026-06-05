@@ -29,7 +29,7 @@ require __DIR__ . '/../../partials/alerts.php';
                     <div>
                         <!-- card-title: tiêu đề thẻ, mb-0: không margin-bottom -->
                         <h5 class="card-title mb-0"><?= $totalUsers ?></h5>
-                        <small>Nguời dùng</small>
+                        <small>Users</small>
                     </div>
                     <!-- fas fa-users: icon Font Awesome "nhóm người", fa-2x: kích thước gấp 2, opacity-50: mờ 50% -->
                     <i class="fas fa-users fa-2x opacity-50"></i>
@@ -46,7 +46,7 @@ require __DIR__ . '/../../partials/alerts.php';
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="card-title mb-0"><?= $totalViolations ?></h5>
-                        <small>Vi phạm</small>
+                        <small>Violations</small>
                     </div>
                     <!-- fa-exclamation-triangle: icon tam giác cảnh báo -->
                     <i class="fas fa-exclamation-triangle fa-2x opacity-50"></i>
@@ -63,7 +63,7 @@ require __DIR__ . '/../../partials/alerts.php';
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="card-title mb-0"><?= $totalNews ?></h5>
-                        <small>Tin tức</small>
+                        <small>News</small>
                     </div>
                     <!-- fa-newspaper: icon tờ báo -->
                     <i class="fas fa-newspaper fa-2x opacity-50"></i>
@@ -80,7 +80,7 @@ require __DIR__ . '/../../partials/alerts.php';
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="card-title mb-0"><?= $totalVehicles ?></h5>
-                        <small>Phuơng tiện</small>
+                        <small>Vehicles</small>
                     </div>
                     <!-- fa-car: icon xe ô tô -->
                     <i class="fas fa-car fa-2x opacity-50"></i>
@@ -95,9 +95,9 @@ require __DIR__ . '/../../partials/alerts.php';
 <div class="card">
     <!-- card-header: phần đầu thẻ (tiêu đề + nút), d-flex...align-items-center: flexbox căn đều 2 bên, căn dọc giữa -->
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Vi phạm gần đây</h5>
+        <h5 class="mb-0">Recent Violations</h5>
         <!-- btn btn-sm btn-primary: nút nhỏ (small) màu xanh dương, link đến trang quản lý vi phạm -->
-        <a href="/admin/violations" class="btn btn-sm btn-primary">Xem tất cả</a>
+        <a href="/admin/violations" class="btn btn-sm btn-primary">View All</a>
     </div>
     <!-- card-body p-0: nội dung thẻ, padding = 0 (để bảng dính sát viền thẻ) -->
     <div class="card-body p-0">
@@ -106,11 +106,11 @@ require __DIR__ . '/../../partials/alerts.php';
             <!-- thead table-light: đầu bảng nền xám nhạt -->
             <thead class="table-light">
                 <tr>
-                    <th>Biển số</th>
-                    <th>Lỗi vi phạm</th>
-                    <th>Địa điểm</th>
-                    <th>Thời gian</th>
-                    <th>Trạng thái</th>
+                    <th>Plate Number</th>
+                    <th>Offense</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,7 +118,7 @@ require __DIR__ . '/../../partials/alerts.php';
                 // Kiểm tra mảng rỗng — nếu không có vi phạm gần đây nào thì hiển thị dòng trống
                 if (empty($recentViolations)): ?>
                     <!-- text-center: căn giữa, text-muted: chữ xám mờ, py-3: padding trên/dưới 1rem, colspan 5 vì bảng có 5 cột -->
-                    <tr><td colspan="5" class="text-center text-muted py-3">Chưa có vi phạm nào.</td></tr>
+                    <tr><td colspan="5" class="text-center text-muted py-3">No violations found.</td></tr>
                 <?php else:
                     // Lặp qua từng vi phạm trong mảng $recentViolations
                     foreach ($recentViolations as $v): ?>
@@ -139,9 +139,9 @@ require __DIR__ . '/../../partials/alerts.php';
                         // - paid (đã nộp phạt) => badge xanh lá (bg-success)
                         // - default => badge xám (bg-secondary), hiển thị nguyên trạng thái thô
                         echo match($v['status']) {
-                            'pending' => '<span class="badge bg-danger">Chưa xử lý</span>',
-                            'processed' => '<span class="badge bg-warning text-dark">Đã xử lý</span>',
-                            'paid' => '<span class="badge bg-success">Đã nộp phạt</span>',
+                            'pending' => '<span class="badge bg-danger">Pending</span>',
+                            'processed' => '<span class="badge bg-warning text-dark">Processed</span>',
+                            'paid' => '<span class="badge bg-success">Paid</span>',
                             default => '<span class="badge bg-secondary">' . htmlspecialchars($v['status'], ENT_QUOTES, 'UTF-8') . '</span>',
                         };
                         ?>

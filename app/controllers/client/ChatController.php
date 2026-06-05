@@ -28,7 +28,7 @@ class ChatController extends Controller
         }
 
         $this->view('client/chat/index', [
-            'title' => 'Chat hỗ trợ',
+            'title' => 'Support Chat',
             'conversation' => $conversation,
         ]);
     }
@@ -36,7 +36,7 @@ class ChatController extends Controller
     public function start(): void
     {
         if (!$this->validateCsrf()) {
-            $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+            $this->json(['success' => false, 'message' => 'Session has expired.'], 419);
         }
 
         $conversationModel = new ChatConversation();
@@ -67,11 +67,11 @@ class ChatController extends Controller
             'name' => 'required|min:2|max:100',
             'email' => 'required|email',
         ])) {
-            $this->json(['success' => false, 'message' => $validator->firstError('name') ?? $validator->firstError('email') ?? 'Dữ liệu không hợp lệ.'], 422);
+            $this->json(['success' => false, 'message' => $validator->firstError('name') ?? $validator->firstError('email') ?? 'Invalid data.'], 422);
         }
 
         if ($phone !== '' && !Validator::phone($phone)) {
-            $this->json(['success' => false, 'message' => 'Số điện thoại không đúng định dạng.'], 422);
+            $this->json(['success' => false, 'message' => 'Invalid phone number format.'], 422);
         }
 
         $guestToken = bin2hex(random_bytes(32));
@@ -91,17 +91,17 @@ class ChatController extends Controller
     public function restore(): void
     {
         if (!$this->validateCsrf()) {
-            $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+            $this->json(['success' => false, 'message' => 'Session has expired.'], 419);
         }
 
         $token = trim($this->input('guest_token', ''));
         if (!preg_match('/^[a-f0-9]{64}$/', $token)) {
-            $this->json(['success' => false, 'message' => 'Không tìm thấy lịch sử chat.'], 404);
+            $this->json(['success' => false, 'message' => 'Chat history not found.'], 404);
         }
 
         $conversation = (new ChatConversation())->findOpenByGuestToken($token);
         if (!$conversation) {
-            $this->json(['success' => false, 'message' => 'Không tìm thấy lịch sử chat.'], 404);
+            $this->json(['success' => false, 'message' => 'Chat history not found.'], 404);
         }
 
         Session::set('chat_conversation_id', (int) $conversation['id']);
@@ -112,7 +112,7 @@ class ChatController extends Controller
     {
         $conversation = $this->findAllowedConversation($id);
         if (!$conversation) {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện không tồn tại.'], 404);
+            $this->json(['success' => false, 'message' => 'Conversation does not exist.'], 404);
         }
 
         $afterId = (int) $this->input('after_id', 0);
@@ -129,21 +129,21 @@ class ChatController extends Controller
     public function send(int $id): void
     {
         if (!$this->validateCsrf()) {
-            $this->json(['success' => false, 'message' => 'Phiên làm việc hết hạn.'], 419);
+            $this->json(['success' => false, 'message' => 'Session has expired.'], 419);
         }
 
         $conversation = $this->findAllowedConversation($id);
         if (!$conversation) {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện không tồn tại.'], 404);
+            $this->json(['success' => false, 'message' => 'Conversation does not exist.'], 404);
         }
         if ($conversation['status'] === 'closed') {
-            $this->json(['success' => false, 'message' => 'Cuộc trò chuyện đã đóng.'], 422);
+            $this->json(['success' => false, 'message' => 'Conversation is closed.'], 422);
         }
 
         $message = trim($this->input('message', ''));
         $validator = new Validator();
         if (!$validator->validate(['message' => $message], ['message' => 'required|min:1|max:2000'])) {
-            $this->json(['success' => false, 'message' => $validator->firstError('message') ?? 'Tin nhắn không hợp lệ.'], 422);
+            $this->json(['success' => false, 'message' => $validator->firstError('message') ?? 'Invalid message.'], 422);
         }
 
         $messageModel = new ChatMessage();

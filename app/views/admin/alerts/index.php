@@ -14,9 +14,9 @@ require __DIR__ . '/../../partials/alerts.php';
 <!-- ========== Hàng tiêu đề + nút Thêm cảnh báo ========== -->
 <!-- d-flex...align-items-center: flexbox căn đều 2 bên trái-phải, căn dọc giữa; mb-3: margin-bottom 1rem -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Quản lý cảnh báo giao thông</h2>
+    <h2 class="mb-0">Manage Traffic Alerts</h2>
     <!-- btn btn-primary: nút xanh dương; fa-plus me-1: icon dấu cộng + margin-right 0.25rem -->
-    <a href="/admin/alerts/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Thêm cảnh báo</a>
+    <a href="/admin/alerts/create" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add Alert</a>
 </div>
 
 <!-- ========== Bảng danh sách cảnh báo ========== -->
@@ -28,18 +28,18 @@ require __DIR__ . '/../../partials/alerts.php';
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Tiêu đề</th>
-                    <th>Loại</th>
-                    <th>Hết hạn</th>
-                    <th>Trạng thái</th>
-                    <th>Ngày tạo</th>
-                    <th class="text-end">Thao tác</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Expires</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($items)): ?>
                     <!-- colspan 7: gộp 7 cột; text-center text-muted py-3: căn giữa, chữ xám, padding trên/dưới 1rem -->
-                    <tr><td colspan="7" class="text-center text-muted py-3">Chưa có cảnh báo nào.</td></tr>
+                    <tr><td colspan="7" class="text-center text-muted py-3">No alerts found.</td></tr>
                 <?php else:
                     foreach ($items as $alert): ?>
                 <tr>
@@ -52,11 +52,11 @@ require __DIR__ . '/../../partials/alerts.php';
                         // accident => Tai nạn, congestion => Ùn tắc, construction => Công trình,
                         // weather => Thời tiết, other => Khác
                         $alertTypeLabels = [
-                            'accident' => 'Tai nạn',
-                            'congestion' => 'Ùn tắc',
-                            'construction' => 'Công trình',
-                            'weather' => 'Thời tiết',
-                            'other' => 'Khác',
+                            'accident' => 'Accident',
+                            'congestion' => 'Congestion',
+                            'construction' => 'Construction',
+                            'weather' => 'Weather',
+                            'other' => 'Other',
                         ];
                         $type = $alert['alert_type'] ?? 'other';
                         echo htmlspecialchars($alertTypeLabels[$type] ?? $type, ENT_QUOTES, 'UTF-8');
@@ -69,20 +69,20 @@ require __DIR__ . '/../../partials/alerts.php';
                              status=1 => bg-success (xanh lá): Đang hiển thị
                              status=0 => bg-secondary (xám): Ẩn -->
                         <span class="badge <?= $alert['status'] ? 'bg-success' : 'bg-secondary' ?>">
-                            <?= $alert['status'] ? 'Đang hiển thị' : 'Ẩn' ?>
+                            <?= $alert['status'] ? 'Active' : 'Hidden' ?>
                         </span>
                     </td>
                     <!-- formatDate(): định dạng ngày tạo -->
                     <td><?= htmlspecialchars(\App\Core\Helper::formatDate($alert['created_at']), ENT_QUOTES, 'UTF-8') ?></td>
                     <td class="text-end">
                         <!-- Nút Sửa: btn-sm = nút nhỏ, btn-warning = vàng, fa-edit = icon bút sửa -->
-                        <a href="/admin/alerts/<?= $alert['id'] ?>/edit" class="btn btn-sm btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
+                        <a href="/admin/alerts/<?= $alert['id'] ?>/edit" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
                         <!-- Form xóa cảnh báo: class="delete-form d-inline" để JS confirm trước khi submit -->
                         <form method="POST" action="/admin/alerts/<?= $alert['id'] ?>/delete" class="delete-form d-inline">
                             <!-- CSRF token -->
                             <input type="hidden" name="csrf_token" value="<?= \App\Core\Session::csrfToken() ?>">
                             <!-- btn-sm btn-danger: nút nhỏ đỏ; fa-trash: icon thùng rác -->
-                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

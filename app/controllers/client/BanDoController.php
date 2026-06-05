@@ -33,7 +33,7 @@ class BanDoController extends Controller
         }
 
         $this->view('client/bando/index', [
-            'title' => 'Bản đồ địa điểm',
+            'title' => 'Location Map',
             'locations' => $locations,
             'centerLat' => $centerLat,
             'centerLng' => $centerLng,

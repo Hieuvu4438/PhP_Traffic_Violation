@@ -31,7 +31,7 @@ Session::remove('old_input');
             <div class="row g-3">
                 <!-- ===== Câu hỏi (col-12: full width) ===== -->
                 <div class="col-12">
-                    <label class="form-label">Câu hỏi <span class="text-danger">*</span></label>
+                    <label class="form-label">Question <span class="text-danger">*</span></label>
                     <input type="text" name="question" class="form-control <?= isset($errors['question']) ? 'is-invalid' : '' ?>"
                            value="<?= htmlspecialchars($old['question'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <?php if (isset($errors['question'])): ?>
@@ -41,7 +41,7 @@ Session::remove('old_input');
 
                 <!-- ===== Câu trả lời (col-12: full width) ===== -->
                 <div class="col-12">
-                    <label class="form-label">Câu trả lời <span class="text-danger">*</span></label>
+                    <label class="form-label">Answer <span class="text-danger">*</span></label>
                     <!-- rows="6": textarea cao 6 dòng -->
                     <textarea name="answer" class="form-control <?= isset($errors['answer']) ? 'is-invalid' : '' ?>" rows="6"><?= htmlspecialchars($old['answer'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                     <?php if (isset($errors['answer'])): ?>
@@ -51,14 +51,14 @@ Session::remove('old_input');
 
                 <!-- ===== Danh mục (col-md-4) - input text tự do, VD: "Tra cứu", "Xử phạt" ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Danh mục</label>
+                    <label class="form-label">Category</label>
                     <input type="text" name="category" class="form-control"
-                           value="<?= htmlspecialchars($old['category'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="VD: Tra cứu, Xử phạt">
+                           value="<?= htmlspecialchars($old['category'] ?? '', ENT_QUOTES, 'UTF-8') ?>" placeholder="e.g., Lookup, Fines">
                 </div>
 
                 <!-- ===== Thứ tự sắp xếp (col-md-4) ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Thứ tự</label>
+                    <label class="form-label">Order</label>
                     <!-- type="number": chỉ cho nhập số -->
                     <input type="number" name="sort_order" class="form-control"
                            value="<?= htmlspecialchars((string)($old['sort_order'] ?? 0), ENT_QUOTES, 'UTF-8') ?>">
@@ -66,11 +66,11 @@ Session::remove('old_input');
 
                 <!-- ===== Trạng thái (col-md-4) ===== -->
                 <div class="col-md-4">
-                    <label class="form-label">Trạng thái</label>
+                    <label class="form-label">Status</label>
                     <select name="status" class="form-select">
                         <!-- Mặc định: 1 = Hiển thị -->
-                        <option value="1" <?= (int)($old['status'] ?? 1) === 1 ? 'selected' : '' ?>>Hiển thị</option>
-                        <option value="0" <?= (int)($old['status'] ?? 1) === 0 ? 'selected' : '' ?>>Ẩn</option>
+                        <option value="1" <?= (int)($old['status'] ?? 1) === 1 ? 'selected' : '' ?>>Visible</option>
+                        <option value="0" <?= (int)($old['status'] ?? 1) === 0 ? 'selected' : '' ?>>Hidden</option>
                     </select>
                 </div>
             </div>
@@ -79,9 +79,9 @@ Session::remove('old_input');
             <!-- mt-4: margin-top 1.5rem -->
             <div class="mt-4">
                 <!-- btn-primary: nút xanh; fa-save: icon đĩa mềm lưu; me-1: margin-right 0.25rem -->
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Lưu</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save</button>
                 <!-- btn-secondary: nút xám; fa-arrow-left: icon mũi tên trái quay lại -->
-                <a href="/admin/faqs" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Quay lại</a>
+                <a href="/admin/faqs" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
             </div>
         </form>
     </div>

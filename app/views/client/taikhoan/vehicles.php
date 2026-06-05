@@ -6,9 +6,9 @@ use App\Core\Session;
  */
 function vehicleTypeBadge(string $type): string {
     return match($type) {
-        'car' => '<span class="badge bg-primary">Ô tô</span>',
-        'motorcycle' => '<span class="badge bg-info">Xe máy</span>',
-        'electric_motorcycle' => '<span class="badge bg-success">Xe máy điện</span>',
+        'car' => '<span class="badge bg-primary">Car</span>',
+        'motorcycle' => '<span class="badge bg-info">Motorcycle</span>',
+        'electric_motorcycle' => '<span class="badge bg-success">Electric Motorcycle</span>',
         default => htmlspecialchars($type, ENT_QUOTES, 'UTF-8'),
     };
 }
@@ -30,12 +30,12 @@ function vehicleTypeBadge(string $type): string {
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0">
             <!-- fa-car: icon xe ô tô -->
-            <i class="fas fa-car me-2 text-primary"></i>Phương tiện của tôi
+            <i class="fas fa-car me-2 text-primary"></i>My Vehicles
         </h2>
         <!-- data-bs-toggle="modal" + data-bs-target="#addVehicleModal": mở modal thêm xe -->
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
             <!-- fa-plus: icon dấu cộng (thêm mới) -->
-            <i class="fas fa-plus me-2"></i>Thêm phương tiện
+            <i class="fas fa-plus me-2"></i>Add Vehicle
         </button>
     </div>
 
@@ -44,7 +44,7 @@ function vehicleTypeBadge(string $type): string {
 
     <!-- Nút quay lại dashboard tài khoản -->
     <a href="/tai-khoan" class="btn btn-outline-secondary btn-sm mb-3">
-        <i class="fas fa-arrow-left me-1"></i>Quay lại tài khoản
+        <i class="fas fa-arrow-left me-1"></i>Back to Account
     </a>
 
     <?php if (empty($vehicles)): ?>
@@ -52,11 +52,11 @@ function vehicleTypeBadge(string $type): string {
         <div class="card shadow-sm border-0">
             <div class="card-body text-center py-5">
                 <i class="fas fa-car fa-4x text-muted mb-3"></i>
-                <h4 class="text-muted">Bạn chưa đăng ký phương tiện nào</h4>
-                <p class="text-muted">Thêm phương tiện để tra cứu nhanh hơn.</p>
+                <h4 class="text-muted">You haven't registered any vehicles yet</h4>
+                <p class="text-muted">Add a vehicle for faster lookups.</p>
                 <!-- Mở modal thêm (giống nút trên) -->
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
-                    <i class="fas fa-plus me-2"></i>Thêm ngay
+                    <i class="fas fa-plus me-2"></i>Add Now
                 </button>
             </div>
         </div>
@@ -95,7 +95,7 @@ function vehicleTypeBadge(string $type): string {
                                                         '<?= htmlspecialchars(addslashes($vehicle['brand'] ?? ''), ENT_QUOTES, 'UTF-8') ?>',
                                                         '<?= htmlspecialchars(addslashes($vehicle['model'] ?? ''), ENT_QUOTES, 'UTF-8') ?>')">
                                                 <!-- fa-edit: icon bút chì (sửa) -->
-                                                <i class="fas fa-edit me-2"></i>Sửa
+                                                <i class="fas fa-edit me-2"></i>Edit
                                             </button>
                                         </li>
                                         <!-- dropdown-divider: đường phân cách trong dropdown -->
@@ -104,13 +104,13 @@ function vehicleTypeBadge(string $type): string {
                                             <!-- Form xóa: POST đến /tai-khoan/phuong-tien/ID/delete -->
                                             <!-- onsubmit="confirm()": xác nhận trước khi xóa -->
                                             <form method="POST" action="/tai-khoan/phuong-tien/<?= $vehicle['id'] ?>/delete"
-                                                  onsubmit="return confirm('Bạn có chắc muốn xóa phương tiện này?');">
+                                                  onsubmit="return confirm('Are you sure you want to delete this vehicle?');">
                                                 <!-- CSRF token trong form xóa -->
                                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Session::csrfToken()) ?>">
                                                 <!-- text-danger: chữ đỏ cho nút xóa -->
                                                 <button type="submit" class="dropdown-item text-danger">
                                                     <!-- fa-trash: icon thùng rác (xóa) -->
-                                                    <i class="fas fa-trash me-2"></i>Xóa
+                                                    <i class="fas fa-trash me-2"></i>Delete
                                                 </button>
                                             </form>
                                         </li>
@@ -123,13 +123,13 @@ function vehicleTypeBadge(string $type): string {
                             <div class="row g-2 text-muted small">
                                 <?php if (!empty($vehicle['brand'])): ?>
                                     <div class="col-6">
-                                        <strong>Hãng xe:</strong>
+                                        <strong>Brand:</strong>
                                         <?= htmlspecialchars($vehicle['brand'], ENT_QUOTES, 'UTF-8') ?>
                                     </div>
                                 <?php endif; ?>
                                 <?php if (!empty($vehicle['model'])): ?>
                                     <div class="col-6">
-                                        <strong>Mẫu xe:</strong>
+                                        <strong>Model:</strong>
                                         <?= htmlspecialchars($vehicle['model'], ENT_QUOTES, 'UTF-8') ?>
                                     </div>
                                 <?php endif; ?>
@@ -139,7 +139,7 @@ function vehicleTypeBadge(string $type): string {
                             <hr>
                             <!-- w-100: full width -->
                             <a href="/tra-cuu" class="btn btn-sm btn-outline-primary w-100">
-                                <i class="fas fa-search me-1"></i>Tra cứu vi phạm
+                                <i class="fas fa-search me-1"></i>Search Violations
                             </a>
                         </div>
                     </div>
@@ -165,44 +165,44 @@ function vehicleTypeBadge(string $type): string {
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Session::csrfToken()) ?>">
                 <!-- modal-header bg-primary text-white: header xanh chữ trắng -->
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title"><i class="fas fa-plus me-2"></i>Thêm phương tiện</h5>
+                    <h5 class="modal-title"><i class="fas fa-plus me-2"></i>Add Vehicle</h5>
                     <!-- btn-close-white: nút đóng màu trắng (cho nền tối) | data-bs-dismiss="modal": đóng modal -->
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Biển số xe -->
                     <div class="mb-3">
-                        <label for="add_plate_number" class="form-label">Biển số xe <span class="text-danger">*</span></label>
+                        <label for="add_plate_number" class="form-label">License Plate <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="add_plate_number" name="plate_number"
-                               placeholder="VD: 30A-12345" required>
+                               placeholder="e.g. 30A-12345" required>
                     </div>
                     <!-- Loại xe (select) -->
                     <div class="mb-3">
-                        <label for="add_vehicle_type" class="form-label">Loại xe <span class="text-danger">*</span></label>
+                        <label for="add_vehicle_type" class="form-label">Vehicle Type <span class="text-danger">*</span></label>
                         <select class="form-select" id="add_vehicle_type" name="vehicle_type" required>
-                            <option value="">-- Chọn loại xe --</option>
-                            <option value="car">Ô tô</option>
-                            <option value="motorcycle">Xe máy</option>
-                            <option value="electric_motorcycle">Xe máy điện</option>
+                            <option value="">-- Select Vehicle Type --</option>
+                            <option value="car">Car</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="electric_motorcycle">Electric Motorcycle</option>
                         </select>
                     </div>
                     <!-- Hãng xe (không bắt buộc) -->
                     <div class="mb-3">
-                        <label for="add_brand" class="form-label">Hãng xe</label>
+                        <label for="add_brand" class="form-label">Brand</label>
                         <input type="text" class="form-control" id="add_brand" name="brand" placeholder="VD: Toyota">
                     </div>
                     <!-- Mẫu xe (không bắt buộc) -->
                     <div class="mb-3">
-                        <label for="add_model" class="form-label">Mẫu xe</label>
+                        <label for="add_model" class="form-label">Model</label>
                         <input type="text" class="form-control" id="add_model" name="model" placeholder="VD: Vios">
                     </div>
                 </div>
                 <!-- modal-footer: nút Đóng + Lưu -->
                 <div class="modal-footer">
                     <!-- btn-secondary: nút xám | data-bs-dismiss="modal": đóng modal -->
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!-- btn-primary: nút xanh | fa-save: icon đĩa mềm (lưu) -->
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Lưu</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save</button>
                 </div>
             </form>
         </div>
@@ -223,35 +223,35 @@ function vehicleTypeBadge(string $type): string {
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Session::csrfToken()) ?>">
                 <!-- modal-header bg-info text-white: header xanh nhạt (phân biệt với Thêm) -->
                 <div class="modal-header bg-info text-white">
-                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Sửa phương tiện</h5>
+                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Vehicle</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Inputs sẽ được JS điền giá trị từ phương tiện đã chọn -->
                     <div class="mb-3">
-                        <label for="edit_plate_number" class="form-label">Biển số xe <span class="text-danger">*</span></label>
+                        <label for="edit_plate_number" class="form-label">License Plate <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="edit_plate_number" name="plate_number" required>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_vehicle_type" class="form-label">Loại xe <span class="text-danger">*</span></label>
+                        <label for="edit_vehicle_type" class="form-label">Vehicle Type <span class="text-danger">*</span></label>
                         <select class="form-select" id="edit_vehicle_type" name="vehicle_type" required>
-                            <option value="car">Ô tô</option>
-                            <option value="motorcycle">Xe máy</option>
-                            <option value="electric_motorcycle">Xe máy điện</option>
+                            <option value="car">Car</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="electric_motorcycle">Electric Motorcycle</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_brand" class="form-label">Hãng xe</label>
+                        <label for="edit_brand" class="form-label">Brand</label>
                         <input type="text" class="form-control" id="edit_brand" name="brand">
                     </div>
                     <div class="mb-3">
-                        <label for="edit_model" class="form-label">Mẫu xe</label>
+                        <label for="edit_model" class="form-label">Model</label>
                         <input type="text" class="form-control" id="edit_model" name="model">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Cập nhật</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Update</button>
                 </div>
             </form>
         </div>

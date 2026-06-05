@@ -66,7 +66,7 @@ class SignController extends Controller
         $pagedItems = array_slice($items, $offset, $perPage);
 
         $data = [
-            'title'       => 'Quản lý biển báo',
+            'title'       => 'Manage Traffic Signs',
             'items'       => $pagedItems,
             'total'       => $total,
             'page'        => $page,
@@ -94,7 +94,7 @@ class SignController extends Controller
     {
         $groupModel = new TrafficSignGroup();
         $data = [
-            'title'  => 'Thêm biển báo',
+            'title'  => 'Add Traffic Sign',
             'groups' => $groupModel->getAllSorted(),
         ];
         $this->view('admin/signs/form', $data, 'admin');
@@ -153,7 +153,7 @@ class SignController extends Controller
             'description' => $_POST['description'] ?? null,
         ]);
 
-        Session::setFlash('success', 'Thêm biển báo thành công.');
+        Session::setFlash('success', 'Traffic sign added successfully.');
         $this->redirect('/admin/signs');
     }
 
@@ -175,14 +175,14 @@ class SignController extends Controller
         $model = new TrafficSign();
         $sign = $model->find($id);
         if (!$sign) {
-            Session::setFlash('error', 'Biển báo không tồn tại.');
+            Session::setFlash('error', 'Traffic sign does not exist.');
             $this->redirect('/admin/signs');
             return;
         }
 
         $groupModel = new TrafficSignGroup();
         $data = [
-            'title'  => 'Sửa biển báo',
+            'title'  => 'Edit Traffic Sign',
             'sign'   => $sign,
             'groups' => $groupModel->getAllSorted(),
         ];
@@ -212,7 +212,7 @@ class SignController extends Controller
         $model = new TrafficSign();
         $sign = $model->find($id);
         if (!$sign) {
-            Session::setFlash('error', 'Biển báo không tồn tại.');
+            Session::setFlash('error', 'Traffic sign does not exist.');
             $this->redirect('/admin/signs');
             return;
         }
@@ -245,7 +245,7 @@ class SignController extends Controller
         }
 
         $model->update($id, $updateData);
-        Session::setFlash('success', 'Cập nhật biển báo thành công.');
+        Session::setFlash('success', 'Traffic sign updated successfully.');
         $this->redirect('/admin/signs');
     }
 
@@ -270,13 +270,13 @@ class SignController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new TrafficSign();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'Biển báo không tồn tại.');
+            Session::setFlash('error', 'Traffic sign does not exist.');
             $this->redirect('/admin/signs');
             return;
         }
 
         $model->delete($id);
-        Session::setFlash('success', 'Xóa biển báo thành công.');
+        Session::setFlash('success', 'Traffic sign deleted successfully.');
         $this->redirect('/admin/signs');
     }
 }

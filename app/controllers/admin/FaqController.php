@@ -47,7 +47,7 @@ class FaqController extends Controller
         $page = (int)($this->input('page', 1));
         // paginate(page, perPage, conditions, orderBy) — kế thừa từ Model
         $data = $model->paginate($page, 10, [], 'sort_order ASC');
-        $data['title'] = 'Quản lý FAQ';
+        $data['title'] = 'Manage FAQs';
         $data['baseUrl'] = '/admin/faqs';
         $this->view('admin/faqs/index', $data, 'admin');
     }
@@ -63,7 +63,7 @@ class FaqController extends Controller
      */
     public function create(): void
     {
-        $data = ['title' => 'Thêm FAQ'];
+        $data = ['title' => 'Add FAQ'];
         $this->view('admin/faqs/form', $data, 'admin');
     }
 
@@ -113,7 +113,7 @@ class FaqController extends Controller
             'status'     => (int)($_POST['status'] ?? 1),     // Trạng thái: 1=hiện, 0=ẩn
         ]);
 
-        Session::setFlash('success', 'Thêm FAQ thành công.');
+        Session::setFlash('success', 'FAQ added successfully.');
         $this->redirect('/admin/faqs');
     }
 
@@ -133,13 +133,13 @@ class FaqController extends Controller
         $model = new Faq();
         $faq = $model->find($id);
         if (!$faq) {
-            Session::setFlash('error', 'FAQ không tồn tại.');
+            Session::setFlash('error', 'FAQ does not exist.');
             $this->redirect('/admin/faqs');
             return;
         }
 
         $data = [
-            'title' => 'Sửa FAQ',
+            'title' => 'Edit FAQ',
             'faq'   => $faq,
         ];
         $this->view('admin/faqs/form', $data, 'admin');
@@ -168,7 +168,7 @@ class FaqController extends Controller
         $model = new Faq();
         $faq = $model->find($id);
         if (!$faq) {
-            Session::setFlash('error', 'FAQ không tồn tại.');
+            Session::setFlash('error', 'FAQ does not exist.');
             $this->redirect('/admin/faqs');
             return;
         }
@@ -192,7 +192,7 @@ class FaqController extends Controller
             'status'     => (int)($_POST['status'] ?? 1),
         ]);
 
-        Session::setFlash('success', 'Cập nhật FAQ thành công.');
+        Session::setFlash('success', 'FAQ updated successfully.');
         $this->redirect('/admin/faqs');
     }
 
@@ -217,13 +217,13 @@ class FaqController extends Controller
         $id = (int)($this->input('id', 0));
         $model = new Faq();
         if (!$model->find($id)) {
-            Session::setFlash('error', 'FAQ không tồn tại.');
+            Session::setFlash('error', 'FAQ does not exist.');
             $this->redirect('/admin/faqs');
             return;
         }
 
         $model->delete($id);    // DELETE FROM faqs WHERE id = ? (PDO prepared)
-        Session::setFlash('success', 'Xóa FAQ thành công.');
+        Session::setFlash('success', 'FAQ deleted successfully.');
         $this->redirect('/admin/faqs');
     }
 }

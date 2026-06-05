@@ -12,7 +12,7 @@ class TraCuuController extends Controller
     public function index(): void
     {
         $this->view('client/tracuu/index', [
-            'title' => 'Tra cứu phạt nguội',
+            'title' => 'Traffic Violation Lookup',
         ]);
     }
 
@@ -30,14 +30,14 @@ class TraCuuController extends Controller
         $errors = [];
 
         if (empty($plateNumber)) {
-            $errors[] = 'Vui lòng nhập biển số xe.';
+            $errors[] = 'Please enter a license plate number.';
         } elseif (!Validator::plateNumber($plateNumber)) {
-            $errors[] = 'Biển số xe không đúng định dạng (VD: 30A-12345).';
+            $errors[] = 'Invalid license plate format (e.g., 30A-12345).';
         }
 
         $validTypes = ['car', 'motorcycle', 'electric_motorcycle'];
         if (empty($vehicleType) || !in_array($vehicleType, $validTypes)) {
-            $errors[] = 'Vui lòng chọn loại xe hợp lệ.';
+            $errors[] = 'Please select a valid vehicle type.';
         }
 
         if (!empty($errors)) {
@@ -67,9 +67,9 @@ class TraCuuController extends Controller
                 'plateNumber' => $plateNumber,
                 'vehicleType' => $vehicleType,
                 'vehicleTypeLabel' => match($vehicleType) {
-                    'car' => 'Ô tô',
-                    'motorcycle' => 'Xe máy',
-                    'electric_motorcycle' => 'Xe máy điện',
+                    'car' => 'Car',
+                    'motorcycle' => 'Motorcycle',
+                    'electric_motorcycle' => 'Electric Motorcycle',
                     default => $vehicleType,
                 },
                 'results' => $results,
@@ -78,7 +78,7 @@ class TraCuuController extends Controller
         }
 
         $this->view('client/tracuu/index', [
-            'title' => 'Kết quả tra cứu biển số ' . htmlspecialchars($plateNumber, ENT_QUOTES, 'UTF-8'),
+            'title' => 'License Plate Lookup Results: ' . htmlspecialchars($plateNumber, ENT_QUOTES, 'UTF-8'),
             'results' => $results,
             'plateNumber' => $plateNumber,
             'vehicleType' => $vehicleType,

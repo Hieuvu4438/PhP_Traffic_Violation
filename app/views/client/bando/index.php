@@ -22,10 +22,10 @@ if (!empty($locations)) {
 }
 
 $typeLabels = [
-    'camera' => 'Camera giám sát',
-    'csgt' => 'Trạm CSGT',
-    'toll' => 'Trạm thu phí',
-    'inspection' => 'Trạm đăng kiểm',
+    'camera' => 'Surveillance Camera',
+    'csgt' => 'Traffic Police Station',
+    'toll' => 'Toll Station',
+    'inspection' => 'Inspection Station',
 ];
 ?>
 
@@ -40,7 +40,7 @@ $typeLabels = [
 <div class="container py-4">
     <h2 class="fw-bold mb-4">
         <!-- fa-map-location-dot: icon bản đồ có đánh dấu vị trí -->
-        <i class="fas fa-map-location-dot me-2 text-primary"></i>Bản đồ địa điểm
+        <i class="fas fa-map-location-dot me-2 text-primary"></i>Location Map
     </h2>
 
     <!-- Partial hiển thị thông báo -->
@@ -54,27 +54,27 @@ $typeLabels = [
                 <!-- Nút "Tất cả" -->
                 <a href="/ban-do" class="btn <?= empty($currentType) ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
                     <!-- fa-globe: icon quả địa cầu (tất cả) -->
-                    <i class="fas fa-globe me-1"></i>Tất cả
+                    <i class="fas fa-globe me-1"></i>All
                 </a>
                 <!-- Camera giám sát -->
                 <a href="/ban-do?type=camera" class="btn <?= ($currentType ?? '') === 'camera' ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
                     <!-- fa-camera: icon máy quay -->
-                    <i class="fas fa-camera me-1"></i>Camera giám sát
+                    <i class="fas fa-camera me-1"></i>Surveillance Camera
                 </a>
                 <!-- Trạm CSGT -->
                 <a href="/ban-do?type=csgt" class="btn <?= ($currentType ?? '') === 'csgt' ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
                     <!-- fa-shield-halved: icon khiên chắn (cảnh sát) -->
-                    <i class="fas fa-shield-halved me-1"></i>Trạm CSGT
+                    <i class="fas fa-shield-halved me-1"></i>Traffic Police Station
                 </a>
                 <!-- Trạm thu phí -->
                 <a href="/ban-do?type=toll" class="btn <?= ($currentType ?? '') === 'toll' ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
                     <!-- fa-coins: icon đồng xu (thu phí) -->
-                    <i class="fas fa-coins me-1"></i>Trạm thu phí
+                    <i class="fas fa-coins me-1"></i>Toll Station
                 </a>
                 <!-- Trạm đăng kiểm -->
                 <a href="/ban-do?type=inspection" class="btn <?= ($currentType ?? '') === 'inspection' ? 'btn-primary' : 'btn-outline-primary' ?> btn-sm">
                     <!-- fa-wrench: icon cờ lê (đăng kiểm, sửa chữa) -->
-                    <i class="fas fa-wrench me-1"></i>Trạm đăng kiểm
+                    <i class="fas fa-wrench me-1"></i>Inspection Station
                 </a>
             </div>
         </div>
@@ -96,7 +96,7 @@ $typeLabels = [
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-primary text-white fw-bold">
                     <!-- fa-list: icon danh sách -->
-                    <i class="fas fa-list me-2"></i>Danh sách địa điểm
+                    <i class="fas fa-list me-2"></i>Location List
                     <!-- badge bg-light text-dark: huy hiệu nền sáng chữ tối, hiển thị tổng số -->
                     <span class="badge bg-light text-dark ms-2"><?= count($locations ?? []) ?></span>
                 </div>
@@ -106,7 +106,7 @@ $typeLabels = [
                         <div class="text-center py-4 text-muted">
                             <!-- fa-map-marker-alt: icon địa điểm trên bản đồ -->
                             <i class="fas fa-map-marker-alt fa-3x mb-2"></i>
-                            <p>Chưa có địa điểm nào.</p>
+                            <p>No locations available.</p>
                         </div>
                     <?php else: ?>
                         <!-- list-group-flush: danh sách sát viền -->

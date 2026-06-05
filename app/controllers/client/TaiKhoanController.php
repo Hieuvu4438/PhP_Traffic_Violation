@@ -28,7 +28,7 @@ class TaiKhoanController extends Controller
         $recentHistory = $historyModel->getByUser($userId, 5);
 
         $this->view('client/taikhoan/dashboard', [
-            'title' => 'Tài khoản của tôi',
+            'title' => 'My Account',
             'vehicleCount' => $vehicleCount,
             'recentHistory' => $recentHistory,
         ]);
@@ -46,7 +46,7 @@ class TaiKhoanController extends Controller
         $vehicles = $vehicleModel->findByUser($userId);
 
         $this->view('client/taikhoan/vehicles', [
-            'title' => 'Phương tiện của tôi',
+            'title' => 'My Vehicles',
             'vehicles' => $vehicles,
         ]);
     }
@@ -66,14 +66,14 @@ class TaiKhoanController extends Controller
         $model = trim($this->input('model', ''));
 
         if (empty($plateNumber) || !Validator::plateNumber($plateNumber)) {
-            Session::setFlash('error', 'Biển số xe không đúng định dạng.');
+            Session::setFlash('error', 'Invalid license plate format.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
 
         $validTypes = ['car', 'motorcycle', 'electric_motorcycle'];
         if (!in_array($vehicleType, $validTypes)) {
-            Session::setFlash('error', 'Loại xe không hợp lệ.');
+            Session::setFlash('error', 'Invalid vehicle type.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
@@ -87,7 +87,7 @@ class TaiKhoanController extends Controller
             'model' => $model,
         ]);
 
-        Session::setFlash('success', 'Thêm phương tiện thành công.');
+        Session::setFlash('success', 'Vehicle added successfully.');
         $this->redirect('/tai-khoan/phuong-tien');
     }
 
@@ -105,7 +105,7 @@ class TaiKhoanController extends Controller
 
         $vehicle = $vehicleModel->find($id);
         if (!$vehicle || (int) $vehicle['user_id'] !== $userId) {
-            Session::setFlash('error', 'Phương tiện không tồn tại.');
+            Session::setFlash('error', 'Vehicle does not exist.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
@@ -116,14 +116,14 @@ class TaiKhoanController extends Controller
         $model = trim($this->input('model', ''));
 
         if (empty($plateNumber) || !Validator::plateNumber($plateNumber)) {
-            Session::setFlash('error', 'Biển số xe không đúng định dạng.');
+            Session::setFlash('error', 'Invalid license plate format.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
 
         $validTypes = ['car', 'motorcycle', 'electric_motorcycle'];
         if (!in_array($vehicleType, $validTypes)) {
-            Session::setFlash('error', 'Loại xe không hợp lệ.');
+            Session::setFlash('error', 'Invalid vehicle type.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
@@ -135,7 +135,7 @@ class TaiKhoanController extends Controller
             'model' => $model,
         ]);
 
-        Session::setFlash('success', 'Cập nhật phương tiện thành công.');
+        Session::setFlash('success', 'Vehicle updated successfully.');
         $this->redirect('/tai-khoan/phuong-tien');
     }
 
@@ -153,13 +153,13 @@ class TaiKhoanController extends Controller
 
         $vehicle = $vehicleModel->find($id);
         if (!$vehicle || (int) $vehicle['user_id'] !== $userId) {
-            Session::setFlash('error', 'Phương tiện không tồn tại.');
+            Session::setFlash('error', 'Vehicle does not exist.');
             $this->redirect('/tai-khoan/phuong-tien');
             return;
         }
 
         $vehicleModel->delete($id);
-        Session::setFlash('success', 'Xóa phương tiện thành công.');
+        Session::setFlash('success', 'Vehicle deleted successfully.');
         $this->redirect('/tai-khoan/phuong-tien');
     }
 
@@ -183,7 +183,7 @@ class TaiKhoanController extends Controller
         );
 
         $this->view('client/taikhoan/history', [
-            'title' => 'Lịch sử tra cứu',
+            'title' => 'Search History',
             'history' => $pagination['items'],
             'pagination' => $pagination,
         ]);
@@ -201,7 +201,7 @@ class TaiKhoanController extends Controller
         $user = $userModel->find($userId);
 
         $this->view('client/taikhoan/profile', [
-            'title' => 'Hồ sơ cá nhân',
+            'title' => 'Profile',
             'user' => $user,
         ]);
     }
@@ -229,7 +229,7 @@ class TaiKhoanController extends Controller
         ];
 
         if (!$validator->validate($data, $rules)) {
-            Session::setFlash('error', $validator->firstError('fullname') ?? $validator->firstError('email') ?? $validator->firstError('phone') ?? 'Dữ liệu không hợp lệ.');
+            Session::setFlash('error', $validator->firstError('fullname') ?? $validator->firstError('email') ?? $validator->firstError('phone') ?? 'Invalid data.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
@@ -239,7 +239,7 @@ class TaiKhoanController extends Controller
         // Check duplicate email
         $existingEmail = $userModel->findBy('email', $email);
         if ($existingEmail && (int) $existingEmail['id'] !== $userId) {
-            Session::setFlash('error', 'Email này đã được sử dụng bởi tài khoản khác.');
+            Session::setFlash('error', 'This email is already used by another account.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
@@ -247,7 +247,7 @@ class TaiKhoanController extends Controller
         // Check duplicate phone
         $existingPhone = $userModel->findBy('phone', $phone);
         if ($existingPhone && (int) $existingPhone['id'] !== $userId) {
-            Session::setFlash('error', 'Số điện thoại này đã được sử dụng bởi tài khoản khác.');
+            Session::setFlash('error', 'This phone number is already used by another account.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
@@ -262,7 +262,7 @@ class TaiKhoanController extends Controller
         Session::set('user_name', $fullname);
         Session::set('user_email', $email);
 
-        Session::setFlash('success', 'Cập nhật hồ sơ thành công.');
+        Session::setFlash('success', 'Profile updated successfully.');
         $this->redirect('/tai-khoan/ho-so');
     }
 
@@ -281,19 +281,19 @@ class TaiKhoanController extends Controller
         $confirmPassword = $this->input('password_confirm', '');
 
         if (empty($oldPassword) || empty($newPassword) || empty($confirmPassword)) {
-            Session::setFlash('error', 'Vui lòng nhập đầy đủ thông tin.');
+            Session::setFlash('error', 'Please fill in all required information.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
 
         if (mb_strlen($newPassword) < 6) {
-            Session::setFlash('error', 'Mật khẩu mới tối thiểu 6 ký tự.');
+            Session::setFlash('error', 'New password must be at least 6 characters.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
 
         if ($newPassword !== $confirmPassword) {
-            Session::setFlash('error', 'Mật khẩu xác nhận không khớp.');
+            Session::setFlash('error', 'Password confirmation does not match.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
@@ -302,7 +302,7 @@ class TaiKhoanController extends Controller
         $user = $userModel->find($userId);
 
         if (!$user || !password_verify($oldPassword, $user['password'])) {
-            Session::setFlash('error', 'Mật khẩu hiện tại không chính xác.');
+            Session::setFlash('error', 'Current password is incorrect.');
             $this->redirect('/tai-khoan/ho-so');
             return;
         }
@@ -311,7 +311,7 @@ class TaiKhoanController extends Controller
             'password' => password_hash($newPassword, PASSWORD_BCRYPT),
         ]);
 
-        Session::setFlash('success', 'Đổi mật khẩu thành công.');
+        Session::setFlash('success', 'Password changed successfully.');
         $this->redirect('/tai-khoan/ho-so');
     }
 }

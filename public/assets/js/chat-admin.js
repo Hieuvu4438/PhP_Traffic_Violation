@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         wrapper.className = `d-flex mb-3 ${isAdmin ? 'justify-content-end' : 'justify-content-start'}`;
         wrapper.innerHTML = `
             <div class="${isAdmin ? 'bg-primary text-white' : 'bg-white border'} rounded px-3 py-2" style="max-width: 75%;">
-                <div class="small ${isAdmin ? 'text-white-50' : 'text-muted'} mb-1">${isAdmin ? 'Admin' : 'Khách hàng'}</div>
+                <div class="small ${isAdmin ? 'text-white-50' : 'text-muted'} mb-1">${isAdmin ? 'Admin' : 'Customer'}</div>
                 <div>${escapeHtml(message.message).replaceAll('\n', '<br>')}</div>
                 <div class="small ${isAdmin ? 'text-white-50' : 'text-muted'} mt-1">${escapeHtml(message.created_at || '')}</div>
             </div>
@@ -60,11 +60,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             data.messages.forEach(appendMessage);
             if (data.status === 'closed') {
-                if (chatStatus) chatStatus.textContent = 'Đã đóng';
+                if (chatStatus) chatStatus.textContent = 'Closed';
                 if (replyForm) replyForm.style.display = 'none';
             }
         } catch (err) {
-            showError('Không thể tải tin nhắn mới.');
+            showError('Unable to load new messages.');
         }
     }
 
@@ -81,14 +81,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 const data = await resp.json();
                 if (!data.success) {
-                    showError(data.message || 'Không thể gửi phản hồi.');
+                    showError(data.message || 'Unable to send reply.');
                     return;
                 }
 
                 replyForm.reset();
                 loadMessages();
             } catch (err) {
-                showError('Lỗi kết nối, vui lòng thử lại.');
+                showError('Connection error, please try again.');
             }
         });
     }

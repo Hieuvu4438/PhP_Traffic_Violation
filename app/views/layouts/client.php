@@ -10,17 +10,17 @@ use App\Core\Session;
 ?>
 <!DOCTYPE html>
 <!-- lang="vi": khai báo ngôn ngữ tiếng Việt cho SEO và trình đọc màn hình -->
-<html lang="vi">
+<html lang="en">
 <head>
     <!-- UTF-8: hỗ trợ đầy đủ tiếng Việt có dấu -->
     <meta charset="UTF-8">
     <!-- viewport: đảm bảo responsive trên mobile, width=device-width = rộng bằng màn hình thiết bị -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Meta description cho SEO: mô tả trang web trên kết quả tìm kiếm -->
-    <meta name="description" content="Tra cứu phạt nguội toàn quốc - Kiểm tra vi phạm giao thông qua biển số xe. Dữ liệu từ Cục CSGT & Cục Đăng Kiểm Việt Nam.">
+    <meta name="description" content="National traffic violation lookup - Check traffic violations by license plate. Data from Traffic Police Department & Vietnam Registry.">
     <!-- htmlspecialchars: chống XSS - escape dữ liệu động trong <title>.
          $title ?? '...': toán tử null coalescing, nếu $title không được truyền thì dùng chuỗi mặc định -->
-    <title><?= htmlspecialchars($title ?? 'Tra Cứu Phương Tiện Vi Phạm Giao Thông') ?></title>
+    <title><?= htmlspecialchars($title ?? 'Traffic Violation Lookup') ?></title>
     <!-- Bootstrap 5.3.3 CSS từ CDN: framework CSS phổ biến, cung cấp grid, component, utility class -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome 6.5.1: thư viện icon vector (fa-solid, fa-brands...), tải từ CDN -->
