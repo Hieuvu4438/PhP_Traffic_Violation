@@ -102,9 +102,10 @@ Nhờ bind mount, bạn sửa file trên máy → refresh trình duyệt là th�
 
 ### Lưu ý khi dùng Docker
 
-- Port **8080** cho web, **3307** cho MySQL (tránh trùng XAMPP)
+- Port **8080** cho web, **8081** cho phpMyAdmin, **3307** cho MySQL (tránh trùng XAMPP)
 - Dữ liệu database được lưu trong Docker volume, không mất khi `docker compose down`
-- Nếu muốn kết nối DB từ bên ngoài (DBeaver, phpMyAdmin): host=`localhost`, port=`3307`, user=`root`, password=rỗng
+- Để quản lý cơ sở dữ liệu trực quan bằng Web: Mở trình duyệt vào **http://localhost:8081**
+- Nếu muốn kết nối DB từ phần mềm bên ngoài (DBeaver, TablePlus...): host=`localhost`, port=`3307`, user=`root`, password=rỗng
 
 ---
 

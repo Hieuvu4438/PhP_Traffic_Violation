@@ -31,5 +31,19 @@ services:
       retries: 10
     restart: unless-stopped
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_ALLOW_EMPTY_PASSWORD: "yes"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   mysql_data:
+
